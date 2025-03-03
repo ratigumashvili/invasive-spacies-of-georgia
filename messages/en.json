@@ -1,6 +1,7 @@
 {
     "Common": {
-      "title": "Hello world!",
+      "title": "Invasive Species of Georgia",
+      "osd": "Open Source Database",
       "about": "Go to the about page"
     }
   }

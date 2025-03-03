@@ -4,9 +4,9 @@ import { Link } from '@/i18n/routing';
 export default function HomePage() {
   const t = useTranslations('Common');
   return (
-    <div>
+    <section>
       <h1>{t('title')}</h1>
       <Link href="/about">{t('about')}</Link>
-    </div>
+    </section>
   );
 }
