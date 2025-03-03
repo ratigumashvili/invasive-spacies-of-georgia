@@ -1,12 +1,19 @@
-import {useTranslations} from 'next-intl';
+import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/routing';
- 
+import { Button } from '@/app/ui/button';
+
+
+
+
 export default function HomePage() {
   const t = useTranslations('Common');
   return (
     <section>
-      <h1>{t('title')}</h1>
-      <Link href="/about">{t('about')}</Link>
+      <h1 className='text-red-500'>{t('title')}</h1>
+      
+      <Button asChild>
+        <Link href="/about">{t('about')}</Link>
+      </Button>
     </section>
   );
 }

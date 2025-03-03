@@ -5,6 +5,8 @@ import { notFound } from 'next/navigation';
 
 import { routing } from '@/i18n/routing';
 
+import "@/app/styles/globals.css"
+
 export const metadata: Metadata = {
   title: "Invasive Speies of Georgia",
   description: "Open source databade",
