@@ -5,6 +5,8 @@ import { notFound } from 'next/navigation';
 
 import { routing } from '@/i18n/routing';
 
+import { firaGo } from "@/lib/fonts"
+
 import "@/app/styles/globals.css"
 
 export const metadata: Metadata = {
@@ -30,7 +32,7 @@ export default async function LocaleLayout({
 
   return (
     <html lang={locale}>
-      <body>
+      <body className={`${firaGo.variable}`}>
         <NextIntlClientProvider messages={messages}>
           {children}
         </NextIntlClientProvider>

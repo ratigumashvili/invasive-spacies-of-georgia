@@ -9,7 +9,7 @@ export default function HomePage() {
   const t = useTranslations('Common');
   return (
     <section>
-      <h1 className='text-red-500'>{t('title')}</h1>
+      <h1 className='text-2xl font-bold mb-4'>{t('title')}</h1>
       
       <Button asChild>
         <Link href="/about">{t('about')}</Link>
