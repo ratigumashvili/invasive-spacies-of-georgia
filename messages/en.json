@@ -3,6 +3,11 @@
       "title": "Invasive Species of Georgia",
       "osd": "Open Source Database"
     },
+    "Footer": {
+      "isu_full": "Ilia State University",
+      "zoology": "Institute of Zoology",
+      "address": "Address: Giorgi Tsereteli 3. Tbilisi, 0103. Block S"
+    },
     "Navigation": {
       "navigation": "Navigation",
       "home": "Home",

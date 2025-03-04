@@ -126,6 +126,7 @@ export function Navbar({ locale }: { locale: LocaleType }) {
                                 alt="ISU" width={100}
                                 height={100}
                                 className="block invert brightness-0"
+                                priority
                             />
                         </Link>
                         <h1 className="hidden sm:block text-3xl font-semibold uppercase w-[400px]">{t("isu_full")}</h1>
@@ -134,7 +135,7 @@ export function Navbar({ locale }: { locale: LocaleType }) {
                         <SheetTrigger className="cursor-pointer">
                             <MenuIcon className="w-10 h-10" />
                         </SheetTrigger>
-                        <SheetContent side="left">
+                        <SheetContent side="left" className="w-full">
                             <SheetHeader>
                                 <SheetTitle className="sr-only">{t("navigation")}</SheetTitle>
                                 <SheetDescription asChild>

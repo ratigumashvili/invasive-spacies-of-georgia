@@ -6,7 +6,7 @@ import { notFound } from 'next/navigation';
 import { firaGo } from "@/lib/fonts"
 
 import { Navbar } from "@/app/[locale]/_components/navbar"
-import { Footer } from '@/app/[locale]/_components/footer/footer';
+import { Footer } from '@/app/[locale]/_components/footer';
 
 import { LocaleType, supportedLocales } from '@/types/language-types';
 
