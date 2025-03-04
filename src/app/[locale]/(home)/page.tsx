@@ -1,9 +1,9 @@
 import { fetchStrapiData } from "@/lib/api-calls";
 
-export default async function HomePage({params}: {params: {locale: string}}) {
+export default async function HomePage({ params }: { params: { locale: string } }) {
 
-  const {locale} = await params
-  
+  const { locale } = await params
+
   let response;
   try {
     response = await fetchStrapiData("kingdoms", { page: 1, pageSize: 10, locale, populate: "*" });
