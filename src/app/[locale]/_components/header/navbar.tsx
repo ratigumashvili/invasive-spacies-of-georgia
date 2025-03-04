@@ -1,10 +1,13 @@
 "use client"
 
 import { useSearchParams } from "next/navigation"
+import { ChevronsRightIcon } from "lucide-react"
 import { useTranslations } from "next-intl"
+
 import { Link, usePathname, useRouter } from "@/i18n/routing"
 
-import { LocaleType } from "@/types/LanguageTypes"
+import { LocaleType } from "@/types/language-types"
+import Image from "next/image"
 
 const navigation = [
     {
@@ -35,31 +38,62 @@ const navigation = [
 ]
 
 
-export function Navbar({locale}: {locale: LocaleType}) {
+export function Navbar({ locale }: { locale: LocaleType }) {
     const t = useTranslations("Navigation")
 
     return (
-        <nav className="flex item-center justify-between">
-            <LanguageSwitcher locale={locale} />
-            <ul className="flex gap-3">
-                {navigation.map((item) => (
-                    <li key={item.id} className="text-lg">
-                        <Link href={`/${item.path}`}>
-                            {t(item.title)}
-                        </Link>
-                    </li>
-                ))}
-            </ul>
-        </nav>
+        <>
+            <div className="bg-red-700 text-white py-2">
+                <div className="flex items-center justify-between w-full max-w-7xl mx-auto px-4 sm:px-8">
+                    <div className="flex items-center gap-x-2">
+                        <ChevronsRightIcon className="w-4 h-4" />
+                        <Link href={`${locale === "ka" ? "https://iliauni.edu.ge/ge" : "https://iliauni.edu.ge/en"}`}>{t("isu")}</Link>
+                        <ChevronsRightIcon className="w-4 h-4" />
+                        <Link href={"/register"}>{t("register")}</Link>
+                        <ChevronsRightIcon className="w-4 h-4" />
+                        <Link href={"/dashboard"}>{t("dashboard")}</Link>
+                        <ChevronsRightIcon className="w-4 h-4" />
+                        <Link href={"/bookmarked"}>{t("bookmarked")}</Link>
+                    </div>
+                    <div>
+                        <LanguageSwitcher locale={locale} />
+                    </div>
+                </div>
+            </div>
+            <div className="bg-red-800 text-white shadow-lg shadow-gray-300">
+                <div className="w-full max-w-7xl mx-auto py-8 px-4 sm:px-8 flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                        <Image
+                            src={'/iliauni-logo_eng.png'}
+                            alt="ISU" width={100}
+                            height={100}
+                            className="block invert brightness-0"
+                        />
+                        <h1 className="text-3xl font-semibold uppercase w-[400px]">{t("isu_full")}</h1>
+                    </div>
+                    <nav className="flex item-center">
+                        <ul className="flex gap-3">
+                            {navigation.map((item) => (
+                                <li key={item.id} className="text-xl uppercase">
+                                    <Link href={`/${item.path}`}>
+                                        {t(item.title)}
+                                    </Link>
+                                </li>
+                            ))}
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </>
     )
 }
 
-const LanguageSwitcher = ({ locale }: {locale: any}) => {
+const LanguageSwitcher = ({ locale }: { locale: LocaleType }) => {
     const router = useRouter();
     const pathname = usePathname();
     const searchParams = useSearchParams();
 
-    const handleLanguageChange = (lang: any) => {
+    const handleLanguageChange = (lang: string) => {
         router.replace(pathname + "?" + searchParams, { locale: lang });
     };
 

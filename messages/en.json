@@ -9,6 +9,12 @@
       "database": "Data",
       "map": "Map",
       "contribute": "Contribution",
-      "contacts": "Contacts"
+      "contacts": "Contacts",
+      "isu": "ISU",
+      "isu_full": "Ilia State University",
+      "dashboard": "Dashboard",
+      "register": "Register",
+      "search": "Search",
+      "bookmarked": "Bookmarked"
     }
   }

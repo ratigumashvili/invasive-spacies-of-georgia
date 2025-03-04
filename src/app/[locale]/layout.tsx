@@ -6,8 +6,9 @@ import { notFound } from 'next/navigation';
 import { firaGo } from "@/lib/fonts"
 
 import { Header } from '@/app/[locale]/_components/header/header';
+import { Footer } from '@/app/[locale]/_components/footer/footer';
 
-import { LocaleType, supportedLocales } from '@/types/LanguageTypes';
+import { LocaleType, supportedLocales } from '@/types/language-types';
 
 import "@/app/styles/globals.css"
 
@@ -36,8 +37,11 @@ export default async function LocaleLayout({
     <html lang={locale} className={`${firaGo.variable}`}>
       <body>
         <NextIntlClientProvider messages={messages}>
-          <Header locale={locale as "en" | "ka"} />
-          {children}
+          <div className='h-full flex flex-col mx-auto'>
+            <Header locale={locale as "en" | "ka"} />
+            <main className='w-full max-w-7xl mx-auto px-4 sm:px-8'>{children}</main>
+            <Footer />
+          </div>
         </NextIntlClientProvider>
       </body>
     </html>
