@@ -1,5 +1,5 @@
 export default async function AboutPage () {
     return (
-        <section>About</section>
+        <section className="py-8">About</section>
     )
 }
