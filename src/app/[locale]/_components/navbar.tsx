@@ -2,7 +2,7 @@
 
 import Image from "next/image"
 import { useSearchParams } from "next/navigation"
-import { ChevronsRightIcon, MenuIcon } from "lucide-react"
+import { ChevronsRightIcon, MenuIcon, SearchIcon } from "lucide-react"
 import { useTranslations } from "next-intl"
 
 import { Link, usePathname, useRouter } from "@/i18n/routing"
@@ -76,7 +76,6 @@ const topMenu = [
 
 ]
 
-
 export function Navbar({ locale }: { locale: LocaleType }) {
     const t = useTranslations("Navigation")
 
@@ -90,19 +89,31 @@ export function Navbar({ locale }: { locale: LocaleType }) {
     return (
         <header>
             <div className="bg-red-700 text-white py-2">
-                <nav className="flex items-center justify-between w-full max-w-7xl mx-auto px-4 sm:px-8">
-                    <div className="flex items-center gap-x-2">
-                        <ChevronsRightIcon className="w-4 h-4" />
-                        <Link href={`${locale === "ka" ? "https://iliauni.edu.ge/ge" : "https://iliauni.edu.ge/en"}`}>{t("isu")}</Link>
-                        <ChevronsRightIcon className="w-4 h-4" />
-                        <Link href={"/register"}>{t("register")}</Link>
-                        <ChevronsRightIcon className="w-4 h-4" />
-                        <Link href={"/dashboard"}>{t("dashboard")}</Link>
-                        <ChevronsRightIcon className="w-4 h-4" />
-                        <Link href={"/bookmarked"}>{t("bookmarked")}</Link>
+                <nav className="flex flex-col md:flex-row items-center justify-between w-full max-w-7xl mx-auto px-4 sm:px-8">
+                    <div className="flex items-center justify-center flex-wrap gap-x-2 gap-y-2 md:gap-y-0 mb-4 md:mb-0">
+                        <div className="flex gap-x-2 items-center">
+                            <ChevronsRightIcon className="w-4 h-4" />
+                            <Link href={`${locale === "ka" ? "https://iliauni.edu.ge/ge" : "https://iliauni.edu.ge/en"}`}>{t("isu")}</Link>
+                        </div>
+                        <div className="flex gap-x-2 items-center">
+                            <ChevronsRightIcon className="w-4 h-4" />
+                            <Link href={"/register"}>{t("register")}</Link>
+                        </div>
+                        <div className="flex gap-x-2 items-center">
+                            <ChevronsRightIcon className="w-4 h-4" />
+                            <Link href={"/dashboard"}>{t("dashboard")}</Link>
+                        </div>
+                        <div className="flex gap-x-2 items-center">
+                            <ChevronsRightIcon className="w-4 h-4" />
+                            <Link href={"/bookmarked"}>{t("bookmarked")}</Link>
+                        </div>
                     </div>
-                    <div>
+                    <div className="flex items-center gap-x-2">
                         <LanguageSwitcher locale={locale} />
+                        <p className="flex items-center">
+                        <SearchIcon className="w-4 h-4 mr-2" /> 
+                        <Link href={"/search"}>{t("search")}</Link>
+                        </p>
                     </div>
                 </nav>
             </div>
@@ -117,7 +128,7 @@ export function Navbar({ locale }: { locale: LocaleType }) {
                                 className="block invert brightness-0"
                             />
                         </Link>
-                        <h1 className="text-3xl font-semibold uppercase w-[400px]">{t("isu_full")}</h1>
+                        <h1 className="hidden sm:block text-3xl font-semibold uppercase w-[400px]">{t("isu_full")}</h1>
                     </div>
                     <Sheet>
                         <SheetTrigger className="cursor-pointer">
