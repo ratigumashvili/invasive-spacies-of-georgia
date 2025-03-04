@@ -38,7 +38,7 @@ interface StrapiResponse<T> {
       const fallbackLocale = requestedLocale === "en" ? "ka" : "en";
   
       const queryParams = {
-        pagination: { page: params.page || 1, pageSize: params.pageSize || 10 },
+        pagination: { page: params.page || 1, pageSize: params.pageSize || 25 },
         locale: requestedLocale,
         filters: params.filters || undefined,
         populate: params.populate || "*",
