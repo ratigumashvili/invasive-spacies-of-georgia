@@ -147,7 +147,7 @@ export function Navbar({ locale }: { locale: LocaleType }) {
                                                     onClick={() => hanldeButtonClick(item.path as string)}
                                                     className="justify-start cursor-pointer"
                                                 >
-                                                    <span className={cn("text-lg", pathname === item.path ? "text-red-700" : "text-black")}>
+                                                    <span className={cn("text-lg uppercase", pathname === item.path ? "text-red-700" : "text-black")}>
                                                         {t(item.title)}
                                                     </span>
                                                 </Button>
