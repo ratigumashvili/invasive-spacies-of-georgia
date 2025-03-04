@@ -1,12 +1,24 @@
 @import "tailwindcss";
-
 @plugin "tailwindcss-animate";
-
 @custom-variant dark (&:is(.dark *));
 
 @theme {
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+}
+
+:root,
+html,
+body {
+  height: 100%;
+}
+
+:root {
+  --font-firaGo: "FiraGO", sans-serif;
+}
+
+body {
+  font-family: var(--font-firaGo);
 }
 
 :root {

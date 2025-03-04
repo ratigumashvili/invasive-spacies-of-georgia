@@ -1,5 +1,4 @@
 /** @type {import('tailwindcss').Config} */
-const { fontFamily } = require("tailwindcss/defaultTheme");
 const shadcnPreset = require("tailwindcss-animate");
 
 module.exports = {
@@ -19,8 +18,8 @@ module.exports = {
         foreground: "hsl(var(--foreground))",
       },
       fontFamily: {
-        firaGo: "var(--font-firaGo)",
-    },
+        firaGo: ["var(--font-firaGo)", "sans-serif"], // Add fallback
+      },
     },
   },
   plugins: [shadcnPreset],

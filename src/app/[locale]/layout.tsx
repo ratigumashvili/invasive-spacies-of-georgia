@@ -31,8 +31,8 @@ export default async function LocaleLayout({
   const messages = await getMessages();
 
   return (
-    <html lang={locale}>
-      <body className={`${firaGo.variable}`}>
+    <html lang={locale} className={`${firaGo.variable}`}>
+      <body>
         <NextIntlClientProvider messages={messages}>
           {children}
         </NextIntlClientProvider>
