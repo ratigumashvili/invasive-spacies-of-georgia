@@ -9,7 +9,7 @@ import { Link, usePathname, useRouter } from "@/i18n/routing"
 import { LocaleType } from "@/types/language-types"
 import Image from "next/image"
 
-const navigation = [
+const topMenu = [
     {
         id: 1,
         title: "home",
@@ -22,19 +22,15 @@ const navigation = [
     },
     {
         id: 3,
-        title: "database",
-        path: "/database"
+        title: "contribute",
+        path: "/contribute"
     },
     {
         id: 4,
-        title: "map",
-        path: "/map"
-    },
-    {
-        id: 5,
-        title: "contribute",
-        path: "/contribute"
+        title: "contacts",
+        package: "/contacts"
     }
+
 ]
 
 
@@ -63,17 +59,19 @@ export function Navbar({ locale }: { locale: LocaleType }) {
             <div className="bg-red-800 text-white shadow-lg shadow-gray-300">
                 <div className="w-full max-w-7xl mx-auto py-8 px-4 sm:px-8 flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                        <Image
-                            src={'/iliauni-logo_eng.png'}
-                            alt="ISU" width={100}
-                            height={100}
-                            className="block invert brightness-0"
-                        />
+                        <Link href={"/"}>
+                            <Image
+                                src={'/iliauni-logo_eng.png'}
+                                alt="ISU" width={100}
+                                height={100}
+                                className="block invert brightness-0"
+                            />
+                        </Link>
                         <h1 className="text-3xl font-semibold uppercase w-[400px]">{t("isu_full")}</h1>
                     </div>
                     <nav className="flex item-center">
                         <ul className="flex gap-3">
-                            {navigation.map((item) => (
+                            {topMenu.map((item) => (
                                 <li key={item.id} className="text-xl uppercase">
                                     <Link href={`/${item.path}`}>
                                         {t(item.title)}
