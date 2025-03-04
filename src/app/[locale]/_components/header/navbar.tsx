@@ -1,13 +1,25 @@
 "use client"
 
+import Image from "next/image"
 import { useSearchParams } from "next/navigation"
-import { ChevronsRightIcon } from "lucide-react"
+import { ChevronsRightIcon, MenuIcon } from "lucide-react"
 import { useTranslations } from "next-intl"
 
 import { Link, usePathname, useRouter } from "@/i18n/routing"
 
+import {
+    Sheet,
+    SheetClose,
+    SheetContent,
+    SheetDescription,
+    SheetHeader,
+    SheetTitle,
+    SheetTrigger,
+} from "@/components/ui/sheet"
+import { Button } from "@/components/ui/button"
+
 import { LocaleType } from "@/types/language-types"
-import Image from "next/image"
+
 
 const topMenu = [
     {
@@ -22,13 +34,43 @@ const topMenu = [
     },
     {
         id: 3,
-        title: "contribute",
-        path: "/contribute"
+        title: "species_list",
+        path: "/species-list"
     },
     {
         id: 4,
-        title: "contacts",
-        package: "/contacts"
+        title: "literature",
+        path: "/literature"
+    },
+    {
+        id: 5,
+        title: "legal_docs",
+        path: "legal-docs"
+    },
+    {
+        id: 6,
+        title: "research",
+        path: "research"
+    },
+    {
+        id: 7,
+        title: "data_export",
+        path: "data-export"
+    },
+    {
+        id: 8,
+        title: "statistics",
+        path: "statistics"
+    },
+    {
+        id: 9,
+        title: "group",
+        path: "group"
+    },
+    {
+        id: 10,
+        title: "contribute",
+        path: "/contribute"
     }
 
 ]
@@ -36,6 +78,12 @@ const topMenu = [
 
 export function Navbar({ locale }: { locale: LocaleType }) {
     const t = useTranslations("Navigation")
+
+    const router = useRouter()
+
+    const hanldeButtonClick = (path: string) => {
+        router.push(`/${path}`)
+    }
 
     return (
         <>
@@ -69,17 +117,32 @@ export function Navbar({ locale }: { locale: LocaleType }) {
                         </Link>
                         <h1 className="text-3xl font-semibold uppercase w-[400px]">{t("isu_full")}</h1>
                     </div>
-                    <nav className="flex item-center">
-                        <ul className="flex gap-3">
-                            {topMenu.map((item) => (
-                                <li key={item.id} className="text-xl uppercase">
-                                    <Link href={`/${item.path}`}>
-                                        {t(item.title)}
-                                    </Link>
-                                </li>
-                            ))}
-                        </ul>
-                    </nav>
+                    <Sheet>
+                        <SheetTrigger className="cursor-pointer">
+                            <MenuIcon className="w-10 h-10" />
+                        </SheetTrigger>
+                        <SheetContent side="left">
+                            <SheetHeader>
+                                <SheetTitle className="sr-only">{t("navigation")}</SheetTitle>
+                                <SheetDescription asChild>
+                                    <nav className="flex flex-col gap-2 pt-4">
+                                        {topMenu.map((item) => (
+                                            <SheetClose asChild key={item.id}>
+                                                <Button
+                                                    variant="ghost"
+                                                    size="lg"
+                                                    onClick={() => hanldeButtonClick(item.path as string)}
+                                                    className="justify-start cursor-pointer"
+                                                >
+                                                    <span className="text-lg text-black">{t(item.title)}</span>
+                                                </Button>
+                                            </SheetClose>
+                                        ))}
+                                    </nav>
+                                </SheetDescription>
+                            </SheetHeader>
+                        </SheetContent>
+                    </Sheet>
                 </div>
             </div>
         </>

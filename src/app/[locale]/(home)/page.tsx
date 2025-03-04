@@ -5,7 +5,7 @@ export default function HomePage() {
   const t = useTranslations('Common');
   return (
     <section className='py-8'>
-      home
+      Home
     </section>
   );
 }
