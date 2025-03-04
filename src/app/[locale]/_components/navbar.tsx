@@ -19,6 +19,7 @@ import {
 import { Button } from "@/components/ui/button"
 
 import { LocaleType } from "@/types/language-types"
+import { cn } from "@/lib/utils"
 
 
 const topMenu = [
@@ -80,15 +81,16 @@ export function Navbar({ locale }: { locale: LocaleType }) {
     const t = useTranslations("Navigation")
 
     const router = useRouter()
+    const pathname = usePathname()
 
     const hanldeButtonClick = (path: string) => {
         router.push(`/${path}`)
     }
 
     return (
-        <>
+        <header>
             <div className="bg-red-700 text-white py-2">
-                <div className="flex items-center justify-between w-full max-w-7xl mx-auto px-4 sm:px-8">
+                <nav className="flex items-center justify-between w-full max-w-7xl mx-auto px-4 sm:px-8">
                     <div className="flex items-center gap-x-2">
                         <ChevronsRightIcon className="w-4 h-4" />
                         <Link href={`${locale === "ka" ? "https://iliauni.edu.ge/ge" : "https://iliauni.edu.ge/en"}`}>{t("isu")}</Link>
@@ -102,7 +104,7 @@ export function Navbar({ locale }: { locale: LocaleType }) {
                     <div>
                         <LanguageSwitcher locale={locale} />
                     </div>
-                </div>
+                </nav>
             </div>
             <div className="bg-red-800 text-white shadow-lg shadow-gray-300">
                 <div className="w-full max-w-7xl mx-auto py-8 px-4 sm:px-8 flex items-center justify-between">
@@ -125,7 +127,7 @@ export function Navbar({ locale }: { locale: LocaleType }) {
                             <SheetHeader>
                                 <SheetTitle className="sr-only">{t("navigation")}</SheetTitle>
                                 <SheetDescription asChild>
-                                    <nav className="flex flex-col gap-2 pt-4">
+                                    <nav className="flex flex-col gap-2 pt-6">
                                         {topMenu.map((item) => (
                                             <SheetClose asChild key={item.id}>
                                                 <Button
@@ -134,7 +136,9 @@ export function Navbar({ locale }: { locale: LocaleType }) {
                                                     onClick={() => hanldeButtonClick(item.path as string)}
                                                     className="justify-start cursor-pointer"
                                                 >
-                                                    <span className="text-lg text-black">{t(item.title)}</span>
+                                                    <span className={cn("text-lg", pathname === item.path ? "text-red-700" : "text-black")}>
+                                                        {t(item.title)}
+                                                    </span>
                                                 </Button>
                                             </SheetClose>
                                         ))}
@@ -145,7 +149,7 @@ export function Navbar({ locale }: { locale: LocaleType }) {
                     </Sheet>
                 </div>
             </div>
-        </>
+        </header>
     )
 }
 

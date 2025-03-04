@@ -5,7 +5,7 @@ import { notFound } from 'next/navigation';
 
 import { firaGo } from "@/lib/fonts"
 
-import { Header } from '@/app/[locale]/_components/header/header';
+import { Navbar } from "@/app/[locale]/_components/navbar"
 import { Footer } from '@/app/[locale]/_components/footer/footer';
 
 import { LocaleType, supportedLocales } from '@/types/language-types';
@@ -38,7 +38,7 @@ export default async function LocaleLayout({
       <body>
         <NextIntlClientProvider messages={messages}>
           <div className='h-full flex flex-col mx-auto'>
-            <Header locale={locale as "en" | "ka"} />
+            <Navbar locale={locale as "en" | "ka"} />
             <main className='w-full max-w-7xl mx-auto px-4 sm:px-8'>{children}</main>
             <Footer />
           </div>
