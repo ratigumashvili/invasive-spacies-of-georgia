@@ -1,5 +1,10 @@
+"use client"
+
+import { useSearchParams } from "next/navigation"
 import { useTranslations } from "next-intl"
-import Link from "next/link"
+import { Link, usePathname, useRouter } from "@/i18n/routing"
+
+import { LocaleType } from "@/types/LanguageTypes"
 
 const navigation = [
     {
@@ -29,10 +34,13 @@ const navigation = [
     }
 ]
 
-export function Navbar() {
+
+export function Navbar({locale}: {locale: LocaleType}) {
     const t = useTranslations("Navigation")
+
     return (
-        <nav>
+        <nav className="flex item-center justify-between">
+            <LanguageSwitcher locale={locale} />
             <ul className="flex gap-3">
                 {navigation.map((item) => (
                     <li key={item.id} className="text-lg">
@@ -45,3 +53,33 @@ export function Navbar() {
         </nav>
     )
 }
+
+const LanguageSwitcher = ({ locale }: {locale: any}) => {
+    const router = useRouter();
+    const pathname = usePathname();
+    const searchParams = useSearchParams();
+
+    const handleLanguageChange = (lang: any) => {
+        router.replace(pathname + "?" + searchParams, { locale: lang });
+    };
+
+    return (
+        <div className="flex gap-2 items-center font-firaGo">
+            {locale === "ka" ? (
+                <>
+                    <div className="switch justify-end" onClick={() => handleLanguageChange("en")}>
+                        <div className="switch-circle"></div>
+                    </div>
+                    <button onClick={() => handleLanguageChange("en")}>English</button>
+                </>
+            ) : (
+                <>
+                    <div className="switch justify-start" onClick={() => handleLanguageChange("ka")}>
+                        <div className="switch-circle"></div>
+                    </div>
+                    <button onClick={() => handleLanguageChange("ka")}>ქართული</button>
+                </>
+            )}
+        </div>
+    );
+};

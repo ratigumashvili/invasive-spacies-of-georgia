@@ -21,6 +21,14 @@ body {
   font-family: var(--font-firaGo);
 }
 
+.switch {
+  @apply w-[40px] h-[20px] border rounded-full flex items-center relative p-[1px] cursor-pointer;
+}
+
+.switch-circle {
+  @apply w-[16px] h-[16px] rounded-full bg-green-800;
+}
+
 :root {
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.145 0 0);

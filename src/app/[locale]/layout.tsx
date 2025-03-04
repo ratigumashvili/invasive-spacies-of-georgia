@@ -3,9 +3,11 @@ import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 
-import { routing } from '@/i18n/routing';
-
 import { firaGo } from "@/lib/fonts"
+
+import { Header } from '@/app/[locale]/_components/header/header';
+
+import { LocaleType, supportedLocales } from '@/types/LanguageTypes';
 
 import "@/app/styles/globals.css"
 
@@ -24,7 +26,7 @@ export default async function LocaleLayout({
 
   const { locale } = await params
 
-  if (!routing.locales.includes(locale as any)) {
+  if (!supportedLocales.includes(locale as LocaleType)) {
     notFound();
   }
 
@@ -34,6 +36,7 @@ export default async function LocaleLayout({
     <html lang={locale} className={`${firaGo.variable}`}>
       <body>
         <NextIntlClientProvider messages={messages}>
+          <Header locale={locale as "en" | "ka"} />
           {children}
         </NextIntlClientProvider>
       </body>

@@ -1,7 +1,14 @@
 {
     "Common": {
       "title": "Invasive Species of Georgia",
-      "osd": "Open Source Database",
-      "about": "Go to the about page"
+      "osd": "Open Source Database"
+    },
+    "Navigation": {
+      "home": "Home",
+      "about": "About",
+      "database": "Data",
+      "map": "Map",
+      "contribute": "Contribution",
+      "contacts": "Contacts"
     }
   }
