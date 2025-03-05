@@ -73,7 +73,6 @@ const BASE_URL = process.env.NEXT_PUBLIC_API_URL!
 
 
 
-// Define API response type
 interface StrapiResponse<T> {
   data: T[];
   meta: {
@@ -86,17 +85,15 @@ interface StrapiResponse<T> {
   };
 }
 
-// Define fetch parameters
 interface FetchParams {
   page?: number;
   pageSize?: number;
   locale?: string;
-  slug?: string; // Added slug support
+  slug?: string;
   filters?: Record<string, any>;
   populate?: string | string[];
 }
 
-// Fetch data with locale fallback and `slug` filtering
 export async function fetchStrapiData<T>(
   contentType: string,
   params: FetchParams = {}
@@ -106,13 +103,12 @@ export async function fetchStrapiData<T>(
     const fallbackLocale = requestedLocale === "en" ? "ka" : "en";
 
     const queryParams = {
-      pagination: params.slug ? undefined : { page: params.page || 1, pageSize: params.pageSize || 25 }, // Disable pagination for single entry
+      pagination: params.slug ? undefined : { page: params.page || 1, pageSize: params.pageSize || 25 },
       locale: requestedLocale,
-      filters: params.slug ? { slug: params.slug } : params.filters, // Use slug filter if provided
+      filters: params.slug ? { slug: params.slug } : params.filters,
       populate: params.populate || "*",
     };
 
-    // 🟢 Step 1: Fetch Data in Requested Locale
     const response = await axios.get<StrapiResponse<T>>(`${BASE_URL}/${contentType}`, { params: queryParams });
 
     if (response.data?.data?.length > 0) {
@@ -121,7 +117,6 @@ export async function fetchStrapiData<T>(
 
     console.warn(`No ${contentType} data found in ${requestedLocale}. Fetching fallback from '${fallbackLocale}'.`);
 
-    // 🟡 Step 2: Fetch Data in Fallback Locale
     const fallbackResponse = await axios.get<StrapiResponse<T>>(`${BASE_URL}/${contentType}`, {
       params: { ...queryParams, locale: fallbackLocale },
     });
@@ -132,7 +127,6 @@ export async function fetchStrapiData<T>(
 
     console.warn(`No ${contentType} data found in both ${requestedLocale} and ${fallbackLocale}. Fetching from ANY available locale.`);
 
-    // 🔴 Step 3: Fetch Data in ANY Available Locale (Remove Locale Filter)
     const anyLocaleResponse = await axios.get<StrapiResponse<T>>(`${BASE_URL}/${contentType}`, {
       params: { ...queryParams, locale: undefined },
     });
