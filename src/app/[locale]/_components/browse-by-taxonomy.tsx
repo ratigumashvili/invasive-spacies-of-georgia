@@ -30,10 +30,10 @@ export async function BrowseByTaxonomy({ locale }: { locale: string }) {
             </pre>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                 {response && response?.data?.length !== 0 && response?.data?.map((item) => (
-                    <Card key={item.documentId} className="bg-primary text-white flex items-center justify-center">
+                    <Card key={item.documentId} className="bg-primary text-white flex items-center justify-center p-16">
                         <CardTitle className="text-2xl">
                             <Link href={`/taxonomy/${item.slug}`}>
-                                {item.name}
+                               {item.rank.rank} {item.name}
                             </Link>
                         </CardTitle>
                     </Card>

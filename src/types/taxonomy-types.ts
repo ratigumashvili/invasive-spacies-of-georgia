@@ -18,6 +18,10 @@ export interface StrapiResponse<T> {
     publishedAt: string;
     locale: string;
     slug: string;
+    rank: {
+        id: number,
+        rank: string
+    }
   }
   
   export type TaxonomyAPIResponse = StrapiResponse<TaxonomyTypes>;
