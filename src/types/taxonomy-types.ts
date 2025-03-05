@@ -1,36 +1,58 @@
 export interface StrapiResponse<T> {
     data: T[];
     meta: {
-        pagination?: {
-            page: number;
-            pageSize: number;
-            pageCount: number;
-            total: number;
-        };
+      pagination: {
+        page: number;
+        pageSize: number;
+        pageCount: number;
+        total: number;
+      };
     };
-}
+  }
+  
 
-export interface TaxonomyTypes {
-    id: string;
+export interface TaxonomyEntity {
+    id: number;
     documentId: string;
     name: string;
+    slug: string;
+    createdAt: string;
+    updatedAt: string;
+    publishedAt: string;
+}
+
+export interface LocalizationEntity {
+    id: number;
+    documentId: string;
+    autorName: string;
+    createdAt: string;
     updatedAt: string;
     publishedAt: string;
     locale: string;
-    slug: string;
-    rank: {
-        id: number,
-        rank: string
-    }
-    phyla: {
-        id: string;
-        documentId: string;
-        name: string;
-        slug: string;
-        updatedAt: string;
-        publishedAt: string;
-        locale: string;
-    }[]
+    name: string;
+    ecologicalGroup: string;
+    coordinates: string;
 }
 
-export type TaxonomyAPIResponse = StrapiResponse<TaxonomyTypes>;
+
+export interface SpeciesEntity {
+    id: number;
+    documentId: string;
+    autorName: string;
+    createdAt: string;
+    updatedAt: string;
+    publishedAt: string;
+    locale: string;
+    name: string;
+    ecologicalGroup: string;
+    coordinates: string;
+    kingdom: TaxonomyEntity;
+    phylum: TaxonomyEntity;
+    class: TaxonomyEntity;
+    order: TaxonomyEntity;
+    family: TaxonomyEntity;
+    genus: TaxonomyEntity;
+    localizations: LocalizationEntity[];
+}
+
+export type SpeciesResponse = StrapiResponse<SpeciesEntity>;
