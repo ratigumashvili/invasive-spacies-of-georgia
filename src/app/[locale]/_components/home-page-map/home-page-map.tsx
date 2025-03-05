@@ -1,8 +1,11 @@
 "use client"
 
+import { useEffect, useState } from 'react';
 import { Icon, LatLngExpression } from 'leaflet'
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
 import MarkerClusterGroup from "react-leaflet-markercluster";
+
+import { useLocation } from '@/hooks/use-location';
 
 import "leaflet/dist/leaflet.css";
 import 'react-leaflet-markercluster/styles'
@@ -15,6 +18,28 @@ const customIcon = new Icon({
 })
 
 export default function HomePageMap({ data }: { data: [number, number][] }) {
+    const { getAddressFromCoordinates } = useLocation()
+
+    const [markerAddresses, setMarkerAddresses] = useState<{ [key: string]: string | null }>({});
+
+    useEffect(() => {
+        const fetchAddresses = async () => {
+            const newAddresses: { [key: string]: string | null } = {};
+
+            for (const marker of data) {
+                const key = `${marker[0]},${marker[1]}`;
+                if (!markerAddresses[key]) {
+                    const address = await getAddressFromCoordinates(marker[0], marker[1]);
+                    newAddresses[key] = address;
+                }
+            }
+
+            setMarkerAddresses((prev) => ({ ...prev, ...newAddresses }));
+        };
+
+        fetchAddresses();
+    }, [data]);
+
     return (
         <>
             <MapContainer
@@ -35,7 +60,9 @@ export default function HomePageMap({ data }: { data: [number, number][] }) {
                             position={marker}
                             icon={customIcon}
                         >
-                            <Popup>Hello</Popup>
+                            <Popup>
+                                {markerAddresses[`${marker[0]},${marker[1]}`] || "Loading address..."}
+                            </Popup>
                         </Marker>
                     ))}
                 </MarkerClusterGroup>
