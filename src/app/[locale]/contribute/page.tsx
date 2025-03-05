@@ -1,5 +1,7 @@
+import Container from "@/app/[locale]/_components/container";
+
 export default function Contribute() {
     return (
-        <section className="py-8">contribute</section>
+        <Container>Contribute</Container>
     )
 }

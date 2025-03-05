@@ -1,5 +1,7 @@
+import Container from "@/app/[locale]/_components/container";
+
 export default async function AboutPage () {
     return (
-        <section className="py-8">About</section>
+        <Container>About</Container>
     )
 }

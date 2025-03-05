@@ -1,5 +1,7 @@
+import Container from "@/app/[locale]/_components/container";
+
 export default function Statistics() {
     return (
-        <section className="py-8">Statistics</section>
+        <Container>Statistics</Container>
     )
 }

@@ -1,5 +1,7 @@
+import Container from "@/app/[locale]/_components/container";
+
 export default function DataExport() {
     return (
-        <section className="py-8">Data export</section>
+        <Container>Data export</Container>
     )
 }

@@ -39,7 +39,7 @@ export default async function LocaleLayout({
         <NextIntlClientProvider messages={messages}>
           <div className='h-full flex flex-col mx-auto'>
             <Navbar locale={locale as "en" | "ka"} />
-            <main className='w-full max-w-7xl mx-auto px-4 sm:px-8'>{children}</main>
+            <main>{children}</main>
             <Footer />
           </div>
         </NextIntlClientProvider>

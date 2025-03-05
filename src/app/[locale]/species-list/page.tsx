@@ -1,5 +1,7 @@
+import Container from "@/app/[locale]/_components/container";
+
 export default function SpeciesList () {
     return (
-        <section className="py-8">Species -list</section>
+        <Container>Species -list</Container>
     )
 }

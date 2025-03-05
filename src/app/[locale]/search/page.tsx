@@ -1,5 +1,7 @@
+import Container from "@/app/[locale]/_components/container";
+
 export default function Search() {
     return (
-        <section className="py-8">Search</section>
+        <Container>Search</Container>
     )
 }

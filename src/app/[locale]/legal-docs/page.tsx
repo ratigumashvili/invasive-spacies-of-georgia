@@ -1,5 +1,7 @@
+import Container from "@/app/[locale]/_components/container";
+
 export default function LegalDocs() {
     return (
-        <section className="py-8">Legal docs</section>
+        <Container>Legal docs</Container>
     )
 }
