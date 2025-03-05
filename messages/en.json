@@ -1,7 +1,9 @@
 {
     "Common": {
       "title": "Invasive Species of Georgia",
-      "osd": "Open Source Database"
+      "osd": "Open Source Database",
+      "loading": "Loading address...",
+      "readMore": "Read more"
     },
     "Footer": {
       "isu_full": "Ilia State University",

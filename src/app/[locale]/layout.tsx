@@ -10,6 +10,8 @@ import { Footer } from '@/app/[locale]/_components/footer';
 
 import { LocaleType, supportedLocales } from '@/types/language-types';
 
+import "leaflet/dist/leaflet.css";
+import 'react-leaflet-markercluster/styles'
 import "@/app/styles/globals.css"
 
 export const metadata: Metadata = {

@@ -1,14 +1,13 @@
 "use client"
 
 import { useEffect, useState } from 'react';
+import { Link } from '@/i18n/routing';
 import { Icon, LatLngExpression } from 'leaflet'
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
 import MarkerClusterGroup from "react-leaflet-markercluster";
+import { useTranslations } from 'next-intl';
 
 import { useLocation } from '@/hooks/use-location';
-
-import "leaflet/dist/leaflet.css";
-import 'react-leaflet-markercluster/styles'
 
 const center = [42.021748359530285, 43.58942280074164]
 
@@ -18,9 +17,12 @@ const customIcon = new Icon({
 })
 
 export default function HomePageMap({ data }: { data: [number, number][] }) {
-    const { getAddressFromCoordinates } = useLocation()
 
     const [markerAddresses, setMarkerAddresses] = useState<{ [key: string]: string | null }>({});
+
+    const { getAddressFromCoordinates } = useLocation()
+
+    const t = useTranslations("Common")
 
     useEffect(() => {
         const fetchAddresses = async () => {
@@ -36,7 +38,6 @@ export default function HomePageMap({ data }: { data: [number, number][] }) {
 
             setMarkerAddresses((prev) => ({ ...prev, ...newAddresses }));
         };
-
         fetchAddresses();
     }, [data]);
 
@@ -61,8 +62,18 @@ export default function HomePageMap({ data }: { data: [number, number][] }) {
                             icon={customIcon}
                         >
                             <Popup>
-                                {markerAddresses[`${marker[0]},${marker[1]}`] || "Loading address..."}
+                                {markerAddresses[`${marker[0]},${marker[1]}`] || t("loading")}
+
+                                {markerAddresses[`${marker[0]},${marker[1]}`] && (
+                                    <Link
+                                        href={`/species-list?coordinates=${marker}`}
+                                        className="block my-2 !text-primary underline"
+                                    >
+                                        {t("readMore")}
+                                    </Link>
+                                )}
                             </Popup>
+
                         </Marker>
                     ))}
                 </MarkerClusterGroup>
