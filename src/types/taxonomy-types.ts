@@ -1,16 +1,16 @@
 export interface StrapiResponse<T> {
     data: T[];
     meta: {
-      pagination?: {
-        page: number;
-        pageSize: number;
-        pageCount: number;
-        total: number;
-      };
+        pagination?: {
+            page: number;
+            pageSize: number;
+            pageCount: number;
+            total: number;
+        };
     };
-  }
-  
-  export interface TaxonomyTypes {
+}
+
+export interface TaxonomyTypes {
     id: string;
     documentId: string;
     name: string;
@@ -22,7 +22,15 @@ export interface StrapiResponse<T> {
         id: number,
         rank: string
     }
-  }
-  
-  export type TaxonomyAPIResponse = StrapiResponse<TaxonomyTypes>;
-  
+    phyla: {
+        id: string;
+        documentId: string;
+        name: string;
+        slug: string;
+        updatedAt: string;
+        publishedAt: string;
+        locale: string;
+    }[]
+}
+
+export type TaxonomyAPIResponse = StrapiResponse<TaxonomyTypes>;
