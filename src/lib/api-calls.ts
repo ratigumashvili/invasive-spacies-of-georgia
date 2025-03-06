@@ -1,4 +1,5 @@
 import axios from "axios";
+import qs from "query-string";
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL!
 
@@ -142,4 +143,53 @@ export async function fetchStrapiData<T>(
     return null;
   }
 }
+
+
+export async function fetchSpeciesData(locale: string, pageSize: number = 25) {
+  try {
+    const queryParams = {
+      fields: ["documentId", "autorName", "locale", "name", "ecologicalGroup", "coordinates"],
+
+      "populate[kingdom][fields]": ["documentId", "name", "slug"],
+      "populate[phylum][fields]": ["documentId", "name", "slug"],
+      "populate[class][fields]": ["documentId", "name", "slug"],
+      "populate[order][fields]": ["documentId", "name", "slug"],
+      "populate[family][fields]": ["documentId", "name", "slug"],
+      "populate[genus][fields]": ["documentId", "name", "slug"],
+
+      "pagination[pageSize]": pageSize,
+      locale
+    };
+
+    const query = qs.stringify(queryParams, { encode: false });
+
+    const requestUrl = `${BASE_URL}/species?${query}`;
+
+    const response = await fetch(requestUrl, {
+      method: "GET",
+      headers: {
+        "Accept": "application/json"
+      }
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(`Failed to fetch species: ${errorData.error?.message || response.statusText}`);
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error: any) {
+    console.error("Error fetching species data:", error.message);
+    return null;
+  }
+}
+
+
+
+
+
+
+
+
 

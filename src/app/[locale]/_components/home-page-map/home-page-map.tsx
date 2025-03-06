@@ -44,7 +44,7 @@ export default function HomePageMap({ data }: { data: [number, number][] }) {
     return (
         <>
             <MapContainer
-                className='w-full h-full min-h-[500px] z-0'
+                className='w-full h-[550px] z-0'
                 center={center as LatLngExpression}
                 zoom={7}
                 scrollWheelZoom={false}
@@ -67,7 +67,7 @@ export default function HomePageMap({ data }: { data: [number, number][] }) {
                                 {markerAddresses[`${marker[0]},${marker[1]}`] && (
                                     <Link
                                         href={`/species-list?coordinates=${marker}`}
-                                        className="block my-2 !text-primary underline"
+                                        className="block my-2 !text-red-700 underline"
                                     >
                                         {t("readMore")}
                                     </Link>
