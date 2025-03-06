@@ -123,13 +123,13 @@ export function Navbar({ locale }: { locale: LocaleType }) {
                         <Link href={"/"}>
                             <Image
                                 src={'/iliauni-logo_eng.png'}
-                                alt="ISU" width={100}
-                                height={100}
+                                alt="ISU" width={90}
+                                height={90}
                                 className="block invert brightness-0"
                                 priority
                             />
                         </Link>
-                        <h1 className="hidden sm:block text-3xl font-semibold uppercase w-[400px]">{t("isu_full")}</h1>
+                        <h1 className="hidden sm:block text-2xl font-medium uppercase w-[400px]">{t("isu_full")}</h1>
                     </div>
                     <Sheet>
                         <SheetTrigger className="cursor-pointer">

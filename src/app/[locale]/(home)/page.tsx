@@ -1,8 +1,19 @@
-import qs from "query-string"
+import { useTranslations } from "next-intl";
 
 import HomePageMap from "@/app/[locale]/_components/home-page-map";
+import Container from '@/app/[locale]/_components/container';
 
 import { fetchSpeciesData } from "@/lib/api-calls";
+
+function AppTitle() {
+  const t = useTranslations("Common")
+  return (
+    <div className="flex flex-col gap-2 items-center mb-8">
+      <h1 className="text-4xl font-medium tracking-tight">{t("title")}</h1>
+      <h2 className="text-lg text-muted-foreground">{t("osd")}</h2>
+    </div>
+  )
+}
 
 export default async function HomePage({ params }: { params: { locale: string } }) {
 
@@ -22,8 +33,9 @@ export default async function HomePage({ params }: { params: { locale: string } 
     });
 
   return (
-    <section className="h-full flex flex-col justify-center">
+    <Container>
+      <AppTitle />
       <HomePageMap data={latLngArray as [number, number][]} />
-    </section>
+    </Container>
   );
 }

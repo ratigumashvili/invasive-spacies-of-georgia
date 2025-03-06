@@ -7,6 +7,8 @@ import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
 import MarkerClusterGroup from "react-leaflet-markercluster";
 import { useTranslations } from 'next-intl';
 
+
+
 import { useLocation } from '@/hooks/use-location';
 
 const center = [42.021748359530285, 43.58942280074164]
@@ -44,7 +46,7 @@ export default function HomePageMap({ data }: { data: [number, number][] }) {
     return (
         <>
             <MapContainer
-                className='w-full h-[550px] z-0'
+                className='w-full h-[400px] z-0'
                 center={center as LatLngExpression}
                 zoom={7}
                 scrollWheelZoom={false}
@@ -67,7 +69,7 @@ export default function HomePageMap({ data }: { data: [number, number][] }) {
                                 {markerAddresses[`${marker[0]},${marker[1]}`] && (
                                     <Link
                                         href={`/search?coordinates=${marker}`}
-                                        className="block my-2 !text-red-700 underline"
+                                        className="block my-2 !text-red-700 !hover:text-red-600 transition"
                                     >
                                         {t("readMore")}
                                     </Link>
