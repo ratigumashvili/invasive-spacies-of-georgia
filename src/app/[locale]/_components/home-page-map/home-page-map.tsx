@@ -66,7 +66,7 @@ export default function HomePageMap({ data }: { data: [number, number][] }) {
 
                                 {markerAddresses[`${marker[0]},${marker[1]}`] && (
                                     <Link
-                                        href={`/species-list?coordinates=${marker}`}
+                                        href={`/search?coordinates=${marker}`}
                                         className="block my-2 !text-red-700 underline"
                                     >
                                         {t("readMore")}

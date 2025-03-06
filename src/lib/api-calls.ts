@@ -145,7 +145,7 @@ export async function fetchStrapiData<T>(
 }
 
 
-export async function fetchSpeciesData(locale: string, pageSize: number = 25) {
+export async function fetchSpeciesData(locale: string, pageSize: number = 25, filter?: string) {
   try {
     const queryParams = {
       fields: ["documentId", "autorName", "locale", "name", "ecologicalGroup", "coordinates"],
@@ -158,7 +158,8 @@ export async function fetchSpeciesData(locale: string, pageSize: number = 25) {
       "populate[genus][fields]": ["documentId", "name", "slug"],
 
       "pagination[pageSize]": pageSize,
-      locale
+      locale,
+      filter
     };
 
     const query = qs.stringify(queryParams, { encode: false });
@@ -184,6 +185,12 @@ export async function fetchSpeciesData(locale: string, pageSize: number = 25) {
     return null;
   }
 }
+
+
+
+
+
+
 
 
 
