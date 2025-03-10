@@ -1,36 +1,50 @@
 {
-    "Common": {
-      "title": "Invasive Species of Georgia",
-      "osd": "Open Access Database",
-      "version": "Vers. 1.0",
-      "loading": "Loading address...",
-      "readMore": "Read more",
-      "attention": "Attention",
-      "map_description": "Map only shows last added species. To see whole list of records, navigate to",
-      "map_read_more": " Species list"
-    },
-    "Footer": {
-      "isu_full": "Ilia State University",
-      "zoology": "Institute of Zoology",
-      "address": "Address: Giorgi Tsereteli 3. Tbilisi, 0103. Block S"
-    },
-    "Navigation": {
-      "navigation": "Navigation",
-      "home": "Home",
-      "about": "About",
-      "species_list": "Species list",
-      "literature": "Literature",
-      "legal_docs": "Legal Documents",
-      "research": "Research",
-      "data_export": "Data export",
-      "statistics": "Statistics",
-      "group": "Research group",
-      "contribute": "Contribution",
-      "isu": "ISU",
-      "isu_full": "Ilia State University",
-      "dashboard": "Dashboard",
-      "register": "Register",
-      "search": "Search",
-      "bookmarked": "Bookmarked"
-    }
+  "Common": {
+    "title": "Invasive Species of Georgia",
+    "osd": "Open Access Database",
+    "version": "Vers. 1.0",
+    "loading": "Loading address...",
+    "readMore": "Read more",
+    "attention": "Attention",
+    "map_description": "Map only shows last added species. To see whole list of records, navigate to",
+    "map_read_more": " Species list"
+  },
+  "Footer": {
+    "isu_full": "Ilia State University",
+    "zoology": "Institute of Zoology",
+    "address": "Address: Giorgi Tsereteli 3. Tbilisi, 0103. Block S"
+  },
+  "Navigation": {
+    "navigation": "Navigation",
+    "home": "Home",
+    "about": "About",
+    "species_list": "Species list",
+    "literature": "Literature",
+    "legal_docs": "Legal Documents",
+    "research": "Research",
+    "data_export": "Data export",
+    "statistics": "Statistics",
+    "group": "Research group",
+    "contribute": "Contribution",
+    "isu": "ISU",
+    "isu_full": "Ilia State University",
+    "dashboard": "Dashboard",
+    "register": "Register",
+    "search": "Search",
+    "bookmarked": "Bookmarked"
+  },
+  "actions": {
+    "explore_ISG_data": "Explore ISG data",
+    "legal_docs": "Legal Documents",
+    "scientific_literature": "Scientific literature",
+    "research": "Research",
+    "citizen_science": "Citizen science",
+    "species_list": "Species list",
+    "species_search": "Species search",
+    "api": "API & Web services",
+    "join_our_network": "Join our Network",
+    "report_species": "Report Species",
+    "join_the_editorial_board": "Join the Editorial Board",
+    "join_our_community": "Join Our Community"
   }
+}

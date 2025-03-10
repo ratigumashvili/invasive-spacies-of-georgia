@@ -32,5 +32,19 @@
       "register": "რეგისტრაცია",
       "search": "ძებნა",
       "bookmarked": "ჩანიშნული"
+    },
+    "actions": {
+      "explore_ISG_data": "აღმოაჩინეთ ISG მონაცემები",
+      "legal_docs": "სამართლებრივი დოკუმენტები",
+      "scientific_literature": "სამეცნიერო ლიტერატურა",
+      "research": "კვლევები",
+      "citizen_science": "სამოქალაქო მეცნიერება",
+      "species_list": "სახეობათა სია",
+      "species_search": "სახეობათა ძიება",
+      "api": "API და ვებ-სერვისები",
+      "join_our_network": "შემოუერთდით ჩვენს ქსელს",
+      "report_species": "განაცხადეთ სახეობის შესახებ",
+      "join_the_editorial_board": "შემოუერთდით სარედაქციო ბორდს",
+      "join_our_community": "გაწევრიანდით ჩვენს საზოგადოებაში"
     }
   }

@@ -1,6 +1,10 @@
+"use client"
+
 import { Link } from "@/i18n/routing";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useLocale, useTranslations } from "next-intl";
+import { generateFontByLocale } from "@/lib/utils";
 
 const items = [
     {
@@ -69,19 +73,23 @@ const items = [
 ];
 
 export function HomePageActions() {
+    
+    const t = useTranslations("actions")
+    const locale = useLocale()
+    
     return (
         <div className="flex flex-col md:flex-row gap-4 mb-8">
             {items.map((item) => (
                 <Card key={item.id} className='bg-slate-100 rounded-none flex-1 border-sky-800'>
                     <CardHeader>
-                        <CardTitle className='text-xl'>{item.title}</CardTitle>
+                        <CardTitle className={`${generateFontByLocale(locale)} text-xl`}>{t(item.title)}</CardTitle>
                     </CardHeader>
                     <CardContent>
                         <ul className='flex flex-col gap-2'>
                             {item.list.map((listItem) => (
                                 <li key={listItem.id}>
                                     <Link href={listItem.path} className='link'>
-                                        {listItem.title}
+                                        {t(listItem.title)}
                                     </Link>
                                 </li>
                             ))}
