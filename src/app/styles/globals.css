@@ -30,6 +30,10 @@ body {
   font-family: var(--font-firaGo);
 }
 
+.link {
+  @apply text-sky-800 hover:text-sky-800/90 transition
+}
+
 .switch {
   @apply w-[40px] h-[20px] border rounded-full flex items-center relative p-[1px] cursor-pointer;
 }

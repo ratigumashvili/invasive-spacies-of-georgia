@@ -1,12 +1,12 @@
 import Container from '@/app/[locale]/_components/container';
 import { AppTitle } from "@/app/[locale]/_components/app-title";
 import HomePageMap from "@/app/[locale]/_components/home-page-map";
+import { HomePageSlider } from "@/app/[locale]/_components/home-page-slider";
+import { HomePageActions } from "@/app/[locale]/_components/home-page-actions";
 
 import { fetchSpeciesData, getSinglePage } from "@/lib/api-calls";
 
-import { HomePageData, ImageData } from '@/types/single-types';
-import { HomePageSlider } from '../_components/home-page-slider';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { HomePageData, } from '@/types/single-types';
 
 export default async function HomePage({ params }: { params: { locale: string } }) {
 
@@ -46,18 +46,7 @@ export default async function HomePage({ params }: { params: { locale: string } 
         <HomePageSlider images={data?.images} />
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
-        {Array.from({ length: 3 }).map((_, index) => (
-          <Card key={index} className='h-[300px] bg-slate-100 rounded-none col-span-1'>
-            <CardHeader>
-              <CardTitle>Text</CardTitle>
-            </CardHeader>
-            <CardContent>
-            </CardContent>
-          </Card>
-        ))}
-      </div>
-
+     <HomePageActions />
 
       <HomePageMap data={latLngArray as [number, number][]} />
       <h1>latest reports</h1>
