@@ -20,6 +20,7 @@ module.exports = {
       fontFamily: {
         firaGo: ["var(--font-firaGo)", "sans-serif"],
         bpgNino: ["var(--font-bpgNino)", "sans-serif"],
+        arial: ["var(--font-arial)", "sans-serif"],
       },
     },
   },

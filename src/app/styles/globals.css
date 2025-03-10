@@ -21,6 +21,9 @@ body {
   .font-bpgNino {
     font-family: var(--font-bpgNino), sans-serif;
   }
+  .font-arial {
+    font-family: var(--font-arial), sans-serif;
+  }
 }
 
 body {

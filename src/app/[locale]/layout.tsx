@@ -3,7 +3,7 @@ import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 
-import { firaGo, bpgNino } from "@/lib/fonts"
+import { firaGo, bpgNino, arial } from "@/lib/fonts"
 
 import { Navbar } from "@/app/[locale]/_components/navbar"
 import { Footer } from '@/app/[locale]/_components/footer';
@@ -37,10 +37,11 @@ export default async function LocaleLayout({
 
   return (
     <html lang={locale}>
-      <body className={`${firaGo.variable} ${bpgNino.variable}`}>
+      <body className={`${firaGo.variable} ${bpgNino.variable} ${arial.variable}`}>
         <NextIntlClientProvider messages={messages}> 
           <div className='h-full flex flex-col mx-auto'>
             <Navbar locale={locale as "en" | "ka"} />
+            <h1 className='font-arial text-2xl'>test</h1>
             <main>{children}</main>
             <Footer />
           </div>

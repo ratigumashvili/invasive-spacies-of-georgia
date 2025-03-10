@@ -24,4 +24,13 @@ export const bpgNino = localFont({
     variable: "--font-bpgNino",
 });
 
+export const arial = localFont({
+    src: [
+        { path: "/fonts/arial-400.woff2", weight: "300" },
+        { path: "/fonts/arial-500.woff2", weight: "400" },
+        { path: "/fonts/arial-700.woff2", weight: "700" },
+    ],
+    variable: "--font-arial",
+});
+
 
