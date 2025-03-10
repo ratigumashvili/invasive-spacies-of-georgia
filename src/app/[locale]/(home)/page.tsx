@@ -4,12 +4,19 @@ import HomePageMap from "@/app/[locale]/_components/home-page-map";
 
 import { fetchSpeciesData, getSinglePage } from "@/lib/api-calls";
 
+import { HomePageData } from '@/types/single-types';
+
 export default async function HomePage({ params }: { params: { locale: string } }) {
 
   const { locale } = await params
 
   const response = await fetchSpeciesData(locale, 30)
-  const { data } = await getSinglePage("home-page", locale, "populate[images][fields][0]=documentId&populate[images][fields][1]=name&populate[images][fields][2]=alternativeText&populate[images][fields][3]=caption&populate[images][fields][4]=width&populate[images][fields][5]=height&populate[images][fields][6]=url")
+
+  const fetchHomePageData = async (locale: string): Promise<HomePageData> => {
+    return await getSinglePage<HomePageData>("home-page", locale, "populate[images][fields][0]=documentId&populate[images][fields][1]=name&populate[images][fields][2]=alternativeText&populate[images][fields][3]=caption&populate[images][fields][4]=width&populate[images][fields][5]=height&populate[images][fields][6]=url");
+  };
+
+  const data = await fetchHomePageData(locale)
 
   const coordinates: string[] = response?.data?.length
     ? response.data.map((item: any) => (item.coordinates))
@@ -22,9 +29,15 @@ export default async function HomePage({ params }: { params: { locale: string } 
       return [lat, lng] as [number, number];
     });
 
+  if (!data) return null
+
   return (
     <Container>
-      <AppTitle />
+      <AppTitle
+        title={data?.title}
+        subtitle={data?.subtitle}
+        version={data?.version}
+      />
       <pre>
         {JSON.stringify(data, null, 2)}
       </pre>

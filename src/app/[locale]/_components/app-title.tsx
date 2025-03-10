@@ -3,7 +3,13 @@
 import { cn, generateFontByLocale } from "@/lib/utils"
 import { useLocale, useTranslations } from "next-intl"
 
-export function AppTitle() {
+interface AppTitleProps {
+    title: string,
+    subtitle: string,
+    version: string
+}
+
+export function AppTitle({ title, subtitle, version }: AppTitleProps) {
     const locale = useLocale()
     const t = useTranslations("Common")
 
@@ -12,8 +18,8 @@ export function AppTitle() {
             <h1 className={cn(
                 "text-4xl racking-tight font-semibold uppercase",
                 generateFontByLocale(locale)
-            )}>{t("title")}</h1>
-            <h2 className="text-xl text-muted-foreground">{t("osd")} <sup className="text-xs">{t("version")}</sup></h2>
+            )}>{title}</h1>
+            <h2 className="text-xl text-muted-foreground">{subtitle} <sup className="text-xs">{version}</sup></h2>
         </div>
     )
 }
