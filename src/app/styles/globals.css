@@ -17,6 +17,12 @@ body {
   --font-firaGo: "FiraGO", sans-serif;
 }
 
+@layer base {
+  .font-bpgNino {
+    font-family: var(--font-bpgNino), sans-serif;
+  }
+}
+
 body {
   font-family: var(--font-firaGo);
 }

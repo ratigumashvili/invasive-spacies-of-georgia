@@ -41,9 +41,6 @@ export default async function LocaleLayout({
         <NextIntlClientProvider messages={messages}> 
           <div className='h-full flex flex-col mx-auto'>
             <Navbar locale={locale as "en" | "ka"} />
-            <h1 className="font-bpgNino font-bold text-2xl">ტესტი</h1>
-            <h1 style={{fontFamily: 'bpgNino'}}>tets ტესტი</h1>
-            <pre>{JSON.stringify(bpgNino, null, 2)}</pre>
             <main>{children}</main>
             <Footer />
           </div>
