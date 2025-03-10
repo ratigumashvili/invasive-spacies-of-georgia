@@ -2,6 +2,7 @@
     "Common": {
       "title": "Invasive Species of Georgia",
       "osd": "Open Access Database",
+      "version": "Vers. 1.0",
       "loading": "Loading address...",
       "readMore": "Read more",
       "map_description": "Map only shows last added species. To see whole list of records, navigate to",

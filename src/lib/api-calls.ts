@@ -1,7 +1,7 @@
 import axios from "axios";
 import qs from "query-string";
 
-const BASE_URL = process.env.NEXT_PUBLIC_API_URL!
+const BASE_API_URL = process.env.NEXT_PUBLIC_API_URL!
 
 // interface StrapiResponse<T> {
 //   data: T[];
@@ -38,7 +38,7 @@ const BASE_URL = process.env.NEXT_PUBLIC_API_URL!
 //       populate: params.populate || "*",
 //     };
 
-//     const response = await axios.get<StrapiResponse<T>>(`${BASE_URL}/${contentType}`, { params: queryParams });
+//     const response = await axios.get<StrapiResponse<T>>(`${BASE_API_URL}/${contentType}`, { params: queryParams });
 
 //     if (response.data?.data?.length > 0) {
 //       return response.data;
@@ -46,7 +46,7 @@ const BASE_URL = process.env.NEXT_PUBLIC_API_URL!
 
 //     console.warn(`No ${contentType} data found in ${requestedLocale}. Fetching fallback from '${fallbackLocale}'.`);
 
-//     const fallbackResponse = await axios.get<StrapiResponse<T>>(`${BASE_URL}/${contentType}`, {
+//     const fallbackResponse = await axios.get<StrapiResponse<T>>(`${BASE_API_URL}/${contentType}`, {
 //       params: { ...queryParams, locale: fallbackLocale },
 //     });
 
@@ -56,7 +56,7 @@ const BASE_URL = process.env.NEXT_PUBLIC_API_URL!
 
 //     console.warn(`No ${contentType} data found in both ${requestedLocale} and ${fallbackLocale}. Fetching from ANY available locale.`);
 
-//     const anyLocaleResponse = await axios.get<StrapiResponse<T>>(`${BASE_URL}/${contentType}`, {
+//     const anyLocaleResponse = await axios.get<StrapiResponse<T>>(`${BASE_API_URL}/${contentType}`, {
 //       params: { ...queryParams, locale: undefined },
 //     });
 
@@ -110,7 +110,7 @@ export async function fetchStrapiData<T>(
       populate: params.populate || "*",
     };
 
-    const response = await axios.get<StrapiResponse<T>>(`${BASE_URL}/${contentType}`, { params: queryParams });
+    const response = await axios.get<StrapiResponse<T>>(`${BASE_API_URL}/${contentType}`, { params: queryParams });
 
     if (response.data?.data?.length > 0) {
       return response.data;
@@ -118,7 +118,7 @@ export async function fetchStrapiData<T>(
 
     console.warn(`No ${contentType} data found in ${requestedLocale}. Fetching fallback from '${fallbackLocale}'.`);
 
-    const fallbackResponse = await axios.get<StrapiResponse<T>>(`${BASE_URL}/${contentType}`, {
+    const fallbackResponse = await axios.get<StrapiResponse<T>>(`${BASE_API_URL}/${contentType}`, {
       params: { ...queryParams, locale: fallbackLocale },
     });
 
@@ -128,7 +128,7 @@ export async function fetchStrapiData<T>(
 
     console.warn(`No ${contentType} data found in both ${requestedLocale} and ${fallbackLocale}. Fetching from ANY available locale.`);
 
-    const anyLocaleResponse = await axios.get<StrapiResponse<T>>(`${BASE_URL}/${contentType}`, {
+    const anyLocaleResponse = await axios.get<StrapiResponse<T>>(`${BASE_API_URL}/${contentType}`, {
       params: { ...queryParams, locale: undefined },
     });
 
@@ -164,7 +164,7 @@ export async function fetchSpeciesData(locale: string, pageSize: number = 25, fi
 
     const query = qs.stringify(queryParams, { encode: false });
 
-    const requestUrl = `${BASE_URL}/species?${query}`;
+    const requestUrl = `${BASE_API_URL}/species?${query}`;
 
     const response = await fetch(requestUrl, {
       method: "GET",
@@ -185,6 +185,25 @@ export async function fetchSpeciesData(locale: string, pageSize: number = 25, fi
     return null;
   }
 }
+
+
+export const getSinglePage = async <T>(
+  path: string,
+  locale: string,
+  params?: string
+): Promise<StrapiResponse<T>> => {
+  try {
+    const response = await axios.get<StrapiResponse<T>>(
+      `${BASE_API_URL}/${path}?locale=${locale}&${params}`
+    );
+    return response.data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      throw new Error(error.response?.data?.message || "API request failed");
+    }
+    throw new Error("Unexpected error occurred");
+  }
+};
 
 
 
