@@ -26,7 +26,11 @@ export default async function HomePage({ params }: { params: { locale: string } 
   return (
     <Container>
       <AppTitle />
+      <h1>hero section</h1>
+      <h1>species list grid (last added)</h1>
       <HomePageMap data={latLngArray as [number, number][]} />
+      <h1>latest reports</h1>
+      <h1>user contributions</h1>
     </Container>
   );
 }
