@@ -7,6 +7,7 @@ import L from "leaflet";
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet'
 import MarkerClusterGroup from "react-leaflet-markercluster";
 import { useTranslations } from 'next-intl';
+import { TriangleAlertIcon } from 'lucide-react';
 
 import {
     Dialog,
@@ -64,11 +65,13 @@ const CustomButton = () => {
     return (
         <Dialog open={isOpen} onOpenChange={setIsOpen}>
             <DialogContent>
-                <DialogTitle className='sr-only'>Map help modal</DialogTitle>
+                <DialogTitle className='flex items-center gap-2'>
+                    <TriangleAlertIcon /> {t("attention")}
+                </DialogTitle>
                 <DialogDescription className='sr-only'>
                     Modal description
                 </DialogDescription>
-                <p className='mt-4'>{t("map_description")} <Link href={"/species-list"} className='text-sky-800'>{t("map_read_more")}</Link></p>
+                <p className='mt-2'>{t("map_description")} <Link href={"/species-list"} className='text-sky-800'>{t("map_read_more")}</Link></p>
             </DialogContent>
         </Dialog>
     );

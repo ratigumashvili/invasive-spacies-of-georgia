@@ -5,6 +5,7 @@
       "version": "Vers. 1.0",
       "loading": "Loading address...",
       "readMore": "Read more",
+      "attention": "Attention",
       "map_description": "Map only shows last added species. To see whole list of records, navigate to",
       "map_read_more": " Species list"
     },
