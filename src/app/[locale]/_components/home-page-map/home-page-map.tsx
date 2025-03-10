@@ -8,6 +8,13 @@ import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet'
 import MarkerClusterGroup from "react-leaflet-markercluster";
 import { useTranslations } from 'next-intl';
 
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogTitle,
+} from "@/components/ui/dialog"
+
 import { useLocation } from '@/hooks/use-location';
 
 const center = [42.021748359530285, 43.58942280074164]
@@ -18,7 +25,10 @@ const customIcon = new Icon({
 })
 
 const CustomButton = () => {
+    const [isOpen, setIsOpen] = useState(false)
+
     const map = useMap();
+    const t = useTranslations("Common")
 
     useEffect(() => {
         const customControl = new L.Control({ position: "topleft" });
@@ -38,6 +48,7 @@ const CustomButton = () => {
 
             button.onclick = () => {
                 console.log("clicked")
+                setIsOpen((prev) => !prev)
             };
 
             return container;
@@ -50,7 +61,17 @@ const CustomButton = () => {
         };
     }, [map]);
 
-    return null;
+    return (
+        <Dialog open={isOpen} onOpenChange={setIsOpen}>
+            <DialogContent>
+                <DialogTitle className='sr-only'>Map help modal</DialogTitle>
+                <DialogDescription className='sr-only'>
+                    Modal description
+                </DialogDescription>
+                <p className='mt-4'>{t("map_description")} <Link href={"/species-list"} className='text-sky-800'>{t("map_read_more")}</Link></p>
+            </DialogContent>
+        </Dialog>
+    );
 };
 
 export default function HomePageMap({ data }: { data: [number, number][] }) {
@@ -79,45 +100,43 @@ export default function HomePageMap({ data }: { data: [number, number][] }) {
     }, [data]);
 
     return (
-        <>
-            <MapContainer
-                className='w-full h-[400px] z-0'
-                center={center as LatLngExpression}
-                zoom={7}
-                scrollWheelZoom={false}
-            >
-                <TileLayer
-                    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                />
+        <MapContainer
+            className='w-full h-[400px] z-0'
+            center={center as LatLngExpression}
+            zoom={7}
+            scrollWheelZoom={false}
+        >
+            <TileLayer
+                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            />
 
-                <CustomButton />
+            <CustomButton />
 
-                <MarkerClusterGroup>
-                    {data.map((marker, index) => (
-                        <Marker
-                            key={index}
-                            position={marker}
-                            icon={customIcon}
-                        >
-                            <Popup>
-                                {markerAddresses[`${marker[0]},${marker[1]}`] || t("loading")}
+            <MarkerClusterGroup>
+                {data.map((marker, index) => (
+                    <Marker
+                        key={index}
+                        position={marker}
+                        icon={customIcon}
+                    >
+                        <Popup>
+                            {markerAddresses[`${marker[0]},${marker[1]}`] || t("loading")}
 
-                                {markerAddresses[`${marker[0]},${marker[1]}`] && (
-                                    <Link
-                                        href={`/search?coordinates=${marker}`}
-                                        className="block my-2 !text-sky-800 !hover:text-red-600 transition"
-                                    >
-                                        {t("readMore")}
-                                    </Link>
-                                )}
-                            </Popup>
+                            {markerAddresses[`${marker[0]},${marker[1]}`] && (
+                                <Link
+                                    href={`/search?coordinates=${marker}`}
+                                    className="block my-2 !text-sky-800 !hover:text-red-600 transition"
+                                >
+                                    {t("readMore")}
+                                </Link>
+                            )}
+                        </Popup>
 
-                        </Marker>
-                    ))}
-                </MarkerClusterGroup>
+                    </Marker>
+                ))}
+            </MarkerClusterGroup>
 
-            </MapContainer>
-        </>
+        </MapContainer>
     )
 }
