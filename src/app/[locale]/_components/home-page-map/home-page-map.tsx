@@ -132,11 +132,9 @@ export default function HomePageMap({ data }: { data: [number, number][] }) {
                                 </Link>
                             )}
                         </Popup>
-
                     </Marker>
                 ))}
             </MarkerClusterGroup>
-
         </MapContainer>
     )
 }
