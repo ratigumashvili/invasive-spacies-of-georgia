@@ -3,7 +3,7 @@ import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 
-import { firaGo } from "@/lib/fonts"
+import { firaGo, bpgNino } from "@/lib/fonts"
 
 import { Navbar } from "@/app/[locale]/_components/navbar"
 import { Footer } from '@/app/[locale]/_components/footer';
@@ -36,11 +36,14 @@ export default async function LocaleLayout({
   const messages = await getMessages();
 
   return (
-    <html lang={locale} className={`${firaGo.variable}`}>
-      <body>
-        <NextIntlClientProvider messages={messages}>
+    <html lang={locale}>
+      <body className={`${firaGo.variable} ${bpgNino.variable}`}>
+        <NextIntlClientProvider messages={messages}> 
           <div className='h-full flex flex-col mx-auto'>
             <Navbar locale={locale as "en" | "ka"} />
+            <h1 className="font-bpgNino font-bold text-2xl">ტესტი</h1>
+            <h1 style={{fontFamily: 'bpgNino'}}>tets ტესტი</h1>
+            <pre>{JSON.stringify(bpgNino, null, 2)}</pre>
             <main>{children}</main>
             <Footer />
           </div>

@@ -18,7 +18,8 @@ module.exports = {
         foreground: "hsl(var(--foreground))",
       },
       fontFamily: {
-        firaGo: ["var(--font-firaGo)", "sans-serif"], // Add fallback
+        firaGo: ["var(--font-firaGo)", "sans-serif"],
+        bpgNino: ["var(--font-bpgNino)", "sans-serif"],
       },
     },
   },

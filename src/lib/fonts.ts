@@ -14,3 +14,14 @@ export const firaGo = localFont({
     ],
     variable: "--font-firaGo",
 });
+
+export const bpgNino = localFont({
+    src: [
+        { path: "/fonts/bpg_nino_300.woff2", weight: "300" },
+        { path: "/fonts/bpg_nino_400.woff2", weight: "400" },
+        { path: "/fonts/bpg_nino_700.woff2", weight: "700" },
+    ],
+    variable: "--font-bpgNino",
+});
+
+
