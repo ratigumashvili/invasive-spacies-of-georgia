@@ -19,7 +19,7 @@ import {
 import { Button } from "@/components/ui/button"
 
 import { LocaleType } from "@/types/language-types"
-import { cn } from "@/lib/utils"
+import { cn, generateFontByLocale } from "@/lib/utils"
 
 
 const topMenu = [
@@ -131,7 +131,7 @@ export function Navbar({ locale }: { locale: LocaleType }) {
                         </Link>
                         <h1 className={cn(
                             "hidden sm:block text-2xl font-medium uppercase w-[350px]",
-                            locale === "ka" ? "font-bpgNino" : "font-arial"
+                            generateFontByLocale(locale)
                         )}>{t("isu_full")}</h1>
                     </div>
                     <Sheet>
