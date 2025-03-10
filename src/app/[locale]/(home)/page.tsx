@@ -4,7 +4,9 @@ import HomePageMap from "@/app/[locale]/_components/home-page-map";
 
 import { fetchSpeciesData, getSinglePage } from "@/lib/api-calls";
 
-import { HomePageData } from '@/types/single-types';
+import { HomePageData, ImageData } from '@/types/single-types';
+import { HomePageSlider } from '../_components/home-page-slider';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 export default async function HomePage({ params }: { params: { locale: string } }) {
 
@@ -33,16 +35,30 @@ export default async function HomePage({ params }: { params: { locale: string } 
 
   return (
     <Container>
-      <AppTitle
-        title={data?.title}
-        subtitle={data?.subtitle}
-        version={data?.version}
-      />
-      <pre>
-        {JSON.stringify(data, null, 2)}
-      </pre>
-      <h1>hero section</h1>
-      <h1>species list grid (last added)</h1>
+      <div className='relative mb-8'>
+        <div className='absolute z-50 top-4 left-4 right-4 md:right-auto'>
+          <AppTitle
+            title={data?.title}
+            subtitle={data?.subtitle}
+            version={data?.version}
+          />
+        </div>
+        <HomePageSlider images={data?.images} />
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
+        {Array.from({ length: 3 }).map((_, index) => (
+          <Card key={index} className='h-[300px] bg-slate-100 rounded-none col-span-1'>
+            <CardHeader>
+              <CardTitle>Text</CardTitle>
+            </CardHeader>
+            <CardContent>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+
+
       <HomePageMap data={latLngArray as [number, number][]} />
       <h1>latest reports</h1>
       <h1>user contributions</h1>

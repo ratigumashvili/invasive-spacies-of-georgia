@@ -14,7 +14,7 @@ export function AppTitle({ title, subtitle, version }: AppTitleProps) {
     const t = useTranslations("Common")
 
     return (
-        <div className="flex flex-col mb-8">
+        <div className="flex flex-col bg-white/80 p-4">
             <h1 className={cn(
                 "text-4xl racking-tight font-semibold uppercase",
                 generateFontByLocale(locale)
