@@ -88,7 +88,7 @@ export function Navbar({ locale }: { locale: LocaleType }) {
 
     return (
         <header>
-            <div className="bg-red-700 text-white py-2">
+            <div className="bg-sky-800 text-white py-2">
                 <nav className="flex flex-col md:flex-row items-center justify-between w-full max-w-7xl mx-auto px-4 sm:px-8">
                     <div className="flex items-center justify-center flex-wrap gap-x-2 gap-y-2 md:gap-y-0 mb-4 md:mb-0">
                         <div className="flex gap-x-2 items-center">
@@ -111,13 +111,13 @@ export function Navbar({ locale }: { locale: LocaleType }) {
                     <div className="flex items-center gap-x-2">
                         <LanguageSwitcher locale={locale} />
                         <p className="flex items-center">
-                        <SearchIcon className="w-4 h-4 mr-2" /> 
-                        <Link href={"/search"}>{t("search")}</Link>
+                            <SearchIcon className="w-4 h-4 mr-2" />
+                            <Link href={"/search"}>{t("search")}</Link>
                         </p>
                     </div>
                 </nav>
             </div>
-            <div className="bg-red-800 text-white shadow-lg shadow-gray-300">
+            <div className="bg-sky-900 text-white shadow-lg shadow-gray-300">
                 <div className="w-full max-w-7xl mx-auto py-8 px-4 sm:px-8 flex items-center justify-between">
                     <div className="flex items-center gap-3">
                         <Link href={"/"}>
@@ -129,7 +129,10 @@ export function Navbar({ locale }: { locale: LocaleType }) {
                                 priority
                             />
                         </Link>
-                        <h1 className="hidden sm:block text-2xl font-bpgNino font-medium uppercase w-[350px]">{t("isu_full")}</h1>
+                        <h1 className={cn(
+                            "hidden sm:block text-2xl font-medium uppercase w-[350px]",
+                            locale === "ka" ? "font-bpgNino" : "font-arial"
+                        )}>{t("isu_full")}</h1>
                     </div>
                     <Sheet>
                         <SheetTrigger className="cursor-pointer">

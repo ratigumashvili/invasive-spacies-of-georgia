@@ -38,10 +38,9 @@ export default async function LocaleLayout({
   return (
     <html lang={locale}>
       <body className={`${firaGo.variable} ${bpgNino.variable} ${arial.variable}`}>
-        <NextIntlClientProvider messages={messages}> 
+        <NextIntlClientProvider messages={messages}>
           <div className='h-full flex flex-col mx-auto'>
             <Navbar locale={locale as "en" | "ka"} />
-            <h1 className='font-arial text-2xl'>test</h1>
             <main>{children}</main>
             <Footer />
           </div>
