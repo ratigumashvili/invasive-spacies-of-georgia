@@ -1,9 +1,9 @@
 import { BlocksRenderer, type BlocksContent } from '@strapi/blocks-react-renderer';
 
+import { Separator } from '@/components/ui/separator';
 import Container from "@/app/[locale]/_components/container"
 
 import { getEvents } from "@/lib/api-calls"
-import { Separator } from '@/components/ui/separator';
 
 export default async function SingleEventPage({ params }: { params: { locale: string, slug: string } }) {
 
