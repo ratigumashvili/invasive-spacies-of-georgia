@@ -3,6 +3,7 @@ import HomePageMap from "@/app/[locale]/_components/home-page-map";
 import { AppTitle } from "@/app/[locale]/_components/app-title";
 import { HomePageSlider } from "@/app/[locale]/_components/home-page-slider";
 import { HomePageActions } from "@/app/[locale]/_components/home-page-actions";
+import { HomePageBlocks } from '@/app/[locale]/_components/home-page-blocks';
 
 import { fetchSpeciesData, getSinglePage } from "@/lib/api-calls";
 
@@ -47,6 +48,8 @@ export default async function HomePage({ params }: { params: { locale: string } 
       </div>
 
      <HomePageActions />
+
+     <HomePageBlocks />
 
       <HomePageMap data={latLngArray as [number, number][]} />
       <h1>latest reports</h1>
