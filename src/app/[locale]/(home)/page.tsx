@@ -5,7 +5,7 @@ import { HomePageSlider } from "@/app/[locale]/_components/home-page-slider";
 import { HomePageActions } from "@/app/[locale]/_components/home-page-actions";
 import { HomePageBlocks } from '@/app/[locale]/_components/home-page-blocks';
 
-import { fetchSpeciesData, getSinglePage } from "@/lib/api-calls";
+import { fetchSpeciesData, getEvents, getSinglePage } from "@/lib/api-calls";
 
 import { HomePageData, } from '@/types/single-types';
 
@@ -20,6 +20,7 @@ export default async function HomePage({ params }: { params: { locale: string } 
   };
 
   const data = await fetchHomePageData(locale)
+  const events = await getEvents(locale)
 
   const coordinates: string[] = response?.data?.length
     ? response.data.map((item: any) => (item.coordinates))
@@ -47,9 +48,13 @@ export default async function HomePage({ params }: { params: { locale: string } 
         <HomePageSlider images={data?.images} />
       </div>
 
-     <HomePageActions />
+      <pre>{JSON.stringify(events.data, null, 2)}</pre>
 
-     <HomePageBlocks />
+      <HomePageActions />
+
+      <HomePageBlocks
+        events={events}
+      />
 
       <HomePageMap data={latLngArray as [number, number][]} />
       <h1>latest reports</h1>

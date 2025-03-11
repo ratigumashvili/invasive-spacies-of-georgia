@@ -125,7 +125,7 @@ export const getSinglePage = async <T>(
       `${BASE_API_URL}/${path}?locale=${locale}&${params}`
     );
 
-    return response.data.data as T; // ✅ Ensures TypeScript recognizes the return type
+    return response.data.data as T;
   } catch (error) {
     if (axios.isAxiosError(error)) {
       throw new Error(error.response?.data?.message || "API request failed");
@@ -133,6 +133,39 @@ export const getSinglePage = async <T>(
     throw new Error("Unexpected error occurred");
   }
 };
+
+export async function getEvents(locale: string, pageSize: number = 25, filter?: string,) {
+  try {
+    const queryParams = {
+      fields: ["documentId", "title", "location", "description", "year", "startDate", "endDate", "startMonth", "endMonth"],
+      "pagination[pageSize]": pageSize,
+      locale,
+      filter,
+    };
+
+    const query = qs.stringify(queryParams, { encode: false });
+
+    const requestUrl = `${BASE_API_URL}/events?${query}`;
+
+    const response = await fetch(requestUrl, {
+      method: "GET",
+      headers: {
+        "Accept": "application/json"
+      }
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(`Failed to fetch events: ${errorData.error?.message || response.statusText}`);
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error: any) {
+    console.error("Error fetching events data:", error.message);
+    return null;
+  }
+}
 
 
 
