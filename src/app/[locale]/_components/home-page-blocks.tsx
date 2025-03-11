@@ -1,4 +1,5 @@
 import { CalendarItem } from "@/app/[locale]/_components/calendar-item";
+import { EventItem } from "@/types/event-item";
 
 const monthOrder: Record<string, number> = {
     January: 1,
@@ -15,19 +16,22 @@ const monthOrder: Record<string, number> = {
     December: 12,
 };
 
-interface CalendarItemProps {
-    id: string,
-    documentId: string,
-    startDate: string,
-    endDate?: string,
-    startMonth: string,
-    endMonth?: string,
-    year: string,
-    title: string,
-    location: string
-}
+interface HomePageBlocksProps {
+    events: {
+      data: EventItem[];
+      meta: {
+        pagination: {
+          page: number;
+          pageSize: number;
+          pageCount: number;
+          total: number;
+        };
+      };
+    } | null;
+  }
 
-export async function HomePageBlocks({ events }: any) {
+
+export async function HomePageBlocks({ events }: HomePageBlocksProps) {
 
     return (
         <div className="flex flex-col md:flex-row gap-4 mb-8">
@@ -41,7 +45,7 @@ export async function HomePageBlocks({ events }: any) {
                 <h2 className="text-xl">Events</h2>
                 {events?.data
                     ?.sort((a: any, b: any) => (monthOrder[a.startMonth] || 0) - (monthOrder[b.startMonth] || 0))
-                    .map((event: CalendarItemProps) => (
+                    .map((event) => (
                         <CalendarItem
                             key={event.documentId}
                             id={event.documentId}

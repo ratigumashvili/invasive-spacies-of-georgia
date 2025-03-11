@@ -1,17 +1,20 @@
+import { EventItem } from "@/types/event-item";
 import axios from "axios";
 import qs from "query-string";
 
 const BASE_API_URL = process.env.NEXT_PUBLIC_API_URL!
 
+interface PaginationMeta {
+  page: number;
+  pageSize: number;
+  pageCount: number;
+  total: number;
+}
+
 interface StrapiResponse<T> {
   data: T[];
   meta: {
-    pagination?: {
-      page: number;
-      pageSize: number;
-      pageCount: number;
-      total: number;
-    };
+    pagination: PaginationMeta;
   };
 }
 
@@ -134,10 +137,24 @@ export const getSinglePage = async <T>(
   }
 };
 
-export async function getEvents(locale: string, pageSize: number = 25, filter?: string,) {
+export async function getEvents(
+  locale: string,
+  pageSize: number = 25,
+  filter?: string
+): Promise<StrapiResponse<EventItem> | null> {
   try {
     const queryParams = {
-      fields: ["documentId", "title", "location", "description", "year", "startDate", "endDate", "startMonth", "endMonth"],
+      fields: [
+        "documentId",
+        "title",
+        "location",
+        "description",
+        "year",
+        "startDate",
+        "endDate",
+        "startMonth",
+        "endMonth"
+      ],
       "pagination[pageSize]": pageSize,
       locale,
       filter,
@@ -150,8 +167,8 @@ export async function getEvents(locale: string, pageSize: number = 25, filter?: 
     const response = await fetch(requestUrl, {
       method: "GET",
       headers: {
-        "Accept": "application/json"
-      }
+        "Accept": "application/json",
+      },
     });
 
     if (!response.ok) {
@@ -159,13 +176,14 @@ export async function getEvents(locale: string, pageSize: number = 25, filter?: 
       throw new Error(`Failed to fetch events: ${errorData.error?.message || response.statusText}`);
     }
 
-    const data = await response.json();
+    const data: StrapiResponse<EventItem> = await response.json();
     return data;
   } catch (error: any) {
     console.error("Error fetching events data:", error.message);
     return null;
   }
 }
+
 
 
 

@@ -7,11 +7,11 @@ import { useLocale } from "next-intl"
 
 interface CalendarItemProps {
     id: string,
-    start: string,
-    end?: string,
+    start: number,
+    end?: number,
     startMonth: string,
     endMonth?: string,
-    year: string,
+    year: number,
     title: string,
     location: string
 }
