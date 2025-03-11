@@ -20,7 +20,7 @@ export async function HomePageBlocks({ events }: HomePageBlocksProps) {
                 <h2 className="text-xl">Species Factsheets</h2>
             </div>
             <div className="flex flex-col gap-2 flex-1">
-                <h2 className="text-xl font-medium mb-3">Events</h2>
+                <h2 className="text-xl font-medium mb-3">{t("upcomming_events")}</h2>
                 <Card className="rounded-none bg-slate-50">
                     <CardHeader className="sr-only">
                         <CardTitle className="text-xl">
