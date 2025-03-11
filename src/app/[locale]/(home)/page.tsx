@@ -48,8 +48,6 @@ export default async function HomePage({ params }: { params: { locale: string } 
         <HomePageSlider images={data?.images} />
       </div>
 
-      {/* <pre>{JSON.stringify(events.data, null, 2)}</pre> */}
-
       <HomePageActions />
 
       <HomePageBlocks
