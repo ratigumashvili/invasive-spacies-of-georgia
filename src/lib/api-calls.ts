@@ -140,7 +140,7 @@ export const getSinglePage = async <T>(
 export async function getEvents(
   locale: string,
   pageSize: number = 25,
-  filter?: string
+  filter?: string | null,
 ): Promise<StrapiResponse<EventItem> | null> {
   try {
     const queryParams = {
