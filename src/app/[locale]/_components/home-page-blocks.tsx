@@ -1,4 +1,5 @@
 import { CalendarItem } from "@/app/[locale]/_components/calendar-item";
+
 import { EventItem } from "@/types/event-item";
 
 const monthOrder: Record<string, number> = {
@@ -56,7 +57,7 @@ export async function HomePageBlocks({ events }: HomePageBlocksProps) {
                             title={event.title}
                             location={event.location}
                         />
-                    ))}
+                    )).slice(0, 3)}
             </div>
         </div>
     )
