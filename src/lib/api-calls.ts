@@ -145,6 +145,7 @@ export async function getEvents(
   try {
     const queryParams = {
       fields: [
+        "slug",
         "documentId",
         "title",
         "location",

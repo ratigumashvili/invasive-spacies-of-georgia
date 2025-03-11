@@ -1,7 +1,8 @@
 import { StrapiRichText } from "./rich-text-blocks";
 
 export interface EventItem {
-    id: number;
+    id: string;
+    slug: string,
     documentId: string;
     title: string;
     location: string;
