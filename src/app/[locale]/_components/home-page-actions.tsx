@@ -80,15 +80,15 @@ export function HomePageActions() {
     return (
         <div className="flex flex-col md:flex-row gap-4 mb-8">
             {items.map((item) => (
-                <Card key={item.id} className='bg-slate-100 rounded-none flex-1 border-sky-800'>
+                <Card key={item.id} className='bg-slate-100 rounded-none flex-1 border-sky-800 border-l-10'>
                     <CardHeader>
                         <CardTitle className={`${generateFontByLocale(locale)} text-xl uppercase`}>{t(item.title)}</CardTitle>
                     </CardHeader>
                     <CardContent>
                         <ul className='flex flex-col gap-2'>
                             {item.list.map((listItem) => (
-                                <li key={listItem.id}>
-                                    <Link href={listItem.path} className='link'>
+                                <li key={listItem.id} className="hover:translate-x-3 transition-transform">
+                                    <Link href={listItem.path} className='link block'>
                                         {t(listItem.title)}
                                     </Link>
                                 </li>
