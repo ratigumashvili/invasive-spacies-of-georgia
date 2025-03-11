@@ -1,23 +1,37 @@
+import { BlocksRenderer, type BlocksContent } from '@strapi/blocks-react-renderer';
+
 import Container from "@/app/[locale]/_components/container"
+
 import { getEvents } from "@/lib/api-calls"
-import qs from "query-string";
+import { Separator } from '@/components/ui/separator';
 
-export default async function SingleEventPage ({params}: {params: {locale: string, slug: string}}) {
+export default async function SingleEventPage({ params }: { params: { locale: string, slug: string } }) {
 
-    const {locale, slug} = await params
+    const { locale, slug } = await params
 
     const filter = `&filters[$and][0][slug][$eq]=${slug}`
 
     const events = await getEvents(locale, 1, filter)
 
+    let content: BlocksContent = [];
+
+    if (events?.data[0]?.description) {
+        content = events.data[0].description as BlocksContent ?? [];
+    }
+
     return (
         <Container>
-            <pre>
-                locale: {JSON.stringify(locale)}
-                slug: {JSON.stringify(slug)}
-                <br /><br /><br />
-                {JSON.stringify(events, null, 2)}
-            </pre>
+            <h1 className='text-2xl font-medium mb-1'>{events?.data[0]?.title}</h1>
+            <h2 className='text-muted-foreground text-sm'>
+                {events?.data[0]?.location},{" "}
+                {events?.data[0]?.endMonth
+                    ? `${events?.data[0]?.startDate} ${events?.data[0]?.startMonth} - ${events?.data[0]?.endDate} ${events?.data[0]?.endMonth}`
+                    : `${events?.data[0]?.startDate} - ${events?.data[0]?.endDate} ${events?.data[0]?.startMonth}`
+                }, {events?.data[0]?.year}
+
+            </h2>
+            <Separator className='my-4' />
+            <BlocksRenderer content={content} />
         </Container>
     )
 
