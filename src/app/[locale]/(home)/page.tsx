@@ -1,6 +1,6 @@
 import Container from '@/app/[locale]/_components/container';
-import { AppTitle } from "@/app/[locale]/_components/app-title";
 import HomePageMap from "@/app/[locale]/_components/home-page-map";
+import { AppTitle } from "@/app/[locale]/_components/app-title";
 import { HomePageSlider } from "@/app/[locale]/_components/home-page-slider";
 import { HomePageActions } from "@/app/[locale]/_components/home-page-actions";
 
