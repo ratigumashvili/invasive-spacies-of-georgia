@@ -51,7 +51,7 @@ body {
   [&>li]:mb-1
   [&>blockquote]:border-l-4 [&>blockquote]:border-gray-400 [&>blockquote]:pl-4 [&>blockquote]:italic [&>blockquote]:mb-4
   [&>pre]:bg-gray-900 [&>pre]:text-white [&>pre]:p-4 [&>pre]:rounded-lg [&>pre]:overflow-x-auto [&>pre]:mb-4
-  [&>p>code]:bg-gray-200 [&>p>code]:text-red-600 [&>p>code]:px-1 [&>p>code]:py-0.5 [&>p>code]:rounded
+  [&>p>code]:bg-gray-200 [&>p>code]:text-sky-800 [&>p>code]:px-1 [&>p>code]:py-0.5 [&>p>code]:rounded
   [&>table]:w-full [&>table]:border-collapse [&>table]:mb-4
   [&>thead]:bg-gray-200 [&>thead]:text-left
   [&>th]:px-3 [&>th]:py-2 [&>th]:border [&>th]:border-gray-300
