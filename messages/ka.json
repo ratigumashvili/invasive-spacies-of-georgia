@@ -35,6 +35,7 @@
     },
     "actions": {
       "explore_ISG_data": "აღმოაჩინეთ ISG მონაცემები",
+      "documents": "დოკუმენტები",
       "legal_docs": "სამართლებრივი დოკუმენტები",
       "scientific_literature": "სამეცნიერო ლიტერატურა",
       "research": "კვლევები",

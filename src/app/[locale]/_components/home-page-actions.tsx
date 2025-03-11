@@ -9,7 +9,7 @@ import { generateFontByLocale } from "@/lib/utils";
 const items = [
     {
         id: 1,
-        title: "explore_ISG_data",
+        title: "documents",
         list: [
             {
                 id: 1.1,
@@ -30,7 +30,7 @@ const items = [
     },
     {
         id: 2,
-        title: "citizen_science",
+        title: "explore_ISG_data",
         list: [
             {
                 id: 2.1,
@@ -51,7 +51,7 @@ const items = [
     },
     {
         id: 3,
-        title: "join_our_network",
+        title: "citizen_science",
         list: [
             {
                 id: 3.1,
@@ -82,7 +82,7 @@ export function HomePageActions() {
             {items.map((item) => (
                 <Card key={item.id} className='bg-slate-100 rounded-none flex-1 border-sky-800'>
                     <CardHeader>
-                        <CardTitle className={`${generateFontByLocale(locale)} text-xl`}>{t(item.title)}</CardTitle>
+                        <CardTitle className={`${generateFontByLocale(locale)} text-xl uppercase`}>{t(item.title)}</CardTitle>
                     </CardHeader>
                     <CardContent>
                         <ul className='flex flex-col gap-2'>

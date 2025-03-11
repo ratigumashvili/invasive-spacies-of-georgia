@@ -35,6 +35,7 @@
   },
   "actions": {
     "explore_ISG_data": "Explore ISG data",
+    "documents": "Documents",
     "legal_docs": "Legal Documents",
     "scientific_literature": "Scientific literature",
     "research": "Research",
