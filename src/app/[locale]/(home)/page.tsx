@@ -3,7 +3,7 @@ import HomePageMap from "@/app/[locale]/_components/home-page-map";
 import { AppTitle } from "@/app/[locale]/_components/app-title";
 import { HomePageSlider } from "@/app/[locale]/_components/home-page-slider";
 import { HomePageActions } from "@/app/[locale]/_components/home-page-actions";
-import { HomePageBlocks } from '@/app/[locale]/_components/home-page-blocks';
+import { HomePageBlocks } from '@/app/[locale]/_components/home-page-blocks/home-page-blocks';
 
 import { fetchSpeciesData, getEvents, getSinglePage } from "@/lib/api-calls";
 
