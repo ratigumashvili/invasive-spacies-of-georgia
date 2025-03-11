@@ -31,7 +31,9 @@ export default async function SingleEventPage({ params }: { params: { locale: st
 
             </h2>
             <Separator className='my-4' />
-            <BlocksRenderer content={content} />
+            <div className='rich-text'>
+                <BlocksRenderer content={content} />
+            </div>
         </Container>
     )
 
