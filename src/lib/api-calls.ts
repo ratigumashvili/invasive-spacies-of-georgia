@@ -1,4 +1,5 @@
 import { EventItem } from "@/types/event-item";
+import { SpeciesResponse } from "@/types/taxonomy-types";
 import axios from "axios";
 import qs from "query-string";
 
@@ -80,11 +81,11 @@ export async function fetchSpeciesData(locale: string, pageSize: number = 25, fi
   try {
     const queryParams = {
       fields: [
-         "autorName", "locale", "name", "ecologicalGroup", "coordinates", "firstIntroduced", "isNew", "dateOfDetection"
+        "autorName", "locale", "name", "ecologicalGroup", "coordinates", "firstIntroduced", "isNew", "dateOfDetection"
       ],
 
       "populate[image][fields]": ["documentId", "alternativeText", "caption", "width", "height", "url"],
-      
+
       "populate[kingdom][fields]": ["name", "slug"],
       "populate[phylum][fields]": ["name", "slug"],
       "populate[class][fields]": ["name", "slug"],
@@ -98,14 +99,11 @@ export async function fetchSpeciesData(locale: string, pageSize: number = 25, fi
     };
 
     const query = qs.stringify(queryParams, { encode: false });
-
     const requestUrl = `${BASE_API_URL}/species?${query}`;
 
     const response = await fetch(requestUrl, {
       method: "GET",
-      headers: {
-        "Accept": "application/json"
-      }
+      headers: { "Accept": "application/json" }
     });
 
     if (!response.ok) {
@@ -113,13 +111,14 @@ export async function fetchSpeciesData(locale: string, pageSize: number = 25, fi
       throw new Error(`Failed to fetch species: ${errorData.error?.message || response.statusText}`);
     }
 
-    const data = await response.json();
+    const data: SpeciesResponse = await response.json();
     return data;
   } catch (error: any) {
     console.error("Error fetching species data:", error.message);
-    return null;
+    return { data: [], meta: { pagination: { page: 1, pageSize: 25, pageCount: 1, total: 0 } } };
   }
 }
+
 
 export const getSinglePage = async <T>(
   path: string,
