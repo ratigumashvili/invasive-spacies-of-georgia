@@ -17,7 +17,8 @@
     "first_introduced": "პირველი შემოყვანის წელი",
     "details_on_specie": "სახეობა დაწვრილებით",
     "speciesAlert": "სახეობის შეტყობინება",
-    "date_detected": "დაფიქსირების თარიღი"
+    "date_detected": "დაფიქსირების თარიღი",
+    "nothing_found": "ჩანაწერი არ მოიძებნა"
   },
   "Footer": {
     "isu_full": "ილიას სახელმწიფო უნივერსიტეტი",

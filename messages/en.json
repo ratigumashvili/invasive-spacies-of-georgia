@@ -17,7 +17,8 @@
     "first_introduced": "Introduced in Georgia",
     "details_on_specie": "More details on this specie",
     "speciesAlert": "Species Alert",
-    "date_detected": "Date detected"
+    "date_detected": "Date detected",
+    "nothing_found": "Nothing found"
   },
   "Footer": {
     "isu_full": "Ilia State University",
