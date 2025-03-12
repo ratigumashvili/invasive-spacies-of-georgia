@@ -201,7 +201,7 @@ export async function fetchRandomSpecie(locale: string) {
 
     const queryParams = {
       fields: ["autorName", "locale", "name", "slug", "ecologicalGroup", "firstIntroduced"],
-      "populate[image][fields]": ["alternativeText", "width", "height", "url"],
+      "populate[image][fields]": ["alternativeText", "caption", "width", "height", "url"],
       "filters[image][url][$ne]": null,
       "pagination[pageSize]": 1,
       "pagination[page]": randomPage,

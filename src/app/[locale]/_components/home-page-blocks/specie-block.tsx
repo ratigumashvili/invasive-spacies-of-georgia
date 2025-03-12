@@ -24,6 +24,7 @@ export function SpecieBlock({ data }: { data: SingleSpecieList }) {
                     priority
                     className="w-full he-[280px] object-contain"
                 />
+                <span className="text-xs text-muted-foreground italic px-6">{data?.image?.caption}</span>
             </CardHeader>
             <CardContent className="pb-6">
                 <dl className="data-list">

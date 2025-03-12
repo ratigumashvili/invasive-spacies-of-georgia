@@ -13,7 +13,8 @@ export interface SingleSpecieList {
 export interface Image {
     id: number,
     documentId: string,
-    alternativeText: string | null,
+    alternativeText?: string | null,
+    caption?: string,
     width: number,
     height: number,
     url: string
