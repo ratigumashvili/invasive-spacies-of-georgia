@@ -76,19 +76,21 @@ export async function fetchStrapiData<T>(
   }
 }
 
-
 export async function fetchSpeciesData(locale: string, pageSize: number = 25, filter?: string) {
   try {
     const queryParams = {
-      fields: ["documentId", "autorName", "locale", "name", "ecologicalGroup", "coordinates"],
+      fields: [
+         "autorName", "locale", "name", "ecologicalGroup", "coordinates", "firstIntroduced", "isNew", "dateOfDetection"
+      ],
 
-      "populate[kingdom][fields]": ["documentId", "name", "slug"],
-      "populate[phylum][fields]": ["documentId", "name", "slug"],
-      "populate[class][fields]": ["documentId", "name", "slug"],
-      "populate[order][fields]": ["documentId", "name", "slug"],
-      "populate[family][fields]": ["documentId", "name", "slug"],
-      "populate[genus][fields]": ["documentId", "name", "slug"],
-      "populate[image][fields]": ["documentId", "alternativeText", "width", "height", "url"],
+      "populate[image][fields]": ["documentId", "alternativeText", "caption", "width", "height", "url"],
+      
+      "populate[kingdom][fields]": ["name", "slug"],
+      "populate[phylum][fields]": ["name", "slug"],
+      "populate[class][fields]": ["name", "slug"],
+      "populate[order][fields]": ["name", "slug"],
+      "populate[family][fields]": ["name", "slug"],
+      "populate[genus][fields]": ["name", "slug"],
 
       "pagination[pageSize]": pageSize,
       locale,
