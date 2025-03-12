@@ -8,7 +8,6 @@ import { HomePageBlocks } from '@/app/[locale]/_components/home-page-blocks/home
 import { fetchRandomSpeciesWithImage, fetchSpeciesData, getEvents, getSinglePage } from "@/lib/api-calls";
 
 import { HomePageData, } from '@/types/single-types';
-import { RandomSpecie } from '@/types/random-specie';
 
 export default async function HomePage({ params }: { params: { locale: string } }) {
 
