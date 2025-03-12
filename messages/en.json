@@ -10,7 +10,12 @@
     "map_read_more": " Species list",
     "upcomming_events": "Upcoming events",
     "see_all_events": "See all events",
-    "species_factsheets": "Species Factsheets"
+    "species_factsheets": "Species Factsheets",
+    "scientific_name": "Scientific name",
+    "nat": "Name according to",
+    "eco_group": "Ecological group",
+    "first_introduced": "Introduced in Georgia",
+    "details_on_specie": "More details on this specie"
   },
   "Footer": {
     "isu_full": "Ilia State University",

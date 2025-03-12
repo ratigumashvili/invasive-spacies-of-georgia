@@ -18,9 +18,10 @@ export async function HomePageBlocks({ events, randomSpecie }: HomePageBlocksPro
             <div className="flex flex-col gap-2 flex-1">
                 <h2 className="text-xl font-medium mb-3">Species Alert</h2>
             </div>
+           
             <div className="flex flex-col gap-2 flex-1">
                 <h2 className="text-xl font-medium mb-3">{t("species_factsheets")}</h2>
-                <Card className="rounded-none bg-slate-50 p-0 flex-col h-full">
+                <Card className="rounded-none bg-slate-50 p-0 pb-6 flex-col h-full">
                     <CardHeader className="p-0">
                         <CardTitle className="text-xl sr-only">
                             {t("species_factsheets")}
@@ -35,16 +36,34 @@ export async function HomePageBlocks({ events, randomSpecie }: HomePageBlocksPro
                         />
                     </CardHeader>
                     <CardContent className="pb-6">
-                        <p>{randomSpecie?.name}</p>
-                        <p>{randomSpecie?.autorName}</p>
-                        <p>{randomSpecie?.ecologicalGroup}</p>
-                        <p>{randomSpecie?.firstIntroduced}</p>
+                        <dl className="data-list">
+                            <dt>{t("scientific_name")}:</dt>
+                            <dd>
+                                <Link href={`/species-list/${randomSpecie?.slug}`}
+                                    className="italic font-medium text-sky-800 hover:text-sky-700 hover:underline"
+                                >
+                                    {randomSpecie?.name}
+                                </Link>
+                            </dd>
+                            <dt>{t("nat")}:</dt>
+                            <dd><p>{randomSpecie?.autorName}</p></dd>
+                            <dt>{t("eco_group")}:</dt>
+                            <dd><p>{randomSpecie?.ecologicalGroup}</p></dd>
+                            <dt>{t("first_introduced")}:</dt>
+                            <dd><p>{randomSpecie?.firstIntroduced}</p></dd>
+                        </dl>
                     </CardContent>
+                    <CardFooter className="mt-auto">
+                        <Button asChild size="lg" variant="default" className="w-full lg:w-max rounded-none">
+                            <Link href={`/species-list/${randomSpecie?.slug}`}>{t("details_on_specie")}</Link>
+                        </Button>
+                    </CardFooter>
                 </Card>
             </div>
+            
             <div className="flex flex-col gap-2 flex-1 shrink-0">
                 <h2 className="text-xl font-medium mb-3">{t("upcomming_events")}</h2>
-                <Card className="rounded-none bg-slate-50">
+                <Card className="rounded-none bg-slate-50 h-full p-0 py-6">
                     <CardHeader className="sr-only">
                         <CardTitle className="text-xl">
                             {t("upcomming_events")}
@@ -53,13 +72,14 @@ export async function HomePageBlocks({ events, randomSpecie }: HomePageBlocksPro
                     <CardContent>
                         <EventBlock events={events} />
                     </CardContent>
-                    <CardFooter>
+                    <CardFooter className="mt-auto">
                         <Button asChild size="lg" variant="default" className="w-full lg:w-max rounded-none">
                             <Link href={"/events"}>{t("see_all_events")}</Link>
                         </Button>
                     </CardFooter>
                 </Card>
             </div>
+
         </div>
     )
 }

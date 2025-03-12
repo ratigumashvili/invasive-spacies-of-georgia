@@ -4,6 +4,7 @@ export interface RandomSpecie {
     autorName: string,
     locale: string,
     name: string,
+    slug: string,
     ecologicalGroup: string,
     firstIntroduced: string,
     image: Image
