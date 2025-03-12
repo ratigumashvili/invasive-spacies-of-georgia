@@ -9,7 +9,11 @@ import { fetchRandomSpecie, fetchSpeciesData, getEvents, getSinglePage } from "@
 
 import { HomePageData, } from '@/types/single-types';
 
-export default async function HomePage({ params }: { params: { locale: string } }) {
+type Props = {
+  params: Promise<{ locale: string }>
+}
+
+export default async function HomePage({ params }: Props) {
 
   const { locale } = await params
 
