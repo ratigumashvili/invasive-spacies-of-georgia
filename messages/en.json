@@ -9,7 +9,8 @@
     "map_description": "Map only shows last added species. To see whole list of records, navigate to",
     "map_read_more": " Species list",
     "upcomming_events": "Upcoming events",
-    "see_all_events": "See all events"
+    "see_all_events": "See all events",
+    "species_factsheets": "Species Factsheets"
   },
   "Footer": {
     "isu_full": "Ilia State University",
