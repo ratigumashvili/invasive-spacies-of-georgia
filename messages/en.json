@@ -22,7 +22,9 @@
   "Footer": {
     "isu_full": "Ilia State University",
     "zoology": "Institute of Zoology",
-    "address": "Address: Giorgi Tsereteli 3. Tbilisi, 0103. Block S"
+    "address": "Address: Giorgi Tsereteli 3. Tbilisi, 0103. Block S",
+    "website": "Website",
+    "url": "https://zoology.iliauni.edu.ge/en/mthavari-english/"
   },
   "Navigation": {
     "navigation": "Navigation",
