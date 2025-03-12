@@ -13,7 +13,6 @@ export async function HomePageBlocks({ events, randomSpecie }: HomePageBlocksPro
 
     const t = useTranslations("Common")
 
-
     return (
         <div className="flex flex-col lg:flex-row gap-4 mb-8">
             <div className="flex flex-col gap-2 flex-1">
@@ -40,7 +39,6 @@ export async function HomePageBlocks({ events, randomSpecie }: HomePageBlocksPro
                         <p>{randomSpecie?.autorName}</p>
                         <p>{randomSpecie?.ecologicalGroup}</p>
                         <p>{randomSpecie?.firstIntroduced}</p>
-                        <p>{JSON.stringify(BASE_URL, null, 2)}</p>
                     </CardContent>
                 </Card>
             </div>

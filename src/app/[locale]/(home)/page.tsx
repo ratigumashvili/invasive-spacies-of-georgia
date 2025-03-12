@@ -50,13 +50,11 @@ export default async function HomePage({ params }: { params: { locale: string } 
         <HomePageSlider images={data?.images} />
       </div>
 
-      <pre>{JSON.stringify(randomSpecie, null, 2)}</pre>
-
       <HomePageActions />
 
       <HomePageBlocks
-        events={events}
         randomSpecie={randomSpecie}
+        events={events}
       />
 
       <HomePageMap data={latLngArray as [number, number][]} />
