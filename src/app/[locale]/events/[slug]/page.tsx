@@ -5,7 +5,11 @@ import Container from "@/app/[locale]/_components/container"
 
 import { getEvents } from "@/lib/api-calls"
 
-export default async function SingleEventPage({ params }: { params: { locale: string, slug: string } }) {
+type Props = {
+    params: Promise<{ locale: string, slug: string }>
+  }
+
+export default async function SingleEventPage({ params }: Props) {
 
     const { locale, slug } = await params
 
