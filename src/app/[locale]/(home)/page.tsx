@@ -54,10 +54,6 @@ export default async function HomePage({ params }: Props) {
         <HomePageSlider images={data?.images} />
       </div>
 
-      <pre>
-        {JSON.stringify(newSpecies, null, 2)}
-      </pre>
-
       <HomePageActions />
 
       <HomePageBlocks

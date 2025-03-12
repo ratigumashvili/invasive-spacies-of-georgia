@@ -15,7 +15,9 @@
     "nat": "Name according to",
     "eco_group": "Ecological group",
     "first_introduced": "Introduced in Georgia",
-    "details_on_specie": "More details on this specie"
+    "details_on_specie": "More details on this specie",
+    "speciesAlert": "Species Alert",
+    "date_detected": "Date detected"
   },
   "Footer": {
     "isu_full": "Ilia State University",

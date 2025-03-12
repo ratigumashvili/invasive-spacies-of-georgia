@@ -1,6 +1,6 @@
-import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/routing";
+import { TriangleAlertIcon } from "lucide-react";
 
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -14,6 +14,7 @@ const Translations = () => {
     const t = useTranslations("Common")
 
     return {
+        speciesAlert: t("speciesAlert"),
         factSheets: t("species_factsheets"),
         eventsTitle: t("upcomming_events"),
         allEvents: t("see_all_events"),
@@ -22,12 +23,15 @@ const Translations = () => {
 
 export async function HomePageBlocks({ events, randomSpecie, newSpecies }: HomePageBlocksProps) {
 
-    const { factSheets, eventsTitle, allEvents } = Translations()
+    const { factSheets, eventsTitle, allEvents, speciesAlert } = Translations()
 
     return (
         <div className="flex flex-col lg:flex-row gap-4 mb-8">
             <div className="flex flex-col gap-2 flex-1">
-                <h2 className="text-xl font-medium mb-3">Species Alert</h2>
+                <h2 className="text-xl font-medium mb-3 flex items-center gap-2">
+                    <TriangleAlertIcon className="text-red-800 fill-amber-500" /> {speciesAlert}
+                </h2>
+                <SpecieBlock data={newSpecies as SingleSpecieList} />
             </div>
 
             <div className="flex flex-col gap-2 flex-1">

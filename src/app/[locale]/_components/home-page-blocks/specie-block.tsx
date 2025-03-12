@@ -40,8 +40,24 @@ export function SpecieBlock({ data }: { data: SingleSpecieList }) {
                     <dd><p>{data?.autorName}</p></dd>
                     <dt>{t("eco_group")}:</dt>
                     <dd><p>{data?.ecologicalGroup}</p></dd>
-                    <dt>{t("first_introduced")}:</dt>
-                    <dd><p>{data?.firstIntroduced}</p></dd>
+                    {!data?.isNew ? (
+                        <>
+                            <dt>{t("first_introduced")}:</dt>
+                            <dd><p>{data?.firstIntroduced}</p></dd>
+                        </>
+                    ) : (
+                        <>
+                            <dt>{t("date_detected")}:</dt>
+                            <dd>
+                                <p>
+                                    {data?.dateOfDetection
+                                        ? new Date(data.dateOfDetection).toLocaleDateString("en-CA") // "YYYY/MM/DD"
+                                        : "N/A"}
+                                </p>
+                            </dd>
+                        </>
+                    )}
+
                 </dl>
             </CardContent>
             <CardFooter className="mt-auto">
