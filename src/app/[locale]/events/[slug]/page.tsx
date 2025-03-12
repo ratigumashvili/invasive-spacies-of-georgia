@@ -7,7 +7,7 @@ import { getEvents } from "@/lib/api-calls"
 
 type Props = {
     params: Promise<{ locale: string, slug: string }>
-  }
+}
 
 export default async function SingleEventPage({ params }: Props) {
 
