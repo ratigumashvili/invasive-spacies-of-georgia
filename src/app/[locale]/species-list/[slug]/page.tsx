@@ -31,7 +31,17 @@ export default async function SingleSpecieList({ params }: Props) {
     return (
         <Container>
             <PageTitle />
-            <SingleTaxonMeta data={data} />
+            <div className="grid grid-cols-3 gap-4 w-full">
+                <div className="col-span-2">
+                    <SingleTaxonMeta data={data} />
+                </div>
+                <div className="col-span-1">
+                    <div className="my-8">
+                        image <br />
+                        map
+                    </div>
+                </div>
+            </div>
             <pre>
                 {JSON.stringify(data, null, 2)}
             </pre>

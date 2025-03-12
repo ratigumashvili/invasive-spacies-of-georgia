@@ -12,7 +12,6 @@ export interface StrapiResponse<T> {
   };
 }
 
-
 export interface TaxonomyEntity {
   id: number;
   documentId: string;
