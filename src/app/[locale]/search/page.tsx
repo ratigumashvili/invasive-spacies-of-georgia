@@ -1,7 +1,12 @@
 import Container from "@/app/[locale]/_components/container";
 import { fetchSpeciesData } from "@/lib/api-calls";
 
-export default async function Search({ params, searchParams }: { params: { locale: string }, searchParams: Record<string, string | string[] | undefined> }) {
+type Props = {
+    params: Promise<{ locale: string }>
+    searchParams: Promise<{ [key: string]: string | string[] | undefined }>
+  }
+
+export default async function Search({ params, searchParams }: Props) {
     const { locale } = await params
     const { coordinates } = await searchParams
 

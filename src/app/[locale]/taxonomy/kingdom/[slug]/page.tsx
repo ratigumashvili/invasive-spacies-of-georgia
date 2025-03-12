@@ -1,4 +1,8 @@
-export default async function KingdomSinglePage({params}: {params: {locale: string, slug: string}}) {
+type Props = {
+    params: Promise<{ locale: string, slug: string }>
+}
+
+export default async function KingdomSinglePage({params}: Props) {
     const {locale, slug} = await params
     return (
         <section className="py-8">
