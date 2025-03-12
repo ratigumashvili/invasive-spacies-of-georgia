@@ -13,5 +13,6 @@ export interface HomePageBlocksProps {
             };
         };
     } | null,
-    randomSpecie?: SingleSpecieList
+    randomSpecie?: SingleSpecieList,
+    newSpecies?: SingleSpecieList
 }

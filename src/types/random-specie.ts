@@ -7,6 +7,8 @@ export interface SingleSpecieList {
     slug: string,
     ecologicalGroup: string,
     firstIntroduced: string,
+    isNew: boolean,
+    dateOfDetection: Date,
     image: Image
 }
 

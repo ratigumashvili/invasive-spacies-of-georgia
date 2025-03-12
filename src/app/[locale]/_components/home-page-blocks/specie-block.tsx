@@ -17,7 +17,7 @@ export function SpecieBlock({ data }: { data: SingleSpecieList }) {
                     {t("species_factsheets")}
                 </CardTitle>
                 <Image
-                    src={`${BASE_URL}${data?.image.url}`}
+                    src={`${BASE_URL}${data?.image?.url}`}
                     alt="Species"
                     width={1000}
                     height={1000}

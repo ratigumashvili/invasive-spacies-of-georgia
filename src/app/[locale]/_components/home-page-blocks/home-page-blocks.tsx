@@ -20,9 +20,8 @@ const Translations = () => {
     };
 }
 
-export async function HomePageBlocks({ events, randomSpecie }: HomePageBlocksProps) {
+export async function HomePageBlocks({ events, randomSpecie, newSpecies }: HomePageBlocksProps) {
 
-    // const t = useTranslations("Common")
     const { factSheets, eventsTitle, allEvents } = Translations()
 
     return (
@@ -32,18 +31,15 @@ export async function HomePageBlocks({ events, randomSpecie }: HomePageBlocksPro
             </div>
 
             <div className="flex flex-col gap-2 flex-1">
-                {/* <h2 className="text-xl font-medium mb-3">{t("species_factsheets")}</h2> */}
                 <h2 className="text-xl font-medium mb-3">{factSheets}</h2>
                 <SpecieBlock data={randomSpecie as SingleSpecieList} />
             </div>
 
             <div className="flex flex-col gap-2 flex-1 shrink-0">
-                {/* <h2 className="text-xl font-medium mb-3">{t("upcomming_events")}</h2> */}
                 <h2 className="text-xl font-medium mb-3">{eventsTitle}</h2>
                 <Card className="rounded-none bg-slate-50 h-full p-0 py-6">
                     <CardHeader className="sr-only">
                         <CardTitle className="text-xl">
-                            {/* {t("upcomming_events")} */}
                             {eventsTitle}
                         </CardTitle>
                     </CardHeader>
@@ -52,7 +48,6 @@ export async function HomePageBlocks({ events, randomSpecie }: HomePageBlocksPro
                     </CardContent>
                     <CardFooter className="mt-auto">
                         <Button asChild size="lg" variant="default" className="w-full lg:w-max rounded-none">
-                            {/* <Link href={"/events"}>{t("see_all_events")}</Link> */}
                             <Link href={"/events"}>{allEvents}</Link>
                         </Button>
                     </CardFooter>

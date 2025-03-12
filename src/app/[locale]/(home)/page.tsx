@@ -25,7 +25,8 @@ export default async function HomePage({ params }: Props) {
 
   const data = await fetchHomePageData(locale)
   const events = await getEvents(locale)
-  const randomSpecie = await fetchRandomSpecie(locale)
+  const randomSpecie = await fetchRandomSpecie(locale, "notNew")
+  const newSpecies = await fetchRandomSpecie(locale, "isNew")
 
   const coordinates: string[] = response?.data?.length
     ? response.data.map((item: any) => (item.coordinates))
@@ -53,9 +54,14 @@ export default async function HomePage({ params }: Props) {
         <HomePageSlider images={data?.images} />
       </div>
 
+      <pre>
+        {JSON.stringify(newSpecies, null, 2)}
+      </pre>
+
       <HomePageActions />
 
       <HomePageBlocks
+        newSpecies={newSpecies}
         randomSpecie={randomSpecie}
         events={events}
       />

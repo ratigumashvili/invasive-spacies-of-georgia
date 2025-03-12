@@ -186,50 +186,72 @@ export async function getEvents(
   }
 }
 
-export async function fetchRandomSpecie(locale: string) {
+export async function fetchRandomSpecie(locale: string, filterType?: "isNew" | "notNew") {
   try {
     const countQuery = qs.stringify({
       "filters[image][url][$ne]": null,
-      "pagination[pageSize]": 1
+      locale
     });
 
     const countResponse = await fetch(`${BASE_API_URL}/species?${countQuery}`);
     const countData = await countResponse.json();
     const totalSpecies = countData.meta?.pagination?.total || 1;
 
-    const randomPage = Math.floor(Math.random() * totalSpecies) + 1;
-
-    const queryParams = {
-      fields: ["autorName", "locale", "name", "slug", "ecologicalGroup", "firstIntroduced"],
-      "populate[image][fields]": ["alternativeText", "caption", "width", "height", "url"],
-      "filters[image][url][$ne]": null,
-      "pagination[pageSize]": 1,
-      "pagination[page]": randomPage,
-      locale
-    };
-
-    const query = qs.stringify(queryParams, { encode: false });
-    const requestUrl = `${BASE_API_URL}/species?${query}`;
-
-    const response = await fetch(requestUrl, {
-      method: "GET",
-      headers: { "Accept": "application/json" }
-    });
-
-    if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(`Failed to fetch species: ${errorData.error?.message || response.statusText}`);
+    if (totalSpecies === 0) {
+      throw new Error("No species found");
     }
 
-    const data = await response.json();
-    return data.data.length > 0 ? data.data[0] : null;
+    let validSpecies = null;
+
+    while (!validSpecies) {
+      const randomPage = Math.floor(Math.random() * totalSpecies) + 1;
+
+      const queryParams = {
+        fields: [
+          "documentId", "autorName", "locale", "name", "slug",
+          "ecologicalGroup", "firstIntroduced", "isNew", "dateOfDetection"
+        ],
+        "populate[image][fields]": ["documentId", "alternativeText", "caption", "width", "height", "url"],
+
+        "filters[image][url][$ne]": null,
+        "pagination[pageSize]": 1,
+        "pagination[page]": randomPage,
+        locale
+      };
+
+      const query = qs.stringify(queryParams, { encode: false });
+      const requestUrl = `${BASE_API_URL}/species?${query}`;
+
+      const response = await fetch(requestUrl, {
+        method: "GET",
+        headers: { "Accept": "application/json" }
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(`Failed to fetch species: ${errorData.error?.message || response.statusText}`);
+      }
+
+      const data = await response.json();
+      if (data.data.length > 0) {
+        const randomSpecie = data.data[0];
+
+        if (
+          (filterType === "isNew" && randomSpecie.isNew) ||
+          (filterType === "notNew" && !randomSpecie.isNew) ||
+          !filterType
+        ) {
+          validSpecies = randomSpecie;
+        }
+      }
+    }
+
+    return validSpecies;
   } catch (error: any) {
     console.error("Error fetching species data:", error.message);
     return null;
   }
 }
-
-
 
 
 
