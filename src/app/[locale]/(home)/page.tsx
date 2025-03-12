@@ -5,9 +5,10 @@ import { HomePageSlider } from "@/app/[locale]/_components/home-page-slider";
 import { HomePageActions } from "@/app/[locale]/_components/home-page-actions";
 import { HomePageBlocks } from '@/app/[locale]/_components/home-page-blocks/home-page-blocks';
 
-import { fetchSpeciesData, getEvents, getSinglePage } from "@/lib/api-calls";
+import { fetchRandomSpeciesWithImage, fetchSpeciesData, getEvents, getSinglePage } from "@/lib/api-calls";
 
 import { HomePageData, } from '@/types/single-types';
+import { RandomSpecie } from '@/types/random-specie';
 
 export default async function HomePage({ params }: { params: { locale: string } }) {
 
@@ -21,6 +22,7 @@ export default async function HomePage({ params }: { params: { locale: string } 
 
   const data = await fetchHomePageData(locale)
   const events = await getEvents(locale)
+  const randomSpecie = await fetchRandomSpeciesWithImage(locale)
 
   const coordinates: string[] = response?.data?.length
     ? response.data.map((item: any) => (item.coordinates))
@@ -48,10 +50,13 @@ export default async function HomePage({ params }: { params: { locale: string } 
         <HomePageSlider images={data?.images} />
       </div>
 
+      <pre>{JSON.stringify(randomSpecie, null, 2)}</pre>
+
       <HomePageActions />
 
       <HomePageBlocks
         events={events}
+        randomSpecie={randomSpecie}
       />
 
       <HomePageMap data={latLngArray as [number, number][]} />

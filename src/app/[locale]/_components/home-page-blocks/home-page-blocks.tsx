@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/routing";
 
@@ -6,11 +7,12 @@ import { Button } from "@/components/ui/button";
 import { EventBlock } from "@/app/[locale]/_components/home-page-blocks/event-block";
 
 import { HomePageBlocksProps } from "@/types/home-page-blocks";
-import Image from "next/image";
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL
 
-export async function HomePageBlocks({ events }: HomePageBlocksProps) {
+export async function HomePageBlocks({ events, randomSpecie }: HomePageBlocksProps) {
 
     const t = useTranslations("Common")
+
 
     return (
         <div className="flex flex-col lg:flex-row gap-4 mb-8">
@@ -19,13 +21,13 @@ export async function HomePageBlocks({ events }: HomePageBlocksProps) {
             </div>
             <div className="flex flex-col gap-2 flex-1">
                 <h2 className="text-xl font-medium mb-3">{t("species_factsheets")}</h2>
-                <Card className="rounded-none bg-slate-50 p-0 flex-col">
+                <Card className="rounded-none bg-slate-50 p-0 flex-col h-full">
                     <CardHeader className="p-0">
                         <CardTitle className="text-xl sr-only">
                             {t("species_factsheets")}
                         </CardTitle>
                         <Image
-                            src={"/sod.jpeg"}
+                            src={`${BASE_URL}${randomSpecie?.image.url}`}
                             alt="Species"
                             width={1000}
                             height={1000}
@@ -33,7 +35,13 @@ export async function HomePageBlocks({ events }: HomePageBlocksProps) {
                             className="w-full he-[280px] object-contain"
                         />
                     </CardHeader>
-                    <CardContent className="pb-6">lorem</CardContent>
+                    <CardContent className="pb-6">
+                        <p>{randomSpecie?.name}</p>
+                        <p>{randomSpecie?.autorName}</p>
+                        <p>{randomSpecie?.ecologicalGroup}</p>
+                        <p>{randomSpecie?.firstIntroduced}</p>
+                        <p>{JSON.stringify(BASE_URL, null, 2)}</p>
+                    </CardContent>
                 </Card>
             </div>
             <div className="flex flex-col gap-2 flex-1 shrink-0">

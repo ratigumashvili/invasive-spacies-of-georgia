@@ -88,6 +88,7 @@ export async function fetchSpeciesData(locale: string, pageSize: number = 25, fi
       "populate[order][fields]": ["documentId", "name", "slug"],
       "populate[family][fields]": ["documentId", "name", "slug"],
       "populate[genus][fields]": ["documentId", "name", "slug"],
+      "populate[image][fields]": ["documentId", "alternativeText", "width", "height", "url"],
 
       "pagination[pageSize]": pageSize,
       locale,
@@ -181,6 +182,49 @@ export async function getEvents(
     return data;
   } catch (error: any) {
     console.error("Error fetching events data:", error.message);
+    return null;
+  }
+}
+
+export async function fetchRandomSpeciesWithImage(locale: string) {
+  try {
+    const countQuery = qs.stringify({
+      "filters[image][url][$ne]": null,
+      "pagination[pageSize]": 1
+    });
+
+    const countResponse = await fetch(`${BASE_API_URL}/species?${countQuery}`);
+    const countData = await countResponse.json();
+    const totalSpecies = countData.meta?.pagination?.total || 1;
+
+    const randomPage = Math.floor(Math.random() * totalSpecies) + 1;
+
+    const queryParams = {
+      fields: ["autorName", "locale", "name", "slug", "ecologicalGroup", "firstIntroduced"],
+      "populate[image][fields]": ["alternativeText", "width", "height", "url"],
+      "filters[image][url][$ne]": null,
+      "pagination[pageSize]": 1,
+      "pagination[page]": randomPage,
+      locale
+    };
+
+    const query = qs.stringify(queryParams, { encode: false });
+    const requestUrl = `${BASE_API_URL}/species?${query}`;
+
+    const response = await fetch(requestUrl, {
+      method: "GET",
+      headers: { "Accept": "application/json" }
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(`Failed to fetch species: ${errorData.error?.message || response.statusText}`);
+    }
+
+    const data = await response.json();
+    return data.data.length > 0 ? data.data[0] : null;
+  } catch (error: any) {
+    console.error("Error fetching species data:", error.message);
     return null;
   }
 }
