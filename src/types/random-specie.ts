@@ -1,4 +1,4 @@
-export interface RandomSpecie {
+export interface SingleSpecieList {
     id: number,
     documentId: string,
     autorName: string,

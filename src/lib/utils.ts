@@ -23,3 +23,5 @@ export const monthOrder: Record<string, number> = {
   November: 11,
   December: 12,
 };
+
+export const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL

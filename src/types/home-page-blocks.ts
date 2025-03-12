@@ -1,5 +1,5 @@
 import { EventItem } from "./event-item";
-import { RandomSpecie } from "./random-specie";
+import { SingleSpecieList } from "./random-specie";
 
 export interface HomePageBlocksProps {
     events: {
@@ -13,5 +13,5 @@ export interface HomePageBlocksProps {
             };
         };
     } | null,
-    randomSpecie?: RandomSpecie
+    SingleSpecieList?: SingleSpecieList
 }

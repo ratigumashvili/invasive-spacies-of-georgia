@@ -3,7 +3,7 @@
 import { Fade } from 'react-slideshow-image';
 import 'react-slideshow-image/dist/styles.css'
 
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL
+import { BASE_URL } from '@/lib/utils';
 
 interface ImageData {
     url: string;
