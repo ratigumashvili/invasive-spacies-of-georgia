@@ -1,5 +1,6 @@
 "use client"
 
+import Image from 'next/image';
 import { Fade } from 'react-slideshow-image';
 import 'react-slideshow-image/dist/styles.css'
 
@@ -20,7 +21,10 @@ export function HomePageSlider({ images }: HomePageSliderProps) {
             <Fade arrows={false} indicators={false}>
                 {images?.map((image, index: number) => (
                     <div key={index}>
-                        <img
+                        <Image
+                            width={1000}
+                            height={1000}
+                            alt="Slide"
                             style={{ width: '100%', height: "350px", objectFit: "cover" }}
                             src={`${BASE_URL}${image.url}`}
                         />

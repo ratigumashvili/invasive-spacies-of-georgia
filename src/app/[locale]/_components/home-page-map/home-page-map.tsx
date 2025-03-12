@@ -100,6 +100,7 @@ export default function HomePageMap({ data }: { data: [number, number][] }) {
             setMarkerAddresses((prev) => ({ ...prev, ...newAddresses }));
         };
         fetchAddresses();
+        // eslint-disable-next-line
     }, [data]);
 
     return (

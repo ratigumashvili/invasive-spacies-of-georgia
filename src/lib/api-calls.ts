@@ -186,7 +186,7 @@ export async function getEvents(
   }
 }
 
-export async function fetchSingleSpecieListsWithImage(locale: string) {
+export async function fetchRandomSpecie(locale: string) {
   try {
     const countQuery = qs.stringify({
       "filters[image][url][$ne]": null,
