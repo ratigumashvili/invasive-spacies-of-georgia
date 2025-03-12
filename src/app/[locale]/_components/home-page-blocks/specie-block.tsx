@@ -22,7 +22,7 @@ export function SpecieBlock({ data }: { data: SingleSpecieList }) {
                     width={1000}
                     height={1000}
                     priority
-                    className="w-full he-[280px] object-contain"
+                    className="w-full object-contain lg:max-h-[280px] lg:h-full lg:object-cover"
                 />
                 <span className="text-xs text-muted-foreground italic px-6">{data?.image?.caption}</span>
             </CardHeader>

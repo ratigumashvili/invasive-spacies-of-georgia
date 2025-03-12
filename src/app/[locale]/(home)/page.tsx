@@ -63,8 +63,8 @@ export default async function HomePage({ params }: Props) {
       />
 
       <HomePageMap data={latLngArray as [number, number][]} />
-      <h1>latest reports</h1>
-      <h1>user contributions</h1>
+      {/* <h1>latest reports</h1>
+      <h1>user contributions</h1> */}
     </Container>
   );
 }
