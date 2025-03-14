@@ -60,5 +60,9 @@
     "report_species": "Report Species",
     "join_the_editorial_board": "Join the Editorial Board",
     "join_our_community": "Join Our Community"
+  },
+  "Species": {
+    "scientific_name_id": "Scientific name id",
+    "nat": "Name according to"
   }
 }

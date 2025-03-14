@@ -60,5 +60,9 @@
     "report_species": "განაცხადეთ სახეობის შესახებ",
     "join_the_editorial_board": "შემოუერთდით სარედაქციო ბორდს",
     "join_our_community": "გაწევრიანდით ჩვენს საზოგადოებაში"
+  },
+  "Species": {
+    "scientific_name_id": "Scientific name id",
+    "nat": "Name according to"
   }
 }
