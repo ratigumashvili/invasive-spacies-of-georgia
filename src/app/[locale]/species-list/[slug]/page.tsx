@@ -7,6 +7,8 @@ import { SingleTaxonMeta } from "@/app/[locale]/_components/single-taxon-meta";
 import { fetchSpeciesData } from "@/lib/api-calls";
 
 import { type SpeciesResponse } from "@/types/taxonomy-types";
+import Image from "next/image";
+import { BASE_URL } from "@/lib/utils";
 
 const PageTitle = () => {
     const t = useTranslations("Common")
@@ -37,14 +39,18 @@ export default async function SingleSpecieList({ params }: Props) {
                 </div>
                 <div className="col-span-1">
                     <div className="my-8">
-                        image <br />
+                        <Image 
+                            src={`${BASE_URL}${data[0]?.image.url}`}
+                            width={data[0]?.image.width}
+                            height={data[0]?.image.height}
+                            alt={data[0]?.name}
+                            className="object-contain"
+                        />
+                        <p className="my-1 text-xs text-muted-foreground italic">{data[0]?.image.caption}</p>
                         map
                     </div>
                 </div>
             </div>
-            <pre>
-                {JSON.stringify(data, null, 2)}
-            </pre>
         </Container>
     )
 }
