@@ -1,7 +1,8 @@
 "use client"
 
-import { SpeciesEntity } from "@/types/taxonomy-types";
 import { useTranslations } from "next-intl";
+
+import { SpeciesEntity } from "@/types/taxonomy-types";
 
 type SingleTaxonMetaProps = {
     data: SpeciesEntity[];
