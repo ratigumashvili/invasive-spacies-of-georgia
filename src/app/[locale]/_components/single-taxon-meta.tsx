@@ -45,7 +45,42 @@ export function SingleTaxonMeta({ data }: SingleTaxonMetaProps) {
             <dl className="data-list">
                 <dt>{t("kingdom")}</dt>
                 <dd>{data[0]?.kingdom.name}</dd>
+                <dt>{t("phylum")}</dt>
+                <dd>{data[0]?.phylum.name}</dd>
+                <dt>{t("class")}</dt>
+                <dd>{data[0]?.class.name}</dd>
+                <dt>{t("order")}</dt>
+                <dd>{data[0]?.order.name}</dd>
+                <dt>{t("family")}</dt>
+                <dd>{data[0]?.family.name}</dd>
+                <dt>{t("genus")}</dt>
+                <dd>{data[0]?.genus.name}</dd>
             </dl>
+
+            <h3 className="text-lg font-medium my-4 text-muted-foreground">{t("ai")}</h3>
+
+            <div className="rich-text">
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa dignissimos, nisi ullam quis dolore optio esse atque quasi placeat odio nesciunt deleniti iure ex, vero doloremque. Temporibus aliquid animi ex!</p>
+            </div>
+
+            <h3 className="text-lg font-medium my-4 text-muted-foreground">{t("assessments")}</h3>
+
+            <div className="rich-text">
+                <p>According to Commission Delegated Regulation (EU) 2018/968</p>
+            </div>
+
+            <h3 className="text-lg font-medium my-4 text-muted-foreground">{t("common_names")}</h3>
+
+            <div className="rich-text">
+                <p>Floating pennywort, Grote waternavel, Hydrocotyle à feuilles de renoncule, Soldinella reniforme</p>
+            </div>
+
+            <h3 className="text-lg font-medium my-4 text-muted-foreground">{t("synonyms")}</h3>
+
+            <div className="rich-text">
+                <p>Hydrocotyle batrachioides, Hydrocotyle cymbalarifolia, Hydrocotyle natans, Hydrocotyle nutans</p>
+            </div>
+
         </div>
     )
 }

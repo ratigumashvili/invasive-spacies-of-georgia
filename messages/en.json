@@ -84,6 +84,7 @@
     "common_names": "Common Names",
     "synonyms": "Synonyms",
     "taxonomy": "Taxonomy",
-    "metadata": "Metadata"
+    "metadata": "Metadata",
+    "ai": "Additional Information"
   }
 }
