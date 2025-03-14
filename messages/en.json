@@ -62,7 +62,28 @@
     "join_our_community": "Join Our Community"
   },
   "Species": {
-    "scientific_name_id": "Scientific name id",
-    "nat": "Name according to"
+    "scientific_name": "Scientific name",
+    "name_id": "Scientific name id (GBIF)",
+    "nat": "Name according to",
+    "eco_group": "Ecological group",
+    "status": "Status",
+    "enviroments": "Environments",
+    "concern": "Concern",
+    "partly_native": "Partly Native",
+    "horizon_scaning": "Horizon Scanning",
+    "impact": "Impact",
+    "impact_source": "Impact source",
+    "kingdom": "Kingdom",
+    "phylum": "Phylum",
+    "class": "Class",
+    "order": "Order",
+    "family": "Family",
+    "genus": "Genus",
+    "first_introduced": "Introduced in Georgia",
+    "assessments": "Risk Assessments",
+    "common_names": "Common Names",
+    "synonyms": "Synonyms",
+    "taxonomy": "Taxonomy",
+    "metadata": "Metadata"
   }
 }

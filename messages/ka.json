@@ -62,7 +62,28 @@
     "join_our_community": "გაწევრიანდით ჩვენს საზოგადოებაში"
   },
   "Species": {
-    "scientific_name_id": "Scientific name id",
-    "nat": "Name according to"
+    "scientific_name": "სამეცნიერო სახელწოდება",
+    "name_id": "სამეცნიერო სახელწოდების id (GBIF)",
+    "nat": "სახელწოდების ავტორი",
+    "eco_group": "ეკოლოგიური ჯგუფი",
+    "status": "სტატუსი",
+    "enviroments": "გარემო",
+    "concern": "შეშფოთების საფუძველი",
+    "partly_native": "ნაწილობრივ ადგილობრივი",
+    "horizon_scaning": "ჰორიზონტის სკანირება",
+    "impact": "ზეგავლენა",
+    "impact_source": "ზეგავლენის წყარო",
+    "kingdom": "სამეფო",
+    "phylum": "ტიპი",
+    "class": "კლასი",
+    "order": "რიგი",
+    "family": "ოჯახი",
+    "genus": "გვარი",
+    "first_introduced": "შეყვანილია საქართველოში",
+    "assessments": "რისკების შეფასება",
+    "common_names": "ზოგადი სახელები",
+    "synonyms": "სინონიმები",
+    "taxonomy": "ტაქსონომია",
+    "metadata": "მეტა მონაცემები"
   }
 }
