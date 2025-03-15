@@ -62,7 +62,8 @@ export default async function HomePage({ params }: Props) {
         events={events}
       />
 
-      <HomePageMap data={latLngArray as [number, number][]} />
+      {/* <HomePageMap data={latLngArray as [number, number][]} /> */}
+      <HomePageMap speciesCoordinates={latLngArray as [number, number][]} />
       {/* <h1>latest reports</h1>
       <h1>user contributions</h1> */}
     </Container>
