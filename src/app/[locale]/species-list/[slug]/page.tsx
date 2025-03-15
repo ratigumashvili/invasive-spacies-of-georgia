@@ -2,7 +2,8 @@ import { useTranslations } from "next-intl";
 
 import Container from "@/app/[locale]/_components/container";
 import { NothingFound } from "@/app/[locale]/_components/nothing-found";
-import { SingleTaxonMeta } from "@/app/[locale]/_components/single-taxon-meta";
+import { SingleTaxonMeta } from "@/app/[locale]/_components/single-taxon/single-taxon-meta";
+import { SingleTaxonMap } from "@/app/[locale]/_components/single-taxon/single-taxon-map";
 
 import { fetchSpeciesData } from "@/lib/api-calls";
 
@@ -38,7 +39,7 @@ export default async function SingleSpecieList({ params }: Props) {
                     <SingleTaxonMeta data={data} />
                 </div>
                 <div className="col-span-1">
-                    <div className="my-8">
+                <div className="my-8">
                         <Image 
                             src={`${BASE_URL}${data[0]?.image.url}`}
                             width={data[0]?.image.width}
@@ -47,7 +48,7 @@ export default async function SingleSpecieList({ params }: Props) {
                             className="object-contain"
                         />
                         <p className="my-1 text-xs text-muted-foreground italic">{data[0]?.image.caption}</p>
-                        map
+                        <SingleTaxonMap />
                     </div>
                 </div>
             </div>
