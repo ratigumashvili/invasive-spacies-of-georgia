@@ -120,20 +120,24 @@ export default function GeoJsonMap({ speciesCoordinates }: { speciesCoordinates:
         );
     });
 
+
     const onEachRegion = (feature: Feature<Geometry, any>, layer: L.Layer) => {
         if (!feature.properties) return;
     
         const regionName = feature.properties.NAME_2 || feature.properties.name;
         const recordCount = regionData[regionName as keyof typeof regionData] || 0;
     
+        const pathLayer = layer as L.Path;
+        pathLayer.options.interactive = true;
+    
         layer.bindPopup(`<b>${regionName}</b><br>Records: ${recordCount}`);
     
-        // Ensure the popup opens on click
         layer.on("click", function (e) {
+            console.log(`✅ Region Clicked: ${regionName}`);
             layer.openPopup(e.latlng);
+            e.originalEvent.stopPropagation();
         });
     };
-    
 
     return (
         <MapContainer className="w-full h-[500px]" center={[41.8, 44.5]} zoom={7} scrollWheelZoom={false}>
