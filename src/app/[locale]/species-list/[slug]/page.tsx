@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { useTranslations } from "next-intl";
 
 import Container from "@/app/[locale]/_components/container";
@@ -8,7 +9,7 @@ import SingleTaxonMap from "@/app/[locale]/_components/single-taxon/show-map";
 import { fetchSpeciesData } from "@/lib/api-calls";
 
 import { Place, type SpeciesResponse } from "@/types/taxonomy-types";
-import Image from "next/image";
+
 import { BASE_URL } from "@/lib/utils";
 
 const PageTitle = () => {
@@ -34,7 +35,6 @@ export default async function SingleSpecieList({ params }: Props) {
     return (
         <Container>
             <PageTitle />
-            {/* <pre>{JSON.stringify(data, null, 2)}</pre> */}
             <div className="grid grid-cols-3 gap-4 w-full">
                 <div className="col-span-2">
                     <SingleTaxonMeta data={data} />
