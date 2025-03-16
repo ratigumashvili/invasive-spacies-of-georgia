@@ -258,7 +258,8 @@ export async function fetchRandomSpecie(locale: string, filterType?: "isNew" | "
 export async function fetchSpeciesCoordinates(locale: string, pageSize: number = 25, filter?: string) {
   try {
     const queryParams = {
-      "populate[places][fields]": ["title", "slug", "coordinates"],
+      fields: ["documentId"],
+      "populate[places][fields]": ["coordinates"],
       "pagination[pageSize]": pageSize,
       locale,
       filter
