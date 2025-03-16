@@ -133,7 +133,6 @@ export default function GeoJsonMap({ speciesCoordinates }: { speciesCoordinates:
         layer.bindPopup(`<b>${regionName}</b><br>Records: ${recordCount}`);
     
         layer.on("click", function (e) {
-            console.log(`✅ Region Clicked: ${regionName}`);
             layer.openPopup(e.latlng);
             e.originalEvent.stopPropagation();
         });

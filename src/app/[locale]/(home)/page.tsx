@@ -5,7 +5,7 @@ import { HomePageSlider } from "@/app/[locale]/_components/home-page-slider";
 import { HomePageActions } from "@/app/[locale]/_components/home-page-actions";
 import { HomePageBlocks } from '@/app/[locale]/_components/home-page-blocks/home-page-blocks';
 
-import { fetchRandomSpecie, fetchSpeciesCoordinates, fetchSpeciesData, getEvents, getSinglePage } from "@/lib/api-calls";
+import { fetchRandomSpecie, fetchSpeciesCoordinates, getEvents, getSinglePage } from "@/lib/api-calls";
 
 import { HomePageData, } from '@/types/single-types';
 
@@ -17,8 +17,6 @@ export default async function HomePage({ params }: Props) {
 
   const { locale } = await params
 
-  const response = await fetchSpeciesData(locale, 30)
-
   const fetchHomePageData = async (locale: string): Promise<HomePageData> => {
     return await getSinglePage<HomePageData>("home-page", locale, "fields[0]=title&fields[1]=subtitle&fields[2]=version&populate[images][fields][0]=documentId&populate[images][fields][1]=name&populate[images][fields][2]=alternativeText&populate[images][fields][3]=caption&populate[images][fields][4]=width&populate[images][fields][5]=height&populate[images][fields][6]=url");
   };
@@ -29,35 +27,21 @@ export default async function HomePage({ params }: Props) {
   const newSpecies = await fetchRandomSpecie(locale, "isNew")
   const speciesCoordinates = await fetchSpeciesCoordinates(locale)
 
-  const coordinates: string[] = response?.data?.length
-    ? response.data.map((item: any) => (item.coordinates))
-    : []
-
   const newCoordinates: string[] = speciesCoordinates?.data?.length
   ? speciesCoordinates.data.map((item: any) => item.places.map((place: any) => place.coordinates))
   : []
 
-
-  const newLatLngArray: [number, number][] = newCoordinates
+  const formattedCoordinates: [number, number][] = newCoordinates
   .flat()
   .map(coord => {
     const [lat, lng] = coord.split(",").map(Number);
     return [lat, lng] as [number, number];
   });
 
-  const latLngArray: [number, number][] = coordinates
-    .filter(coord => coord)
-    .map(coord => {
-      const [lat, lng] = coord.split(",").map(Number);
-      return [lat, lng] as [number, number];
-    });
-
   if (!data) return null
 
   return (
     <Container>
-      <pre>new: {JSON.stringify(newLatLngArray, null, 2)}</pre>
-      <pre>old: {JSON.stringify(latLngArray, null, 2)}</pre>
       <div className='relative mb-8'>
         <div className='absolute z-50 top-4 left-4 right-4 md:right-auto'>
           <AppTitle
@@ -77,8 +61,7 @@ export default async function HomePage({ params }: Props) {
         events={events}
       />
 
-      {/* <HomePageMap data={newLatLngArray as [number, number][]} /> */}
-      {/* <HomePageMap speciesCoordinates={newLatLngArray as [number, number][]} /> */}
+      <HomePageMap speciesCoordinates={formattedCoordinates as [number, number][]} />
       {/* <h1>latest reports</h1>
       <h1>user contributions</h1> */}
     </Container>
