@@ -92,6 +92,7 @@ export async function fetchSpeciesData(locale: string, pageSize: number = 25, fi
       "populate[order][fields]": ["name", "slug"],
       "populate[family][fields]": ["name", "slug"],
       "populate[genus][fields]": ["name", "slug"],
+      "populate[places][fields]": ["title", "slug", "coordinates"],
 
       "pagination[pageSize]": pageSize,
       locale,

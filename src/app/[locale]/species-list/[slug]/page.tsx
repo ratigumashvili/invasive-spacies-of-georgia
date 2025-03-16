@@ -3,11 +3,11 @@ import { useTranslations } from "next-intl";
 import Container from "@/app/[locale]/_components/container";
 import { NothingFound } from "@/app/[locale]/_components/nothing-found";
 import { SingleTaxonMeta } from "@/app/[locale]/_components/single-taxon/single-taxon-meta";
-import { SingleTaxonMap } from "@/app/[locale]/_components/single-taxon/single-taxon-map";
+import SingleTaxonMap from "@/app/[locale]/_components/single-taxon/show-map";
 
 import { fetchSpeciesData } from "@/lib/api-calls";
 
-import { type SpeciesResponse } from "@/types/taxonomy-types";
+import { Place, type SpeciesResponse } from "@/types/taxonomy-types";
 import Image from "next/image";
 import { BASE_URL } from "@/lib/utils";
 
@@ -34,13 +34,14 @@ export default async function SingleSpecieList({ params }: Props) {
     return (
         <Container>
             <PageTitle />
+            {/* <pre>{JSON.stringify(data, null, 2)}</pre> */}
             <div className="grid grid-cols-3 gap-4 w-full">
                 <div className="col-span-2">
                     <SingleTaxonMeta data={data} />
                 </div>
                 <div className="col-span-1">
-                <div className="my-8">
-                        <Image 
+                    <div className="my-8">
+                        <Image
                             src={`${BASE_URL}${data[0]?.image.url}`}
                             width={data[0]?.image.width}
                             height={data[0]?.image.height}
@@ -48,7 +49,9 @@ export default async function SingleSpecieList({ params }: Props) {
                             className="object-contain"
                         />
                         <p className="my-1 text-xs text-muted-foreground italic">{data[0]?.image.caption}</p>
-                        <SingleTaxonMap />
+                        {data.length > 0 && data[0].places && (
+                            <SingleTaxonMap places={data[0].places as Place[]} />
+                        )}
                     </div>
                 </div>
             </div>

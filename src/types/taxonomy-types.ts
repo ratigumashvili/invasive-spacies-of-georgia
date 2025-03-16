@@ -35,6 +35,14 @@ export interface LocalizationEntity {
   coordinates: string;
 }
 
+export interface Place {
+  id: number,
+  documentId: string;
+  title: string,
+  slug: string,
+  coordinates: string,
+}
+
 export interface SpeciesEntity {
   id: number;
   documentId: string;
@@ -51,6 +59,7 @@ export interface SpeciesEntity {
   isNew: boolean,
   dateOfDetection: Date,
   image: Image,
+  places: Place[],
   kingdom: TaxonomyEntity;
   phylum: TaxonomyEntity;
   class: TaxonomyEntity;
