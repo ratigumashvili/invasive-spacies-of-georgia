@@ -3,7 +3,6 @@
 import { Icon, LatLngExpression } from 'leaflet'
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
 import MarkerClusterGroup from "react-leaflet-markercluster";
-import { useTranslations } from 'next-intl';
 
 import { Place } from '@/types/taxonomy-types';
 
@@ -19,9 +18,6 @@ interface SingleTaxonMapProps {
 }
 
 export default function SingleTaxonMap({ places }: SingleTaxonMapProps) {
-
-    const t = useTranslations("Common")
-
     return (
         <>
             <MapContainer
