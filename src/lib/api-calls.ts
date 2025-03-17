@@ -259,7 +259,7 @@ export async function fetchSpeciesCoordinates(locale: string, pageSize: number =
   try {
     const queryParams = {
       fields: ["documentId"],
-      "populate[places][fields]": ["coordinates"],
+      "populate[places][fields]": ["coordinates", "title"],
       "pagination[pageSize]": pageSize,
       locale,
       filter

@@ -27,16 +27,39 @@ export default async function HomePage({ params }: Props) {
   const newSpecies = await fetchRandomSpecie(locale, "isNew")
   const speciesCoordinates = await fetchSpeciesCoordinates(locale)
 
-  const newCoordinates: string[] = speciesCoordinates?.data?.length
-  ? speciesCoordinates.data.map((item: any) => item.places.map((place: any) => place.coordinates))
-  : []
+  // const newCoordinates: string[] = speciesCoordinates?.data?.length
+  // ? speciesCoordinates.data.map((item: any) => item.places.map((place: any) => place.coordinates))
+  // : []
 
-  const formattedCoordinates: [number, number][] = newCoordinates
-  .flat()
-  .map(coord => {
-    const [lat, lng] = coord.split(",").map(Number);
-    return [lat, lng] as [number, number];
-  });
+  // const formattedCoordinates: [number, number][] = newCoordinates
+  // .flat()
+  // .map(coord => {
+  //   const [lat, lng] = coord.split(",").map(Number);
+  //   return [lat, lng] as [number, number];
+  // });
+
+  // Ensure speciesCoordinates?.data exists before mapping
+  const newCoordinates = speciesCoordinates?.data?.length
+    ? speciesCoordinates.data.flatMap((item: any) =>
+      item.places.map((place: any) => ({
+        coordinates: place.coordinates,
+        title: place.title
+      }))
+    )
+    : [];
+
+  // ✅ Correct transformation of coordinates to numbers
+  const formattedCoordinates: formattedCoordinatesProps[] = newCoordinates.map(({ coordinates, title }) => ({
+    coordinates: coordinates.split(",").map(Number) as [number, number],
+    title
+  }));
+
+  // ✅ Correct interface
+  interface formattedCoordinatesProps {
+    coordinates: [number, number];
+    title: string;
+  }
+
 
   if (!data) return null
 
@@ -61,9 +84,17 @@ export default async function HomePage({ params }: Props) {
         events={events}
       />
 
-      <HomePageMap speciesCoordinates={formattedCoordinates as [number, number][]} />
-      {/* <h1>latest reports</h1>
-      <h1>user contributions</h1> */}
+      {/* <HomePageMap speciesCoordinates={formattedCoordinates as [number, number][]} /> */}
+      {/* <HomePageMap
+        speciesCoordinates={formattedCoordinates.map(({ coordinates }) => coordinates)}
+      /> */}
+      <HomePageMap
+        speciesCoordinates={formattedCoordinates.map(({ coordinates, title }) => ({
+          coordinates,
+          title
+        }))}
+      />
+
     </Container>
   );
 }
