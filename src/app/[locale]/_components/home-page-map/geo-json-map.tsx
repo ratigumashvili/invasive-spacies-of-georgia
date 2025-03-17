@@ -177,6 +177,7 @@ import L, { PathOptions } from "leaflet";
 import data from "@/app/[locale]/_data/coords.json";
 import { Feature, Geometry } from "geojson";
 import { Link } from "@/i18n/routing";
+import { useTranslations } from "next-intl";
 
 type GeoJSONFeature = Feature<Geometry, { NAME_2?: string; name?: string }>;
 type GeoJSONData = { type: "FeatureCollection"; features: GeoJSONFeature[] };
@@ -224,6 +225,8 @@ const calculateRegionDensity = (geoJson: GeoJSONData, coordinates: SpeciesCoordi
 export default function GeoJsonMap({ speciesCoordinates }: { speciesCoordinates: SpeciesCoordinate[] }) {
     const [geoData, setGeoData] = useState<GeoJSONData | null>(null);
     const [regionData, setRegionData] = useState<Record<string, number>>({});
+
+    const t = useTranslations("Regions")
 
     useEffect(() => {
         const geoJsonTyped = data as GeoJSONData;
@@ -283,13 +286,13 @@ export default function GeoJsonMap({ speciesCoordinates }: { speciesCoordinates:
                 })}
             >
                 <Popup>
-                    <b>Title:</b> {title} <br />
-                    <b>Region:</b> {matchedRegion || "None"} <br />
+                    <b>{t("place")}:</b> {title} <br />
+                    <b>{t("region")}:</b> {matchedRegion || "None"} <br />
                     <Link
                         href={`/search?coordinates=${coordinates[0]},${coordinates[1]}`}
                         className="block my-2 !text-sky-800 !hover:text-red-600 transition"
                     >
-                        Read More
+                        {t("readmore")}
                     </Link>
                 </Popup>
             </Marker>
@@ -305,7 +308,7 @@ export default function GeoJsonMap({ speciesCoordinates }: { speciesCoordinates:
         const pathLayer = layer as L.Path;
         pathLayer.options.interactive = true;
 
-        layer.bindPopup(`<b>${regionName}</b><br>Records: ${recordCount}`);
+        layer.bindPopup(`<b>${t(`${regionName}`)}</b><br>${t("records")}: ${recordCount}`);
 
         layer.on("click", function (e) {
             layer.openPopup(e.latlng);
