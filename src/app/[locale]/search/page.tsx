@@ -1,4 +1,5 @@
 import Container from "@/app/[locale]/_components/container";
+import { NothingFound } from "@/app/[locale]/_components/nothing-found";
 import { fetchSpeciesByCoordinates } from "@/lib/api-calls";
 
 type Props = {
@@ -28,13 +29,18 @@ export default async function Search({ params, searchParams }: Props) {
 
     const data = await fetchSpeciesByCoordinates(locale, 25, filter)
 
+    if(Object.keys(searchParams).length !== 0 && data.data.length === 0) {
+        return <NothingFound />
+    }
+
     return (
         <Container>
             <pre>
-                locale {JSON.stringify(locale, null, 2)}
+                searchParams {JSON.stringify(searchParams, null, 2)}
                 <br />
                 <pre>{JSON.stringify(data, null, 2)}</pre>
             </pre>
+            
         </Container>
     )
 }
