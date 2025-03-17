@@ -1,5 +1,5 @@
 import Container from "@/app/[locale]/_components/container";
-import { fetchSpeciesData } from "@/lib/api-calls";
+import { fetchSpeciesByCoordinates } from "@/lib/api-calls";
 
 type Props = {
     params: Promise<{ locale: string }>
@@ -10,20 +10,30 @@ export default async function Search({ params, searchParams }: Props) {
     const { locale } = await params
     const { coordinates } = await searchParams
 
-    const urlCoordinates = Array.isArray(coordinates)
-    ? coordinates.map(coord => coord.replace(",", ", "))
-    : coordinates?.replace(",", ", ")
+    const formatCoordinates = (coords?: string | string[]) => {
+        if (!coords) return "";
     
-    const formattedCoordinates = encodeURIComponent(urlCoordinates as string).replace(/%20/g, "%20");
+        if (Array.isArray(coords)) {
+            return coords
+                .map(coord => coord.replace(/\s*,\s*/g, ",%20"))
+                .join(",");
+        }
+    
+        return coords.replace(/\s*,\s*/g, ",%20");
+    };
+    
+    const formattedCoordinates = formatCoordinates(coordinates);
 
-    const speciesByCoordinates = await fetchSpeciesData(locale, 30, `&filters[$and][0][coordinates][$eq]=${formattedCoordinates}`)
+    const filter = `&filters[$and][0][coordinates][$eq]=${formattedCoordinates}`
+
+    const data = await fetchSpeciesByCoordinates(locale, 25, filter)
 
     return (
         <Container>
             <pre>
                 locale {JSON.stringify(locale, null, 2)}
                 <br />
-                <pre>{JSON.stringify(speciesByCoordinates, null, 2)}</pre>
+                <pre>{JSON.stringify(data, null, 2)}</pre>
             </pre>
         </Container>
     )

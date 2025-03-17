@@ -3,7 +3,7 @@ import { SpeciesResponse } from "@/types/taxonomy-types";
 import axios from "axios";
 import qs from "query-string";
 
-const BASE_API_URL = process.env.NEXT_PUBLIC_API_URL!
+import { BASE_API_URL } from "./utils";
 
 interface PaginationMeta {
   page: number;
@@ -81,7 +81,7 @@ export async function fetchSpeciesData(locale: string, pageSize: number = 25, fi
   try {
     const queryParams = {
       fields: [
-        "autorName", "locale", "name", "ecologicalGroup", "coordinates", "firstIntroduced", "isNew", "dateOfDetection"
+        "autorName", "locale", "name", "ecologicalGroup", "firstIntroduced", "isNew", "dateOfDetection"
       ],
 
       "populate[image][fields]": ["documentId", "alternativeText", "caption", "width", "height", "url"],
@@ -119,7 +119,6 @@ export async function fetchSpeciesData(locale: string, pageSize: number = 25, fi
     return { data: [], meta: { pagination: { page: 1, pageSize: 25, pageCount: 1, total: 0 } } };
   }
 }
-
 
 export const getSinglePage = async <T>(
   path: string,
@@ -286,12 +285,58 @@ export async function fetchSpeciesCoordinates(locale: string, pageSize: number =
   }
 }
 
+export async function fetchSpeciesByCoordinates(locale: string, pageSize: number = 25, filter?: string) {
+  try {
+    const queryParams = {
+      fields: [
+        "title", "locale", "slug"
+      ],
 
+      "populate[species][fields]": [
+        "name", 
+        "slug", 
+        "ecologicalGroup", 
+        "autorName", 
+        "firstIntroduced",
+        "isNew",
+        "dateOfDetection",
+      ],
 
+      "populate[species][populate][family][fields]": [
+        "name",
+        "slug",
+      ],
 
+      "populate[species][populate][genus][fields]": [
+        "name",
+        "slug"
+      ],
 
+      "pagination[pageSize]": pageSize,
+      locale,
+      filter
+    };
 
+    const query = qs.stringify(queryParams, { encode: false });
+    const requestUrl = `${BASE_API_URL}/places?${query}`;
 
+    const response = await fetch(requestUrl, {
+      method: "GET",
+      headers: { "Accept": "application/json" }
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(`Failed to fetch species: ${errorData.error?.message || response.statusText}`);
+    }
+
+    const data: SpeciesResponse = await response.json();
+    return data;
+  } catch (error: any) {
+    console.error("Error fetching species data:", error.message);
+    return { data: [], meta: { pagination: { page: 1, pageSize: 25, pageCount: 1, total: 0 } } };
+  }
+}
 
 
 
