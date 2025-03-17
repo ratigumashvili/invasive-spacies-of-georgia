@@ -1,13 +1,14 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { Link } from "@/i18n/routing";
 import { MapContainer, TileLayer, GeoJSON, Marker, Popup } from "react-leaflet";
 import * as turf from "@turf/turf";
 import L, { PathOptions } from "leaflet";
-import data from "@/app/[locale]/_data/coords.json";
 import { Feature, Geometry } from "geojson";
-import { Link } from "@/i18n/routing";
 import { useTranslations } from "next-intl";
+
+import data from "@/app/[locale]/_data/coords.json";
 
 type GeoJSONFeature = Feature<Geometry, { NAME_2?: string; name?: string }>;
 type GeoJSONData = { type: "FeatureCollection"; features: GeoJSONFeature[] };
@@ -55,14 +56,30 @@ const calculateRegionDensity = (geoJson: GeoJSONData, coordinates: SpeciesCoordi
 export default function GeoJsonMap({ speciesCoordinates }: { speciesCoordinates: SpeciesCoordinate[] }) {
     const [geoData, setGeoData] = useState<GeoJSONData | null>(null);
     const [regionData, setRegionData] = useState<Record<string, number>>({});
+    const [loading, setLoading] = useState(true);
 
     const t = useTranslations("Regions")
 
     useEffect(() => {
-        const geoJsonTyped = data as GeoJSONData;
-        setGeoData(geoJsonTyped);
-        const calculatedRegionData = calculateRegionDensity(geoJsonTyped, speciesCoordinates);
-        setRegionData(calculatedRegionData);
+        const fetchData = async () => {
+            try {
+                const geoJsonTyped = data as GeoJSONData;
+                setGeoData(geoJsonTyped);
+
+                if (!speciesCoordinates || speciesCoordinates.length === 0) {
+                    console.warn("⚠️ No species coordinates available.");
+                    return;
+                }
+
+                const calculatedRegionData = calculateRegionDensity(geoJsonTyped, speciesCoordinates);
+                setRegionData(calculatedRegionData);
+                setLoading(false);  // ✅ Data is ready
+            } catch (error) {
+                setLoading(false);
+            }
+        };
+
+        fetchData();
     }, [speciesCoordinates]);
 
     const getRegionStyle = (feature: Feature<Geometry, any> | undefined): PathOptions => {
@@ -106,6 +123,10 @@ export default function GeoJsonMap({ speciesCoordinates }: { speciesCoordinates:
             }
         });
 
+        if (loading || !geoData) {
+            return <div className="text-center">Loading map...</div>;
+        }
+
         return (
             <Marker
                 key={index}
@@ -116,8 +137,8 @@ export default function GeoJsonMap({ speciesCoordinates }: { speciesCoordinates:
                 })}
             >
                 <Popup>
-                    <b>{t("place")}:</b> {title} <br />
-                    <b>{t("region")}:</b> {matchedRegion || "None"} <br />
+                    <p className="text-sm"><span className="font-medium">{t("place")}</span>: {title}</p>
+                    <p><span className="font-medium">{t("region")}</span>: {matchedRegion || "None"}</p>
                     <Link
                         href={`/search?coordinates=${coordinates[0]},${coordinates[1]}`}
                         className="block my-2 !text-sky-800 !hover:text-red-600 transition"

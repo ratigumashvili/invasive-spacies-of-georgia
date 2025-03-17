@@ -46,6 +46,10 @@ body {
   @apply grid grid-cols-1 sm:grid-cols-2 gap-2 [&>dt]:font-medium [&>dt]:col-span-1 [&>dd]:col-span-1 [&>dd>a]:text-sky-800 [&>dd>a:hover]:text-sky-700;
 }
 
+.leaflet-popup-content {
+  @apply [&>p]:m-0
+}
+
 .rich-text {
   @apply [&>h1]:text-4xl [&>h1]:font-bold [&>h1]:mb-4 [&>h2]:text-3xl [&>h2]:font-semibold [&>h2]:mb-3 [&>h3]:text-2xl [&>h3]:font-semibold [&>h3]:mb-2 [&>h4]:text-xl [&>h4]:font-medium [&>h4]:mb-2 [&>h5]:text-lg [&>h5]:font-medium [&>h5]:mb-2 [&>h6]:text-base [&>h6]:font-medium [&>h6]:mb-2
   [&>p]:mb-4

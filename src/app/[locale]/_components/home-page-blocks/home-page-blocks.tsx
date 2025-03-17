@@ -21,7 +21,7 @@ const Translations = () => {
     };
 }
 
-export async function HomePageBlocks({ events, randomSpecie, newSpecies }: HomePageBlocksProps) {
+export function HomePageBlocks({ events, randomSpecie, newSpecies }: HomePageBlocksProps) {
 
     const { factSheets, eventsTitle, allEvents, speciesAlert } = Translations()
 
