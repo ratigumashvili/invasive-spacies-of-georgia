@@ -9,7 +9,9 @@ type Props = {
 
 export default async function Search({ params, searchParams }: Props) {
     const { locale } = await params
-    const { coordinates } = await searchParams
+    const resolvedSearchParams = await searchParams;
+
+    const { coordinates } = resolvedSearchParams;
 
     const formatCoordinates = (coords?: string | string[]) => {
         if (!coords) return "";
@@ -29,14 +31,14 @@ export default async function Search({ params, searchParams }: Props) {
 
     const data = await fetchSpeciesByCoordinates(locale, 25, filter)
 
-    if(Object.keys(searchParams).length !== 0 && data.data.length === 0) {
+    if(Object.keys(resolvedSearchParams).length !== 0 && data.data.length === 0) {
         return <NothingFound />
     }
 
     return (
         <Container>
             <pre>
-                searchParams {JSON.stringify(searchParams, null, 2)}
+                searchParams {JSON.stringify(coordinates, null, 2)}
                 <br />
                 <pre>{JSON.stringify(data, null, 2)}</pre>
             </pre>

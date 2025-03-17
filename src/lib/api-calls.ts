@@ -289,7 +289,7 @@ export async function fetchSpeciesByCoordinates(locale: string, pageSize: number
   try {
     const queryParams = {
       fields: [
-        "title", "locale", "slug"
+        "title", "locale", "slug", "coordinates"
       ],
 
       "populate[species][fields]": [
