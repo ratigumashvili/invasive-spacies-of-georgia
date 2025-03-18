@@ -77,7 +77,7 @@ export async function fetchStrapiData<T>(
   }
 }
 
-export async function fetchSpeciesData(locale: string, page: number = 1, pageSize: number = 3, filter?: string) {
+export async function fetchSpeciesData(locale: string, page: number = 1, pageSize: number = 24, filter?: string) {
   try {
     const queryParams = {
       fields: [
