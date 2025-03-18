@@ -16,6 +16,7 @@ type GeoJSONData = { type: "FeatureCollection"; features: GeoJSONFeature[] };
 type SpeciesCoordinate = {
     coordinates: [number, number];
     title: string;
+    slug: string
 };
 
 const calculateRegionDensity = (geoJson: GeoJSONData, coordinates: SpeciesCoordinate[]) => {
@@ -97,7 +98,7 @@ export default function GeoJsonMap({ speciesCoordinates }: { speciesCoordinates:
         };
     };
 
-    const markers = speciesCoordinates.map(({ coordinates, title }, index) => {
+    const markers = speciesCoordinates.map(({ coordinates, title, slug }, index) => {
         let matchedRegion: string | null = null;
         const point = turf.point([coordinates[1], coordinates[0]]);
 
@@ -140,7 +141,8 @@ export default function GeoJsonMap({ speciesCoordinates }: { speciesCoordinates:
                     <p className="text-sm"><span className="font-medium">{t("place")}</span>: {title}</p>
                     <p><span className="font-medium">{t("region")}</span>: {matchedRegion || "None"}</p>
                     <Link
-                        href={`/search?coordinates=${coordinates[0]},${coordinates[1]}`}
+                        // href={`/search?coordinates=${coordinates[0]},${coordinates[1]}`}
+                        href={`/places/${slug}`}
                         className="block my-2 !text-sky-800 !hover:text-red-600 transition"
                     >
                         {t("readmore")}

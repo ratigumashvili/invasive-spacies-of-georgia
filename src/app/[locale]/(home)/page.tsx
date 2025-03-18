@@ -31,19 +31,22 @@ export default async function HomePage({ params }: Props) {
     ? speciesCoordinates.data.flatMap((item: any) =>
       item.places.map((place: any) => ({
         coordinates: place.coordinates,
-        title: place.title
+        title: place.title,
+        slug: place.slug
       }))
     )
     : [];
 
-  const formattedCoordinates: formattedCoordinatesProps[] = newCoordinates.map(({ coordinates, title }) => ({
+  const formattedCoordinates: formattedCoordinatesProps[] = newCoordinates.map(({ coordinates, title, slug }) => ({
     coordinates: coordinates.split(",").map(Number) as [number, number],
-    title
+    title,
+    slug
   }));
 
   interface formattedCoordinatesProps {
     coordinates: [number, number];
     title: string;
+    slug: string
   }
 
 
@@ -71,9 +74,10 @@ export default async function HomePage({ params }: Props) {
       />
 
       <HomePageMap
-        speciesCoordinates={formattedCoordinates.map(({ coordinates, title }) => ({
+        speciesCoordinates={formattedCoordinates.map(({ coordinates, title, slug }) => ({
           coordinates,
-          title
+          title,
+          slug
         }))}
       />
 
