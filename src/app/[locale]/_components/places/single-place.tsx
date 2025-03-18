@@ -1,15 +1,18 @@
 import * as turf from "@turf/turf";
 import { FeatureCollection, Geometry } from "geojson";
 import { useTranslations } from "next-intl";
+import { GlobeIcon } from "lucide-react";
 
-import geoJsonDataRaw from "@/app/[locale]/_data/coords.json";
 
 import { NothingFound } from "@/app/[locale]/_components/nothing-found";
 
-import { generateFontByLocale } from "@/lib/utils";
-import { SpecieBlock } from "../home-page-blocks/specie-block";
-import { SingleSpecieList } from "@/types/random-specie";
+import { SpecieBlock } from "@/app/[locale]/_components/home-page-blocks/specie-block";
 import { Separator } from "@/components/ui/separator";
+
+import { generateFontByLocale } from "@/lib/utils";
+
+import geoJsonDataRaw from "@/app/[locale]/_data/coords.json";
+import { SingleSpecieList } from "@/types/random-specie";
 
 export function SinglePlaceComponent({ data, locale }: { data: any, locale: string }) {
 
@@ -60,8 +63,8 @@ export function SinglePlaceComponent({ data, locale }: { data: any, locale: stri
                 <h1 className={`${generateFontByLocale(locale)} text-2xl uppercase font-medium`}>
                     {data[0]?.title}, {getRegionName(geoJsonData, placeCoordinates)}
                 </h1>
-                <h2 className="text-base text-muted-foreground">
-                    {data[0]?.coordinates}
+                <h2 className="text-base text-muted-foreground flex items-center gap-2">
+                    <GlobeIcon className="w-4 h-4" /> {data[0]?.coordinates}
                 </h2>
             </div>
             <Separator className="my-8" />
