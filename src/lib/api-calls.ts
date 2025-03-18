@@ -338,7 +338,7 @@ export async function fetchSpeciesByCoordinates(locale: string, pageSize: number
   }
 }
 
-export async function fetchPlacesData(locale: string, pageSize: number = 25, filter?: string) {
+export async function fetchPlacesData(locale: string, page: number = 1, pageSize: number = 25, filter?: string) {
   try {
     const queryParams = {
       fields: [
@@ -365,6 +365,7 @@ export async function fetchPlacesData(locale: string, pageSize: number = 25, fil
         "url"
       ],
 
+      "pagination[page]": page,
       "pagination[pageSize]": pageSize,
       locale,
       filter,
