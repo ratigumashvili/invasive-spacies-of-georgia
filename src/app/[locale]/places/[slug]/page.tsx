@@ -11,7 +11,7 @@ export default async function SinglePlace({ params }: Props) {
     const { locale, slug } = await params
 
     const filter = `&filters[$and][0][slug][$eq]=${slug}`
-    const response = await fetchPlacesData(locale, 1, filter)
+    const response = await fetchPlacesData(locale, 1, 1, filter)
 
     return (
         <Container>

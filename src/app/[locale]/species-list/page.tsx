@@ -1,11 +1,27 @@
+import { useTranslations } from "next-intl";
+
 import Container from "@/app/[locale]/_components/container";
 import { Pagination } from "@/app/[locale]/_components/pagination";
+import { SpecieBlock } from "@/app/[locale]/_components/home-page-blocks/specie-block";
+import { DropDownAction } from "@/app/[locale]/_components/drop-down-actions";
 
 import { fetchSpeciesData } from "@/lib/api-calls";
+import { generateFontByLocale } from "@/lib/utils";
+
+import { SingleSpecieList } from "@/types/random-specie";
 
 type Props = {
     params: Promise<{ locale: string }>
     searchParams: Promise<{ [key: string]: string | string[] | undefined }>
+}
+
+const PageTitle = ({ locale }: { locale: string }) => {
+    const t = useTranslations("Common")
+    return (
+        <h1 className={`${generateFontByLocale(locale)} text-2xl uppercase font-medium mb-8`}>
+            {t("species_list")}
+        </h1>
+    )
 }
 
 export default async function SpeciesList({ params, searchParams }: Props) {
@@ -17,10 +33,22 @@ export default async function SpeciesList({ params, searchParams }: Props) {
 
     return (
         <Container>
-            <pre>Species-list: {JSON.stringify(response, null, 2)}</pre>
-            <Pagination 
-                currentPage={currentPage} 
-                totalPages={response?.meta.pagination.pageCount as number} 
+            {/* <pre>Species-list: {JSON.stringify(response, null, 2)}</pre> */}
+            <div>
+                <div className="flex items-center justify-between">
+                    <PageTitle locale={locale} />
+                    <DropDownAction />
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {response?.data?.map((item: SingleSpecieList) => (
+                        <SpecieBlock key={item.documentId} data={item as SingleSpecieList} />
+                    ))}
+                </div>
+            </div>
+            <Pagination
+                currentPage={currentPage}
+                totalPages={response?.meta.pagination.pageCount as number}
                 pathname={`species-list`}
             />
         </Container>

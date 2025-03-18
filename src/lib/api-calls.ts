@@ -77,11 +77,11 @@ export async function fetchStrapiData<T>(
   }
 }
 
-export async function fetchSpeciesData(locale: string, page: number = 1, pageSize: number = 1, filter?: string) {
+export async function fetchSpeciesData(locale: string, page: number = 1, pageSize: number = 3, filter?: string) {
   try {
     const queryParams = {
       fields: [
-        "autorName", "locale", "name", "ecologicalGroup", "firstIntroduced", "isNew", "dateOfDetection"
+        "autorName", "locale", "name", "slug", "ecologicalGroup", "firstIntroduced", "isNew", "dateOfDetection"
       ],
 
       "populate[image][fields]": ["documentId", "alternativeText", "caption", "width", "height", "url"],
