@@ -11,7 +11,6 @@ interface PaginationProps {
 }
 
 export function Pagination({ currentPage, totalPages, pathname }: PaginationProps) {
-    if (totalPages <= 1) return null;
     
     const router = useRouter()
     
@@ -19,12 +18,15 @@ export function Pagination({ currentPage, totalPages, pathname }: PaginationProp
         if(currentPage > totalPages) {
             router.push(`/${pathname}?page=${totalPages}`)
         }
+        //eslint-disable-next-line
     }, [router])
     
     const createPageUrl = (page: number) => `/${pathname}?page=${page}`;
-
+    
     const t = useTranslations("Common")
     
+    if (totalPages <= 1) return null;
+
     return (
         <div className="flex mt-8 space-x-1">
 
