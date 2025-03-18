@@ -4,6 +4,7 @@ import { useTranslations } from "next-intl";
 import Container from "@/app/[locale]/_components/container";
 import { NothingFound } from "@/app/[locale]/_components/nothing-found";
 import { SingleTaxonMeta } from "@/app/[locale]/_components/single-taxon/single-taxon-meta";
+import { DropDownAction } from "@/app/[locale]/_components/drop-down-actions";
 import SingleTaxonMap from "@/app/[locale]/_components/single-taxon/show-map";
 
 import { fetchSpeciesData } from "@/lib/api-calls";
@@ -34,7 +35,10 @@ export default async function SingleSpecieList({ params }: Props) {
 
     return (
         <Container>
-            <PageTitle />
+            <div className="flex items-center justify-between">
+                <PageTitle />
+                <DropDownAction />
+            </div>
             <div className="grid grid-cols-3 gap-4 w-full">
                 <div className="col-span-2">
                     <SingleTaxonMeta data={data} />
@@ -52,7 +56,7 @@ export default async function SingleSpecieList({ params }: Props) {
                                 />
                                 <p className="my-1 text-xs text-muted-foreground italic">{data[0]?.image.caption}</p>
                             </div>
-                        ): null}
+                        ) : null}
                         {data.length > 0 && data[0].places && (
                             <SingleTaxonMap places={data[0].places as Place[]} />
                         )}
