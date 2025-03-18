@@ -37,9 +37,23 @@ export default async function Search({ params, searchParams }: Props) {
 
     return (
         <Container>
+            {data && data.data.length !== 0 && (
+                <div className="w-full" >
+                    {data.data.map((item) => (
+                        <div key={item.documentId}>
+                            <div>{item.title}</div>
+                            <div>{item.coordinates}</div>
+                            {item.species.map((specie) => (
+                                <div className="flex gap-2 border w-full" key={specie.documentId}>
+                                    <div>{specie.name}</div>
+                                    <div>{specie.autorName}</div>
+                                </div>
+                            ))}
+                        </div>
+                    ))}
+                </div>
+            )}
             <pre>
-                searchParams {JSON.stringify(coordinates, null, 2)}
-                <br />
                 <pre>{JSON.stringify(data, null, 2)}</pre>
             </pre>
             

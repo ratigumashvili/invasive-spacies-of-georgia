@@ -69,4 +69,12 @@ export interface SpeciesEntity {
   localizations: LocalizationEntity[];
 }
 
+export interface SpeciesList {
+  documentId: string;
+  title: string;
+  coordinates: string;
+  species: SpeciesEntity[];
+}
+
 export type SpeciesResponse = StrapiResponse<SpeciesEntity>;
+export type SpeciesListResponse = StrapiResponse<SpeciesList>;

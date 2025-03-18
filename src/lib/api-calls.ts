@@ -1,5 +1,5 @@
 import { EventItem } from "@/types/event-item";
-import { SpeciesResponse } from "@/types/taxonomy-types";
+import { SpeciesListResponse, SpeciesResponse } from "@/types/taxonomy-types";
 import axios from "axios";
 import qs from "query-string";
 
@@ -330,7 +330,7 @@ export async function fetchSpeciesByCoordinates(locale: string, pageSize: number
       throw new Error(`Failed to fetch species: ${errorData.error?.message || response.statusText}`);
     }
 
-    const data: SpeciesResponse = await response.json();
+    const data: SpeciesListResponse = await response.json();
     return data;
   } catch (error: any) {
     console.error("Error fetching species data:", error.message);
