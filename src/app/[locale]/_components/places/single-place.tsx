@@ -63,8 +63,8 @@ export function SinglePlaceComponent({ data, locale }: { data: any, locale: stri
                 <h1 className={`${generateFontByLocale(locale)} text-2xl uppercase font-medium`}>
                     {data[0]?.title}, {getRegionName(geoJsonData, placeCoordinates)}
                 </h1>
-                <h2 className="text-base text-muted-foreground flex items-center gap-2">
-                    <GlobeIcon className="w-4 h-4" /> {data[0]?.coordinates}
+                <h2 className="text-base text-muted-foreground flex items-center">
+                    <GlobeIcon className="w-4 h-4 mr-1" /> {data[0]?.coordinates}
                 </h2>
             </div>
             <Separator className="my-8" />
