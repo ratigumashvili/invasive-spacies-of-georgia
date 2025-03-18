@@ -32,10 +32,10 @@ export function SpecieBlock({ data }: { data: SingleSpecieList }) {
                     <Image
                         src={`/no-image.png`}
                         alt="Species"
-                        width={1000}
-                        height={1000}
+                        width={100}
+                        height={100}
                         priority
-                        className="w-full object-contain lg:max-h-[220px] lg:h-full lg:object-contain"
+                        className="w-full object-contain h-full max-h-[200px] md:max-h-[260px] lg:max-h-[220px] lg:object-contain"
                     />
                     <span className="text-xs text-muted-foreground italic px-6">{t("no_image")}</span>
                 </>}
