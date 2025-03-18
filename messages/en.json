@@ -19,7 +19,9 @@
     "speciesAlert": "Species Alert",
     "date_detected": "Date detected",
     "nothing_found": "Nothing found",
-    "no_image": "No image available"
+    "no_image": "No image available",
+    "next": "Next",
+    "prev": "Previous"
   },
   "Footer": {
     "isu_full": "Ilia State University",

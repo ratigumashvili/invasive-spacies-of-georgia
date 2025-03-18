@@ -334,7 +334,7 @@ export async function fetchSpeciesByCoordinates(locale: string, pageSize: number
     return data;
   } catch (error: any) {
     console.error("Error fetching species data:", error.message);
-    return { data: [], meta: { pagination: { page: 1, pageSize: 25, pageCount: 1, total: 0 } } };
+    return { data: [], meta: { pagination: { page: 1, pageSize: 24, pageCount: 1, total: 0 } } };
   }
 }
 
