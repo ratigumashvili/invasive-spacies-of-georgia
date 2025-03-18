@@ -45,7 +45,8 @@
     "dashboard": "პანელი",
     "register": "რეგისტრაცია",
     "search": "ძებნა",
-    "bookmarked": "ჩანიშნული"
+    "bookmarked": "ჩანიშნული",
+    "places_list": "ადგილების სია"
   },
   "actions": {
     "explore_ISG_data": "აღმოაჩინეთ ISG მონაცემები",

@@ -40,36 +40,41 @@ const topMenu = [
     },
     {
         id: 4,
+        title: "places_list",
+        path: "/places"
+    },
+    {
+        id: 5,
         title: "literature",
         path: "/literature"
     },
     {
-        id: 5,
+        id: 6,
         title: "legal_docs",
         path: "legal-docs"
     },
     {
-        id: 6,
+        id: 7,
         title: "research",
         path: "research"
     },
     {
-        id: 7,
+        id: 8,
         title: "data_export",
         path: "data-export"
     },
     {
-        id: 8,
+        id: 9,
         title: "statistics",
         path: "statistics"
     },
     {
-        id: 9,
+        id: 10,
         title: "group",
         path: "group"
     },
     {
-        id: 10,
+        id: 11,
         title: "contribute",
         path: "/contribute"
     }

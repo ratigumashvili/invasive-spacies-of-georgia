@@ -45,7 +45,8 @@
     "dashboard": "Dashboard",
     "register": "Register",
     "search": "Search",
-    "bookmarked": "Bookmarked"
+    "bookmarked": "Bookmarked",
+    "places_list": "Places list"
   },
   "actions": {
     "explore_ISG_data": "Explore ISG data",
