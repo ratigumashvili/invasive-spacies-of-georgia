@@ -258,7 +258,7 @@ export async function fetchSpeciesCoordinates(locale: string, pageSize: number =
   try {
     const queryParams = {
       fields: ["documentId"],
-      "populate[places][fields]": ["coordinates", "title"],
+      "populate[places][fields]": ["coordinates", "title", "slug"],
       "pagination[pageSize]": pageSize,
       locale,
       filter
@@ -340,6 +340,47 @@ export async function fetchSpeciesByCoordinates(locale: string, pageSize: number
 
 
 
+
+
+
+
+export async function fetchPlacesData(locale: string, pageSize: number = 25, filter?: string) {
+  try {
+    const queryParams = {
+      fields: [
+        "title", "slug", "coordinates"
+      ],
+
+      // "populate[species][fields]": [
+      //   "name", 
+      //   "slug", 
+      // ],
+
+      "pagination[pageSize]": pageSize,
+      locale,
+      filter
+    };
+
+    const query = qs.stringify(queryParams, { encode: false });
+    const requestUrl = `${BASE_API_URL}/places?${query}`;
+
+    const response = await fetch(requestUrl, {
+      method: "GET",
+      headers: { "Accept": "application/json" }
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(`Failed to fetch places: ${errorData.error?.message || response.statusText}`);
+    }
+
+    const data: SpeciesResponse = await response.json();
+    return data;
+  } catch (error: any) {
+    console.error("Error fetching places data:", error.message);
+    return { data: [], meta: { pagination: { page: 1, pageSize: 25, pageCount: 1, total: 0 } } };
+  }
+}
 
 
 

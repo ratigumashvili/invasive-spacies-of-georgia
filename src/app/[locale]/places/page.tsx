@@ -1,4 +1,7 @@
 import Container from "@/app/[locale]/_components/container";
+import { PlacesList } from "@/app/[locale]/_components/places-list"
+
+import { fetchPlacesData } from "@/lib/api-calls";
 
 type Props = {
     params: Promise<{ locale: string }>
@@ -6,9 +9,12 @@ type Props = {
 
 export default async function PlacesPage({ params }: Props) {
     const { locale } = await params
+
+    const response = await fetchPlacesData(locale)
+
     return (
         <Container>
-            {JSON.stringify(locale, null, 3)}
+            <PlacesList data={response?.data} />
         </Container>
     )
 }

@@ -35,18 +35,18 @@ const items = [
             {
                 id: 2.1,
                 title: "species_list",
-                path: "/"
+                path: "/species-list"
             },
             {
                 id: 2.2,
-                title: "species_search",
-                path: "/"
+                title: "places_list",
+                path: "/places"
             },
             {
                 id: 2.3,
-                title: "api",
-                path: "/"
-            }
+                title: "species_search",
+                path: "/search"
+            },
         ]
     },
     {
