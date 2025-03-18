@@ -5,6 +5,7 @@ import { EventBlock } from "@/app/[locale]/_components/home-page-blocks/event-bl
 import { Pagination } from "@/app/[locale]/_components/pagination";
 
 import { getEvents } from "@/lib/api-calls";
+
 import { generateFontByLocale } from "@/lib/utils";
 
 const PageTitle = ({ locale }: { locale: string }) => {
