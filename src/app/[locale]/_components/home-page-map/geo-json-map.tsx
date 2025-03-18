@@ -125,7 +125,7 @@ export default function GeoJsonMap({ speciesCoordinates }: { speciesCoordinates:
         });
 
         if (loading || !geoData) {
-            return <div className="text-center">Loading map...</div>;
+            return <div key={index} className="text-center">Loading map...</div>;
         }
 
         return (
