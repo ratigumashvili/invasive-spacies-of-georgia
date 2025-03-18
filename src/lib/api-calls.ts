@@ -367,7 +367,9 @@ export async function fetchPlacesData(locale: string, pageSize: number = 25, fil
 
       "pagination[pageSize]": pageSize,
       locale,
-      filter
+      filter,
+
+      "sort": "title:asc"
     };
 
     const query = qs.stringify(queryParams, { encode: false });
