@@ -7,20 +7,21 @@ import { useTranslations } from "next-intl";
 interface PaginationProps {
     currentPage: number;
     totalPages: number;
+    pathname: string
 }
 
-export function Pagination({ currentPage, totalPages }: PaginationProps) {
+export function Pagination({ currentPage, totalPages, pathname }: PaginationProps) {
     if (totalPages <= 1) return null;
     
     const router = useRouter()
     
     useEffect(() => {
         if(currentPage > totalPages) {
-            router.push(`/places?page=${totalPages}`)
+            router.push(`/${pathname}?page=${totalPages}`)
         }
     }, [router])
     
-    const createPageUrl = (page: number) => `/places?page=${page}`;
+    const createPageUrl = (page: number) => `/${pathname}?page=${page}`;
 
     const t = useTranslations("Common")
     

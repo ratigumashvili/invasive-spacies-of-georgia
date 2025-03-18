@@ -5,6 +5,7 @@ import { EventBlock } from "@/app/[locale]/_components/home-page-blocks/event-bl
 
 import { getEvents } from "@/lib/api-calls";
 import { generateFontByLocale } from "@/lib/utils";
+import { Pagination } from "../_components/pagination";
 
 const PageTitle = ({ locale }: { locale: string }) => {
     const t = useTranslations("Common")
@@ -17,17 +18,26 @@ const PageTitle = ({ locale }: { locale: string }) => {
 
 type Props = {
     params: Promise<{ locale: string }>
+    searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }
 
-export default async function EvensPage({ params }: Props) {
+export default async function EvensPage({ params, searchParams }: Props) {
     const { locale } = await params;
+    const resolvedSearchParams = await searchParams
 
-    const events = await getEvents(locale)
+    const currentPage = Number(resolvedSearchParams.page) || 1
+
+    const events = await getEvents(locale, currentPage)
 
     return (
         <Container>
             <PageTitle locale={locale} />
             <EventBlock events={events} />
+            <Pagination 
+                currentPage={currentPage} 
+                totalPages={events?.meta.pagination.pageCount as number}
+                pathname={`events`}
+            />
         </Container>
     )
 }

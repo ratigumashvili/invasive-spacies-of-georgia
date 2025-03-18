@@ -22,7 +22,8 @@ export default async function PlacesPage({ params, searchParams }: Props) {
             <PlacesList data={response?.data} locale={locale} />
             <Pagination
                 currentPage={currentPage} 
-                totalPages={response.meta.pagination.pageCount} 
+                totalPages={response?.meta.pagination.pageCount as number}
+                pathname={`places`}
             />
         </Container>
     )
