@@ -29,7 +29,7 @@ export default async function SingleSpecieList({ params }: Props) {
 
     const filter = `&filters[$and][0][slug][$eq]=${slug}`
 
-    const { data, meta }: SpeciesResponse = await fetchSpeciesData(locale, 1, filter);
+    const { data, meta }: SpeciesResponse = await fetchSpeciesData(locale, 1, 1, filter);
 
     if (data?.length === 0 || meta.pagination.total === 0) return <NothingFound />
 
