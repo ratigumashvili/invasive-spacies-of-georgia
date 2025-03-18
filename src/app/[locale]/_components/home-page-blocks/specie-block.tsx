@@ -16,15 +16,29 @@ export function SpecieBlock({ data }: { data: SingleSpecieList }) {
                 <CardTitle className="text-xl sr-only">
                     {t("species_factsheets")}
                 </CardTitle>
-                <Image
-                    src={`${BASE_URL}${data?.image?.url}`}
-                    alt="Species"
-                    width={1000}
-                    height={1000}
-                    priority
-                    className="w-full object-contain lg:max-h-[280px] lg:h-full lg:object-cover"
-                />
-                <span className="text-xs text-muted-foreground italic px-6">{data?.image?.caption}</span>
+                {data?.image?.url ? (
+                    <>
+                        <Image
+                            src={`${BASE_URL}${data?.image?.url}`}
+                            alt="Species"
+                            width={1000}
+                            height={1000}
+                            priority
+                            className="w-full object-contain lg:max-h-[280px] lg:h-full lg:object-cover"
+                        />
+                        <span className="text-xs text-muted-foreground italic px-6">{data?.image?.caption}</span>
+                    </>
+                ) : <>
+                    <Image
+                        src={`/no-image.png`}
+                        alt="Species"
+                        width={1000}
+                        height={1000}
+                        priority
+                        className="w-full object-contain lg:max-h-[220px] lg:h-full lg:object-contain"
+                    />
+                    <span className="text-xs text-muted-foreground italic px-6">{t("no_image")}</span>
+                </>}
             </CardHeader>
             <CardContent className="pb-6">
                 <dl className="data-list">

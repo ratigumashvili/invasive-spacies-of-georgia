@@ -18,7 +18,8 @@
     "details_on_specie": "More details on this specie",
     "speciesAlert": "Species Alert",
     "date_detected": "Date detected",
-    "nothing_found": "Nothing found"
+    "nothing_found": "Nothing found",
+    "no_image": "No image available"
   },
   "Footer": {
     "isu_full": "Ilia State University",
@@ -162,5 +163,12 @@
     "place": "Place",
     "readmore": "Read more",
     "records": "Records"
+  },
+  "Places": {
+    "page_title": "Registered places",
+    "region": "Region",
+    "coordinates": "Coordinates",
+    "recorded_species": "Registered species",
+    "read_more": "More about this place"
   }
 }

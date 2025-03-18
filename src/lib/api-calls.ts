@@ -338,12 +338,6 @@ export async function fetchSpeciesByCoordinates(locale: string, pageSize: number
   }
 }
 
-
-
-
-
-
-
 export async function fetchPlacesData(locale: string, pageSize: number = 25, filter?: string) {
   try {
     const queryParams = {
@@ -351,10 +345,25 @@ export async function fetchPlacesData(locale: string, pageSize: number = 25, fil
         "title", "slug", "coordinates"
       ],
 
-      // "populate[species][fields]": [
-      //   "name", 
-      //   "slug", 
-      // ],
+      "populate[species][fields]": [
+        "id",
+        "name",
+        "slug",
+        "autorName",
+        "ecologicalGroup",
+        "firstIntroduced",
+        "isNew",
+        "dateOfDetection"
+      ],
+
+      "populate[species][populate][image][fields]": [
+        "documentId", 
+        "alternativeText", 
+        "caption", 
+        "width", 
+        "height", 
+        "url"
+      ],
 
       "pagination[pageSize]": pageSize,
       locale,

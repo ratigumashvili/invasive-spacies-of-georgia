@@ -1,5 +1,5 @@
 import Container from "@/app/[locale]/_components/container";
-import { PlacesList } from "@/app/[locale]/_components/places-list"
+import { PlacesList } from "@/app/[locale]/_components/places/places-list"
 
 import { fetchPlacesData } from "@/lib/api-calls";
 
@@ -14,7 +14,7 @@ export default async function PlacesPage({ params }: Props) {
 
     return (
         <Container>
-            <PlacesList data={response?.data} />
+            <PlacesList data={response?.data} locale={locale} />
         </Container>
     )
 }
