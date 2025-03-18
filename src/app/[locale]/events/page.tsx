@@ -17,7 +17,7 @@ const PageTitle = ({ locale }: { locale: string }) => {
 
 type Props = {
     params: Promise<{ locale: string }>
-  }
+}
 
 export default async function EvensPage({ params }: Props) {
     const { locale } = await params;

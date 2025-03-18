@@ -41,14 +41,18 @@ export default async function SingleSpecieList({ params }: Props) {
                 </div>
                 <div className="col-span-1">
                     <div className="my-8">
-                        <Image
-                            src={`${BASE_URL}${data[0]?.image.url}`}
-                            width={data[0]?.image.width}
-                            height={data[0]?.image.height}
-                            alt={data[0]?.name}
-                            className="object-contain"
-                        />
-                        <p className="my-1 text-xs text-muted-foreground italic">{data[0]?.image.caption}</p>
+                        {data[0]?.image?.url ? (
+                            <div className="mb-4">
+                                <Image
+                                    src={`${BASE_URL}${data[0]?.image?.url}`}
+                                    width={data[0]?.image.width}
+                                    height={data[0]?.image.height}
+                                    alt={data[0]?.name}
+                                    className="object-contain"
+                                />
+                                <p className="my-1 text-xs text-muted-foreground italic">{data[0]?.image.caption}</p>
+                            </div>
+                        ): null}
                         {data.length > 0 && data[0].places && (
                             <SingleTaxonMap places={data[0].places as Place[]} />
                         )}
