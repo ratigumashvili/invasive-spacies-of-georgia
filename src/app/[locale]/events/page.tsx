@@ -2,10 +2,10 @@ import { useTranslations } from "next-intl";
 
 import Container from "@/app/[locale]/_components/container";
 import { EventBlock } from "@/app/[locale]/_components/home-page-blocks/event-block";
+import { Pagination } from "@/app/[locale]/_components/pagination";
 
 import { getEvents } from "@/lib/api-calls";
 import { generateFontByLocale } from "@/lib/utils";
-import { Pagination } from "../_components/pagination";
 
 const PageTitle = ({ locale }: { locale: string }) => {
     const t = useTranslations("Common")
