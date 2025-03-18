@@ -11,7 +11,6 @@ type Props = {
 export default async function SpeciesList({ params, searchParams }: Props) {
     const { locale } = await params
     const resolvedSearchParams = await searchParams
-
     const currentPage = Number(resolvedSearchParams.page) || 1
 
     const response = await fetchSpeciesData(locale, currentPage)
