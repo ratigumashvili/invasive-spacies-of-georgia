@@ -18,7 +18,7 @@ type Props = {
 const PageTitle = ({ locale }: { locale: string }) => {
     const t = useTranslations("Common")
     return (
-        <h1 className={`${generateFontByLocale(locale)} text-2xl uppercase font-medium mb-8`}>
+        <h1 className={`${generateFontByLocale(locale)} text-2xl uppercase font-medium`}>
             {t("species_list")}
         </h1>
     )
@@ -33,9 +33,8 @@ export default async function SpeciesList({ params, searchParams }: Props) {
 
     return (
         <Container>
-            {/* <pre>Species-list: {JSON.stringify(response, null, 2)}</pre> */}
             <div>
-                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-between mb-8">
                     <PageTitle locale={locale} />
                     <DropDownAction />
                 </div>
