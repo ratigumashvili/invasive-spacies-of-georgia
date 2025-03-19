@@ -444,13 +444,6 @@ export const registerUser = async (username: string, email: string, password: st
   }
 };
 
-
-
-
-
-
-
-
 export const loginUser = async (email: string, password: string) => {
   try {
       const response = await fetch(`${BASE_URL}/api/auth/local`, {

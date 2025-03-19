@@ -12,7 +12,6 @@ import { loginUser } from "@/lib/api-calls";
 import { generateFontByLocale } from "@/lib/utils";
 import { useAuth } from "@/context/auth-context";
 
-
 export function LoginForm() {
 
     const locale = useLocale()
@@ -47,10 +46,10 @@ export function LoginForm() {
             </h1>
             <form onSubmit={handleLogin} className="flex flex-col gap-y-4">
                 <Label htmlFor="email">{t("email")}</Label>
-                <Input type="email" id="email" name="email" placeholder={t("enter_your_email")} className="rounded-none" />
+                <Input type="email" id="email" name="email" placeholder={t("enter_your_email")} className="rounded-none px-3 py-6 text-base" />
                 <Label htmlFor="password">{t("password")}</Label>
-                <Input type="password" id="password" name="password" placeholder={t("enter_your_password")} className="rounded-none" />
-                <Button className="rounded-none my-4">
+                <Input type="password" id="password" name="password" placeholder={t("enter_your_password")} className="rounded-none px-3 py-6 text-base" />
+                <Button className="rounded-none my-4 py-6 cursor-pointer">
                     {t("login")}
                 </Button>
             </form>

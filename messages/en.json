@@ -31,7 +31,10 @@
     "enter_your_password": "Enter your password",
     "login": "Login",
     "next": "Next",
-    "prev": "Previous"
+    "prev": "Previous",
+    "validate_name": "Name must be at least 4 characters long",
+    "validate_email": "Invalid email address",
+    "validate_password": "Password must be at least 6 characters"
   },
   "Footer": {
     "isu_full": "Ilia State University",
