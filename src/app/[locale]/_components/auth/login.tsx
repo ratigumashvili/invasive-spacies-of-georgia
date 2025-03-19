@@ -2,7 +2,7 @@
 
 import { toast } from "sonner";
 import { useLocale, useTranslations } from "next-intl";
-import { useRouter } from "@/i18n/routing";
+import { Link, useRouter } from "@/i18n/routing";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -53,6 +53,7 @@ export function LoginForm() {
                     {t("login")}
                 </Button>
             </form>
+            <p className="text-sm">{t("no_account")} <Link href={'/register'} className="text-sky-800 underline">{t("register")}</Link></p>
         </div>
     );
 }

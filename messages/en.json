@@ -35,7 +35,11 @@
     "validate_name": "Name must be at least 4 characters long",
     "validate_email": "Invalid email address",
     "validate_password": "Password must be at least 6 characters",
-    "register_success": "Registration successful"
+    "register_success": "Registration successful",
+    "no_account": "Don't have an account yet?",
+    "register": "Register",
+    "allready_account": "Allready have an acoount?",
+    "form_login": "Login"
   },
   "Footer": {
     "isu_full": "Ilia State University",

@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useLocale, useTranslations } from "next-intl";
 import { toast } from "sonner";
-import { useRouter } from "@/i18n/routing";
+import { Link, useRouter } from "@/i18n/routing";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -110,6 +110,7 @@ export function RegisterUser() {
                     </Button>
                 </form>
             </Form>
+            <p className="text-sm">{t("allready_account")} <Link href={'/login'} className="text-sky-800 underline">{t("form_login")}</Link></p>
         </div>
     );
 }
