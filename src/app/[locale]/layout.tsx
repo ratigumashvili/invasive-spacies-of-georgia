@@ -15,6 +15,7 @@ import { LocaleType, supportedLocales } from '@/types/language-types';
 import "leaflet/dist/leaflet.css";
 import 'react-leaflet-markercluster/styles'
 import "@/app/styles/globals.css"
+import { AuthProvider } from '@/context/auth-context';
 
 export const metadata: Metadata = {
   title: "Invasive Speies of Georgia",
@@ -41,12 +42,14 @@ export default async function LocaleLayout({
     <html lang={locale}>
       <body className={`${firaGo.variable} ${bpgNino.variable} ${arial.variable}`}>
         <NextIntlClientProvider messages={messages}>
-          <div className='h-full flex flex-col mx-auto'>
-            <Navbar locale={locale as "en" | "ka"} />
-            <main>{children}</main>
-            <Footer />
-          </div>
-          <Toaster />
+          <AuthProvider>
+            <div className='h-full flex flex-col mx-auto'>
+              <Navbar locale={locale as "en" | "ka"} />
+              <main>{children}</main>
+              <Footer />
+            </div>
+            <Toaster />
+          </AuthProvider>
         </NextIntlClientProvider>
       </body>
     </html>

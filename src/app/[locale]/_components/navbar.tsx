@@ -4,7 +4,7 @@ import Image from "next/image"
 import { useSearchParams } from "next/navigation"
 import { ChevronsRightIcon, MenuIcon, SearchIcon } from "lucide-react"
 import { useTranslations } from "next-intl"
-import { useAuth } from "@/hooks/use-auth"
+// import { useAuth } from "@/hooks/use-auth"
 import { Link, usePathname, useRouter } from "@/i18n/routing"
 
 import {
@@ -22,6 +22,7 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { cn, generateFontByLocale } from "@/lib/utils"
 
 import { LocaleType } from "@/types/language-types"
+import { useAuth } from "@/context/auth-context"
 
 
 const topMenu = [

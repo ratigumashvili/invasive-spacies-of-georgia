@@ -1,6 +1,5 @@
 "use client"
 
-import Cookies from "js-cookie";
 import { toast } from "sonner";
 import { useLocale, useTranslations } from "next-intl";
 import { useRouter } from "@/i18n/routing";
@@ -11,38 +10,31 @@ import { Label } from "@/components/ui/label";
 
 import { loginUser } from "@/lib/api-calls";
 import { generateFontByLocale } from "@/lib/utils";
+import { useAuth } from "@/context/auth-context";
+
 
 export function LoginForm() {
+
     const locale = useLocale()
     const t = useTranslations("Common")
     const router = useRouter()
 
+    const { login } = useAuth();
+
     const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
 
-        event.preventDefault()
-
-        const formData = new FormData(event.currentTarget)
-
-        const email = formData.get("email") as string
-        const password = formData.get("password") as string
+        const formData = new FormData(event.currentTarget);
+        const email = formData.get("email") as string;
+        const password = formData.get("password") as string;
 
         const response = await loginUser(email, password);
-       
+
         if (response.status === "success") {
             const { jwt, user } = response.data;
-            
-            Cookies.set("token", jwt, { 
-                expires: 7, 
-                secure: process.env.NODE_ENV === "production",
-                sameSite: "strict",
-                path: "/"
-            });
+            login(user, jwt);
 
-            localStorage.setItem("user", JSON.stringify(user));
-
-            toast.success("Login successful!");
-            
-            router.replace(`/dashboard`)
+            router.push(`/dashboard`);
         } else {
             toast.error(response.data);
         }
