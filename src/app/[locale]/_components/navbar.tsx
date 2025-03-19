@@ -149,11 +149,11 @@ export function Navbar({ locale }: { locale: LocaleType }) {
                             generateFontByLocale(locale)
                         )}>{t("isu_full")}</h1>
                     </div>
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-3">
                         {user ? (
                             <DropdownMenu>
                                 <DropdownMenuTrigger className="outline-0 focus:outline-0">
-                                    <Avatar>
+                                    <Avatar className="w-10 h-10">
                                         <AvatarFallback
                                             className="bg-sky-950 cursor-pointer"
                                         >
