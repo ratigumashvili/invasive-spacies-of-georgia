@@ -18,11 +18,10 @@ export function DropDownAction() {
                 </button>
             </DropdownMenuTrigger>
             <DropdownMenuContent className="bg-white z-10 min-w-[200px]" align="end">
-                <DropdownMenuItem className="text-base cursor-pointer">My Account</DropdownMenuItem>
-                <DropdownMenuSeparator />
                 <DropdownMenuItem className="text-base cursor-pointer">Copy url</DropdownMenuItem>
                 <DropdownMenuItem className="text-base cursor-pointer">Print page</DropdownMenuItem>
                 <DropdownMenuItem className="text-base cursor-pointer">Download data</DropdownMenuItem>
+                <DropdownMenuSeparator />
                 <DropdownMenuItem className="text-base cursor-pointer">Feedback</DropdownMenuItem>
             </DropdownMenuContent>
         </DropdownMenu>
