@@ -20,6 +20,7 @@ interface UserProps {
 
 interface AuthContextProps {
     user: UserProps | null;
+    token: string | null;  // ✅ Add token to context
     login: (user: UserProps, token: string) => void;
     logout: () => void;
 }
@@ -29,15 +30,17 @@ const AuthContext = createContext<AuthContextProps | undefined>(undefined);
 export function AuthProvider({ children }: { children: React.ReactNode }) {
     const router = useRouter();
     const [user, setUser] = useState<UserProps | null>(null);
+    const [token, setToken] = useState<string | null>(null);
 
     useEffect(() => {
         if (typeof window === "undefined") return;
 
-        const token = Cookies.get("token");
-        const userData = localStorage.getItem("user");
+        const storedToken = Cookies.get("token");
+        const storedUser = localStorage.getItem("user");
 
-        if (token && userData) {
-            setUser(JSON.parse(userData));
+        if (storedToken && storedUser) {
+            setToken(storedToken);
+            setUser(JSON.parse(storedUser));
         }
     }, []);
 
@@ -46,6 +49,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         localStorage.setItem("user", JSON.stringify(user));
 
         setUser(user);
+        setToken(token);
         toast.success("Logged in successfully!");
     };
 
@@ -53,12 +57,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         Cookies.remove("token");
         localStorage.removeItem("user");
         setUser(null);
+        setToken(null); 
         toast.success("Logged out successfully!");
         router.push("/");
     };
 
     return (
-        <AuthContext.Provider value={{ user, login, logout }}>
+        <AuthContext.Provider value={{ user, token, login, logout }}>
             {children}
         </AuthContext.Provider>
     );
