@@ -152,7 +152,7 @@ export function Navbar({ locale }: { locale: LocaleType }) {
                     <div className="flex items-center gap-2">
                         {user ? (
                             <DropdownMenu>
-                                <DropdownMenuTrigger>
+                                <DropdownMenuTrigger className="outline-0 focus:outline-0">
                                     <Avatar>
                                         <AvatarFallback
                                             className="bg-sky-950 cursor-pointer"

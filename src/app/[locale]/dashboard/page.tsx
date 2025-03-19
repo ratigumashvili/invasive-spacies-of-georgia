@@ -1,8 +1,9 @@
 "use client"
 
-import Container from "@/app/[locale]/_components/container";
-
+import { Link } from "@/i18n/routing";
 import { useAuth } from "@/context/auth-context";
+
+import Container from "@/app/[locale]/_components/container";
 
 export default function DashboardPage() {
     const { user, logout } = useAuth()
@@ -17,7 +18,7 @@ export default function DashboardPage() {
                 </>
             ) : (
                 <>
-                    <p>Please log in.</p>
+                    <p>Please <Link href={'/login'}>log in</Link>.</p>
                 </>
             )}
         </Container>
