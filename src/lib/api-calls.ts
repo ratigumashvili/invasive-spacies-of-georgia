@@ -3,7 +3,7 @@ import { SpeciesListResponse, SpeciesResponse } from "@/types/taxonomy-types";
 import axios from "axios";
 import qs from "query-string";
 
-import { BASE_API_URL } from "./utils";
+import { BASE_API_URL, BASE_URL } from "./utils";
 
 interface PaginationMeta {
   page: number;
@@ -212,9 +212,17 @@ export async function fetchRandomSpecie(locale: string, filterType?: "isNew" | "
 
       const queryParams = {
         fields: [
-          "documentId", "autorName", "locale", "name", "slug",
-          "ecologicalGroup", "firstIntroduced", "isNew", "dateOfDetection"
+          "documentId", 
+          "autorName", 
+          "locale", 
+          "name", 
+          "slug",
+          "ecologicalGroup", 
+          "firstIntroduced", 
+          "isNew", 
+          "dateOfDetection"
         ],
+
         "populate[image][fields]": ["documentId", "alternativeText", "caption", "width", "height", "url"],
 
         "filters[image][url][$ne]": null,
@@ -396,6 +404,83 @@ export async function fetchPlacesData(locale: string, page: number = 1, pageSize
     return { data: [], meta: { pagination: { page: 1, pageSize: 25, pageCount: 1, total: 0 } } };
   }
 }
+
+
+
+
+
+
+
+
+export const registerUser = async (username: string, email: string, password: string) => {
+  try {
+      const response = await fetch(`${BASE_API_URL}/auth/local/register`, {
+          method: "POST",
+          headers: {
+              "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+              username,
+              email,
+              password
+          })
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+          throw new Error(data.error.message || "Registration failed");
+      }
+
+      return {
+        status: "success",
+        data: data,
+      };
+  } catch (error: any) {
+      return {
+        status: "failed",
+        data: error.message
+      }
+  }
+};
+
+
+
+
+
+
+
+
+export const loginUser = async (identifier: string, password: string) => {
+  try {
+    const response = await fetch(`${BASE_URL}/auth/local`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        identifier,
+        password,
+      }),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.error.message || "Login failed");
+    }
+
+    return {
+      status: "success",
+      data: data,
+    };
+  } catch (error: any) {
+    return {
+      status: "failed",
+      data: error.message,
+    };
+  }
+};
 
 
 

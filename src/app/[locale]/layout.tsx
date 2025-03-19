@@ -3,6 +3,8 @@ import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 
+import { Toaster } from "@/components/ui/sonner"
+
 import { firaGo, bpgNino, arial } from "@/lib/fonts"
 
 import { Navbar } from "@/app/[locale]/_components/navbar"
@@ -44,6 +46,7 @@ export default async function LocaleLayout({
             <main>{children}</main>
             <Footer />
           </div>
+          <Toaster />
         </NextIntlClientProvider>
       </body>
     </html>
