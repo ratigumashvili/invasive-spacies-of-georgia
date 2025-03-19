@@ -2,6 +2,7 @@
 
 import { useLocale, useTranslations } from "next-intl"
 import { toast } from "sonner"
+import { useRouter } from "@/i18n/routing"
 
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -11,6 +12,10 @@ import { generateFontByLocale } from "@/lib/utils"
 import { registerUser } from "@/lib/api-calls"
 
 export function RegisterUser() {
+
+    const locale = useLocale()
+    const t = useTranslations("Common")
+    const router = useRouter()
 
     async function handleFormSubmit(event: React.FormEvent<HTMLFormElement>) {
 
@@ -26,13 +31,11 @@ export function RegisterUser() {
 
         if (response.status === "success") {
             toast.success("Registration successful")
+            router.push('/')
         } else {
             toast.error(response.data)
         }
     }
-
-    const locale = useLocale()
-    const t = useTranslations("Common")
 
     return (
         <div className="w-full max-w-[450px]">
@@ -40,13 +43,13 @@ export function RegisterUser() {
                 {t("registration")}
             </h1>
             <form onSubmit={handleFormSubmit} className="flex flex-col gap-y-4">
-                <Label htmlFor="name">Name</Label>
-                <Input type="text" id="name" name="name" placeholder="Enter your name" className="rounded-none" />
-                <Label htmlFor="email">Email</Label>
-                <Input type="email" id="email" name="email" placeholder="Enter your email" className="rounded-none" />
-                <Label htmlFor="password">Password</Label>
-                <Input type="password" id="password" name="password" placeholder="Enter your password" className="rounded-none" />
-                <Button className="rounded-none">Submit</Button>
+                <Label htmlFor="name">{t("name")}</Label>
+                <Input type="text" id="name" name="name" placeholder={t("enter_your_name")} className="rounded-none" />
+                <Label htmlFor="email">{t("email")}</Label>
+                <Input type="email" id="email" name="email" placeholder={t("enter_your_email")} className="rounded-none" />
+                <Label htmlFor="password">{t("password")}</Label>
+                <Input type="password" id="password" name="password" placeholder={t("enter_your_password")} className="rounded-none" />
+                <Button className="rounded-none">{t("submit")}</Button>
             </form>
         </div>
     )
