@@ -1,16 +1,10 @@
-"use client"
-
 import Container from "@/app/[locale]/_components/container";
-import { RegisterUser } from "../_components/auth/register";
-import { LoginForm } from "../_components/auth/login";
+import { RegisterUser } from "@/app/[locale]/_components/auth/register";
 
-export default function RegisterPage() {
+export default async function RegisterPage() {
     return (
         <Container>
             <RegisterUser />
-            <br /><br />
-            <br /><br />
-            <LoginForm />
         </Container>
     )
 }

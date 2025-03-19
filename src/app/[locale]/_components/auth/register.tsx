@@ -31,7 +31,7 @@ export function RegisterUser() {
 
         if (response.status === "success") {
             toast.success("Registration successful")
-            router.push('/')
+            router.push('/login')
         } else {
             toast.error(response.data)
         }
@@ -49,7 +49,7 @@ export function RegisterUser() {
                 <Input type="email" id="email" name="email" placeholder={t("enter_your_email")} className="rounded-none" />
                 <Label htmlFor="password">{t("password")}</Label>
                 <Input type="password" id="password" name="password" placeholder={t("enter_your_password")} className="rounded-none" />
-                <Button className="rounded-none">{t("submit")}</Button>
+                <Button className="rounded-none my-4">{t("submit")}</Button>
             </form>
         </div>
     )

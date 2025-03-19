@@ -451,36 +451,37 @@ export const registerUser = async (username: string, email: string, password: st
 
 
 
-export const loginUser = async (identifier: string, password: string) => {
+export const loginUser = async (email: string, password: string) => {
   try {
-    const response = await fetch(`${BASE_URL}/auth/local`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        identifier,
-        password,
-      }),
-    });
+      const response = await fetch(`${BASE_URL}/api/auth/local`, {
+          method: "POST",
+          headers: {
+              "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+              identifier: email,
+              password
+          })
+      });
 
-    const data = await response.json();
+      if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.error?.message || "Login failed");
+      }
 
-    if (!response.ok) {
-      throw new Error(data.error.message || "Login failed");
-    }
-
-    return {
-      status: "success",
-      data: data,
-    };
+      const data = await response.json();
+      return {
+          status: "success",
+          data: data,
+      };
   } catch (error: any) {
-    return {
-      status: "failed",
-      data: error.message,
-    };
+      return {
+          status: "failed",
+          data: error.message,
+      };
   }
 };
+
 
 
 
