@@ -10,8 +10,16 @@ export default function DashboardPage() {
     return (
         <Container>
             <h1>Dashboard</h1>
-            <button onClick={logout}>Logout</button>
-            {user ? <p>Welcome, {user.username}!</p> : <p>Please log in.</p>}
+            {user ? (
+                <>
+                    <p>Welcome, {user.username}!</p>
+                    <button onClick={logout}>Logout</button>
+                </>
+            ) : (
+                <>
+                    <p>Please log in.</p>
+                </>
+            )}
         </Container>
     )
 }

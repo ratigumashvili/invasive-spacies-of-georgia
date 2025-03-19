@@ -19,8 +19,9 @@ interface userProps {
 }
 
 export function useAuth() {
-    const [user, setUser] = useState<userProps | null>(null);
     const router = useRouter()
+    
+    const [user, setUser] = useState<userProps | null>(null);
 
     useEffect(() => {
         const token = Cookies.get("token");

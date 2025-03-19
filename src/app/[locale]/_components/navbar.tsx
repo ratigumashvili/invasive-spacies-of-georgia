@@ -4,7 +4,7 @@ import Image from "next/image"
 import { useSearchParams } from "next/navigation"
 import { ChevronsRightIcon, MenuIcon, SearchIcon } from "lucide-react"
 import { useTranslations } from "next-intl"
-
+import { useAuth } from "@/hooks/use-auth"
 import { Link, usePathname, useRouter } from "@/i18n/routing"
 
 import {
@@ -17,9 +17,11 @@ import {
     SheetTrigger,
 } from "@/components/ui/sheet"
 import { Button } from "@/components/ui/button"
+import { Avatar, AvatarFallback } from "@/components/ui/avatar"
+
+import { cn, generateFontByLocale } from "@/lib/utils"
 
 import { LocaleType } from "@/types/language-types"
-import { cn, generateFontByLocale } from "@/lib/utils"
 
 
 const topMenu = [
@@ -82,6 +84,8 @@ const topMenu = [
 ]
 
 export function Navbar({ locale }: { locale: LocaleType }) {
+    const { user, logout } = useAuth()
+
     const t = useTranslations("Navigation")
 
     const router = useRouter()
@@ -139,37 +143,46 @@ export function Navbar({ locale }: { locale: LocaleType }) {
                             generateFontByLocale(locale)
                         )}>{t("isu_full")}</h1>
                     </div>
-                    <Sheet>
-                        <SheetTrigger className="cursor-pointer">
-                            <MenuIcon className="w-10 h-10" />
-                        </SheetTrigger>
-                        <SheetContent side="left" className="w-full">
-                            <SheetHeader>
-                                <SheetTitle className="sr-only">{t("navigation")}</SheetTitle>
-                                <SheetDescription asChild>
-                                    <nav className="flex flex-col gap-2 pt-6">
-                                        {topMenu.map((item) => (
-                                            <SheetClose asChild key={item.id}>
-                                                <Button
-                                                    variant="ghost"
-                                                    size="lg"
-                                                    onClick={() => hanldeButtonClick(item.path as string)}
-                                                    className="justify-start cursor-pointer"
-                                                >
-                                                    <span className={cn(
-                                                        `${generateFontByLocale(locale)} font-semibold text-lg uppercase text-black`,
-                                                        pathname === item.path && "text-sky-800"
-                                                    )}>
-                                                        {t(item.title)}
-                                                    </span>
-                                                </Button>
-                                            </SheetClose>
-                                        ))}
-                                    </nav>
-                                </SheetDescription>
-                            </SheetHeader>
-                        </SheetContent>
-                    </Sheet>
+                    <div className="flex items-center gap-2">
+                        {user ? (
+                            <Avatar>
+                                <AvatarFallback>{user.username.charAt(0).toUpperCase()}</AvatarFallback>
+                            </Avatar>
+                        ) : (
+                            <></>
+                        )}
+                        <Sheet>
+                            <SheetTrigger className="cursor-pointer">
+                                <MenuIcon className="w-10 h-10" />
+                            </SheetTrigger>
+                            <SheetContent side="left" className="w-full">
+                                <SheetHeader>
+                                    <SheetTitle className="sr-only">{t("navigation")}</SheetTitle>
+                                    <SheetDescription asChild>
+                                        <nav className="flex flex-col gap-2 pt-6">
+                                            {topMenu.map((item) => (
+                                                <SheetClose asChild key={item.id}>
+                                                    <Button
+                                                        variant="ghost"
+                                                        size="lg"
+                                                        onClick={() => hanldeButtonClick(item.path as string)}
+                                                        className="justify-start cursor-pointer"
+                                                    >
+                                                        <span className={cn(
+                                                            `${generateFontByLocale(locale)} font-semibold text-lg uppercase text-black`,
+                                                            pathname === item.path && "text-sky-800"
+                                                        )}>
+                                                            {t(item.title)}
+                                                        </span>
+                                                    </Button>
+                                                </SheetClose>
+                                            ))}
+                                        </nav>
+                                    </SheetDescription>
+                                </SheetHeader>
+                            </SheetContent>
+                        </Sheet>
+                    </div>
                 </div>
             </div>
         </header>

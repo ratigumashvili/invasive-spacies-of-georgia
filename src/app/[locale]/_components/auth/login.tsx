@@ -42,7 +42,7 @@ export function LoginForm() {
 
             toast.success("Login successful!");
             
-            router.push(`/dashboard`)
+            router.replace(`/dashboard`)
         } else {
             toast.error(response.data);
         }
