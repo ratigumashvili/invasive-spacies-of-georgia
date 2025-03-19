@@ -12,7 +12,7 @@ export function SpecieBlock({ data }: { data: SingleSpecieList }) {
     const t = useTranslations("Common")
     return (
         <Card className="rounded-none bg-slate-50 p-0 pb-6 flex-col h-full">
-            <CardHeader className="p-0">
+            <CardHeader className="p-0 flex">
                 <CardTitle className="text-xl sr-only">
                     {t("species_factsheets")}
                 </CardTitle>

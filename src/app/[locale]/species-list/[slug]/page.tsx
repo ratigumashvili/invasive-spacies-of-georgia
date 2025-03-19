@@ -35,16 +35,16 @@ export default async function SingleSpecieList({ params }: Props) {
 
     return (
         <Container>
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between mb-8">
                 <PageTitle />
                 <DropDownAction />
             </div>
-            <div className="grid grid-cols-3 gap-4 w-full">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-0 md:gap-4 w-full">
                 <div className="col-span-2">
                     <SingleTaxonMeta data={data} />
                 </div>
                 <div className="col-span-1">
-                    <div className="my-8">
+                    <div className="my-0 md:my-8 lg:my-0">
                         {data[0]?.image?.url ? (
                             <div className="mb-4">
                                 <Image

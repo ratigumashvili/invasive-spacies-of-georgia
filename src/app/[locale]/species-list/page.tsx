@@ -9,6 +9,7 @@ import { fetchSpeciesData } from "@/lib/api-calls";
 import { generateFontByLocale } from "@/lib/utils";
 
 import { SingleSpecieList } from "@/types/random-specie";
+import { Separator } from "@/components/ui/separator";
 
 type Props = {
     params: Promise<{ locale: string }>
@@ -38,6 +39,8 @@ export default async function SpeciesList({ params, searchParams }: Props) {
                     <PageTitle locale={locale} />
                     <DropDownAction />
                 </div>
+
+                <Separator className="mb-8" />
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {response?.data?.map((item: SingleSpecieList) => (

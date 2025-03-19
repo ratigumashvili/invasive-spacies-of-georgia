@@ -3,10 +3,9 @@ import { FeatureCollection, Geometry } from "geojson";
 import { useTranslations } from "next-intl";
 import { GlobeIcon } from "lucide-react";
 
-
 import { NothingFound } from "@/app/[locale]/_components/nothing-found";
-
 import { SpecieBlock } from "@/app/[locale]/_components/home-page-blocks/specie-block";
+import { DropDownAction } from "@/app/[locale]/_components/drop-down-actions";
 import { Separator } from "@/components/ui/separator";
 
 import { generateFontByLocale } from "@/lib/utils";
@@ -59,13 +58,16 @@ export function SinglePlaceComponent({ data, locale }: { data: any, locale: stri
 
     return (
         <div>
-            <div className="mb-8">
-                <h1 className={`${generateFontByLocale(locale)} text-2xl uppercase font-medium`}>
-                    {data[0]?.title}, {getRegionName(geoJsonData, placeCoordinates)}
-                </h1>
-                <h2 className="text-base text-muted-foreground flex items-center">
-                    <GlobeIcon className="w-4 h-4 mr-1" /> {data[0]?.coordinates}
-                </h2>
+            <div className="mb-8 flex items-start justify-baseline">
+                <div className="w-full">
+                    <h1 className={`${generateFontByLocale(locale)} text-2xl uppercase font-medium`}>
+                        {data[0]?.title}, {getRegionName(geoJsonData, placeCoordinates)}
+                    </h1>
+                    <h2 className="text-base text-muted-foreground flex items-center">
+                        <GlobeIcon className="w-4 h-4 mr-1" /> {data[0]?.coordinates}
+                    </h2>
+                </div>
+                <DropDownAction />
             </div>
             <Separator className="my-8" />
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

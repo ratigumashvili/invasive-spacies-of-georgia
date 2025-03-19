@@ -11,7 +11,7 @@ type SingleTaxonMetaProps = {
 export function SingleTaxonMeta({ data }: SingleTaxonMetaProps) {
     const t = useTranslations("Species")
     return (
-        <div className="border border-sky-800 border-l-8 bg-slate-50 my-8 p-4">
+        <div className="border border-sky-800 border-l-8 bg-slate-50 my-8 md:my-0 p-4">
             <h2 className="text-2xl font-medium mb-4">{data[0]?.name}</h2>
 
             <h3 className="text-lg font-medium my-4 text-muted-foreground">{t("metadata")}</h3>
