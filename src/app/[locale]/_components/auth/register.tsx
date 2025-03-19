@@ -27,7 +27,7 @@ export function RegisterUser() {
     });
 
     const form = useForm({
-        resolver: zodResolver(registerSchema), // ✅ Connect Zod validation
+        resolver: zodResolver(registerSchema),
         defaultValues: { name: "", email: "", password: "" },
     });
 
@@ -35,7 +35,7 @@ export function RegisterUser() {
         const response = await registerUser(values.name, values.email, values.password);
 
         if (response.status === "success") {
-            toast.success("Registration successful");
+            toast.success(t("register_success"));
             router.push("/login");
         } else {
             toast.error(response.data);
@@ -57,7 +57,11 @@ export function RegisterUser() {
                             <FormItem>
                                 <FormLabel>{t("name")}</FormLabel>
                                 <FormControl>
-                                    <Input {...field} placeholder={t("enter_your_name")} className="rounded-none px-3 py-6 text-base" />
+                                    <Input
+                                        {...field}
+                                        placeholder={t("enter_your_name")}
+                                        className="rounded-none px-3 py-6 text-base"
+                                    />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
@@ -71,7 +75,11 @@ export function RegisterUser() {
                             <FormItem>
                                 <FormLabel>{t("email")}</FormLabel>
                                 <FormControl>
-                                    <Input {...field} placeholder={t("enter_your_email")} className="rounded-none px-3 py-6 text-base" />
+                                    <Input
+                                        {...field}
+                                        placeholder={t("enter_your_email")}
+                                        className="rounded-none px-3 py-6 text-base"
+                                    />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
@@ -85,7 +93,12 @@ export function RegisterUser() {
                             <FormItem>
                                 <FormLabel>{t("password")}</FormLabel>
                                 <FormControl>
-                                    <Input type="password" {...field} placeholder={t("enter_your_password")} className="rounded-none px-3 py-6 text-base" />
+                                    <Input
+                                        type="password"
+                                        {...field}
+                                        placeholder={t("enter_your_password")}
+                                        className="rounded-none px-3 py-6 text-base"
+                                    />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
