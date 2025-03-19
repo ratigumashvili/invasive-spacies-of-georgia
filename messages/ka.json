@@ -58,7 +58,8 @@
     "register": "რეგისტრაცია",
     "search": "ძებნა",
     "bookmarked": "ჩანიშნული",
-    "places_list": "ადგილების სია"
+    "places_list": "ადგილების სია",
+    "logout": "გასვლა"
   },
   "actions": {
     "explore_ISG_data": "აღმოაჩინეთ ISG მონაცემები",

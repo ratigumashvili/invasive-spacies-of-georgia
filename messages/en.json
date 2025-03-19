@@ -58,7 +58,8 @@
     "register": "Register",
     "search": "Search",
     "bookmarked": "Bookmarked",
-    "places_list": "Places list"
+    "places_list": "Places list",
+    "logout": "Logout"
   },
   "actions": {
     "explore_ISG_data": "Explore ISG data",

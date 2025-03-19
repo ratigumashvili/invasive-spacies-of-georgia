@@ -2,9 +2,8 @@
 
 import Image from "next/image"
 import { useSearchParams } from "next/navigation"
-import { ChevronsRightIcon, MenuIcon, SearchIcon } from "lucide-react"
+import { ChevronsRightIcon, LogOutIcon, MenuIcon, SearchIcon } from "lucide-react"
 import { useTranslations } from "next-intl"
-// import { useAuth } from "@/hooks/use-auth"
 import { Link, usePathname, useRouter } from "@/i18n/routing"
 
 import {
@@ -16,6 +15,12 @@ import {
     SheetTitle,
     SheetTrigger,
 } from "@/components/ui/sheet"
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuTrigger
+} from "@/components/ui/dropdown-menu"
 import { Button } from "@/components/ui/button"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 
@@ -146,9 +151,27 @@ export function Navbar({ locale }: { locale: LocaleType }) {
                     </div>
                     <div className="flex items-center gap-2">
                         {user ? (
-                            <Avatar>
-                                <AvatarFallback>{user.username.charAt(0).toUpperCase()}</AvatarFallback>
-                            </Avatar>
+                            <DropdownMenu>
+                                <DropdownMenuTrigger>
+                                    <Avatar>
+                                        <AvatarFallback
+                                            className="bg-sky-950 cursor-pointer"
+                                        >
+                                            {user.username.charAt(0).toUpperCase()}
+                                        </AvatarFallback>
+                                    </Avatar>
+                                </DropdownMenuTrigger>
+                                <DropdownMenuContent align="end" className="rounded-none">
+                                    <DropdownMenuItem className="rounded-none">
+                                        <button
+                                            onClick={logout}
+                                            className="w-full flex items-center gap-2 cursor-pointer"
+                                        >
+                                           <LogOutIcon className="w-4 h-4" /> {t("logout")}
+                                        </button>
+                                    </DropdownMenuItem>
+                                </DropdownMenuContent>
+                            </DropdownMenu>
                         ) : (
                             <></>
                         )}
