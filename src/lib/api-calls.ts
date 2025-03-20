@@ -4,6 +4,7 @@ import axios from "axios";
 import qs from "query-string";
 
 import { BASE_API_URL, BASE_URL } from "./utils";
+import { useAuth } from "@/context/auth-context";
 
 interface PaginationMeta {
   page: number;
@@ -183,9 +184,9 @@ export async function getEvents(locale: string, page: number = 1, pageSize: numb
     return data;
   } catch (error: any) {
     console.error("Error fetching events data:", error.message);
-    return { 
-      data: [], 
-      meta: { pagination: { page: 1, pageSize, pageCount: 1, total: 0 } } 
+    return {
+      data: [],
+      meta: { pagination: { page: 1, pageSize, pageCount: 1, total: 0 } }
     };
   }
 }
@@ -212,14 +213,14 @@ export async function fetchRandomSpecie(locale: string, filterType?: "isNew" | "
 
       const queryParams = {
         fields: [
-          "documentId", 
-          "autorName", 
-          "locale", 
-          "name", 
+          "documentId",
+          "autorName",
+          "locale",
+          "name",
           "slug",
-          "ecologicalGroup", 
-          "firstIntroduced", 
-          "isNew", 
+          "ecologicalGroup",
+          "firstIntroduced",
+          "isNew",
           "dateOfDetection"
         ],
 
@@ -304,10 +305,10 @@ export async function fetchSpeciesByCoordinates(locale: string, pageSize: number
       ],
 
       "populate[species][fields]": [
-        "name", 
-        "slug", 
-        "ecologicalGroup", 
-        "autorName", 
+        "name",
+        "slug",
+        "ecologicalGroup",
+        "autorName",
         "firstIntroduced",
         "isNew",
         "dateOfDetection",
@@ -368,11 +369,11 @@ export async function fetchPlacesData(locale: string, page: number = 1, pageSize
       ],
 
       "populate[species][populate][image][fields]": [
-        "documentId", 
-        "alternativeText", 
-        "caption", 
-        "width", 
-        "height", 
+        "documentId",
+        "alternativeText",
+        "caption",
+        "width",
+        "height",
         "url"
       ],
 
@@ -414,68 +415,110 @@ export async function fetchPlacesData(locale: string, page: number = 1, pageSize
 
 export const registerUser = async (username: string, email: string, password: string) => {
   try {
-      const response = await fetch(`${BASE_API_URL}/auth/local/register`, {
-          method: "POST",
-          headers: {
-              "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
-              username,
-              email,
-              password
-          })
-      });
+    const response = await fetch(`${BASE_API_URL}/auth/local/register`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        username,
+        email,
+        password
+      })
+    });
 
-      const data = await response.json();
+    const data = await response.json();
 
-      if (!response.ok) {
-          throw new Error(data.error.message || "Registration failed");
-      }
+    if (!response.ok) {
+      throw new Error(data.error.message || "Registration failed");
+    }
 
-      return {
-        status: "success",
-        data: data,
-      };
+    return {
+      status: "success",
+      data: data,
+    };
   } catch (error: any) {
-      return {
-        status: "failed",
-        data: error.message
-      }
+    return {
+      status: "failed",
+      data: error.message
+    }
   }
 };
 
 export const loginUser = async (email: string, password: string) => {
   try {
-      const response = await fetch(`${BASE_URL}/api/auth/local`, {
-          method: "POST",
-          headers: {
-              "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
-              identifier: email,
-              password
-          })
-      });
+    const response = await fetch(`${BASE_URL}/api/auth/local`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        identifier: email,
+        password
+      })
+    });
 
-      if (!response.ok) {
-          const errorData = await response.json();
-          throw new Error(errorData.error?.message || "Login failed");
-      }
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.error?.message || "Login failed");
+    }
 
-      const data = await response.json();
-      return {
-          status: "success",
-          data: data,
-      };
+    const data = await response.json();
+    return {
+      status: "success",
+      data: data,
+    };
   } catch (error: any) {
-      return {
-          status: "failed",
-          data: error.message,
-      };
+    return {
+      status: "failed",
+      data: error.message,
+    };
   }
 };
 
 
+
+
+
+
+
+
+
+export const createSpecie = async (token: string, specieData: any) => {
+  if (!token) {
+      throw new Error("Unauthorized: No token found.");
+  }
+
+  const requestData = {
+    data: {
+      title: specieData.title,
+      description: specieData.description,
+      habitat: specieData.habitat,
+    }
+  };
+
+  try {
+      const response = await fetch(`${BASE_API_URL}/test-species?status=draft`, {
+          method: "POST",
+          headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(requestData),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+          throw new Error(data.error?.message || "Failed to create specie");
+      }
+
+      return { status: "success", data };
+  } catch (error: any) {
+      console.error("API Error:", error.message);
+      return { status: "failed", message: error.message };
+  }
+};
 
 
 

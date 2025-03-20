@@ -4,9 +4,10 @@ import { Link } from "@/i18n/routing";
 import { useAuth } from "@/context/auth-context";
 
 import Container from "@/app/[locale]/_components/container";
+import { CreateSpecieForm } from "../_components/create-specie-form";
 
 export default function DashboardPage() {
-    const { user, logout } = useAuth()
+    const { user } = useAuth()
 
     return (
         <Container>
@@ -14,7 +15,7 @@ export default function DashboardPage() {
             {user ? (
                 <>
                     <p>Welcome, {user.username}!</p>
-                    <button onClick={logout}>Logout</button>
+                    <CreateSpecieForm />
                 </>
             ) : (
                 <>
