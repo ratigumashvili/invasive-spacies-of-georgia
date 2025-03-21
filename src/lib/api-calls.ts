@@ -505,11 +505,11 @@ Promise<{ status: "success"; data: any } | { status: "failed"; message: string }
   const requestData = {
     data: {
       ...specieData,
-      fileUpload: uploadedFileId,
+      image: uploadedFileId,
     },
   };
 
-  const response = await fetch(`${BASE_API_URL}/test-species?status=draft`, {
+  const response = await fetch(`${BASE_API_URL}/species?status=draft`, {
     method: "POST",
     headers: {
       Authorization: `Bearer ${token}`,

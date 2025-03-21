@@ -23,16 +23,16 @@ import { Link } from "@/i18n/routing";
 
 const specieSchema = z.object({
     name: z.string().min(3, "Name must be at least 3 characters"),
-    authorName: z.string().optional(),
+    autorName: z.string().optional(),
     commonNames: z.string().optional(),
     habitat: z.string().min(3, "Habitat must be provided"),
-    firstIntroduced: z.string().min(4).max(4, "Year mus contain 4 digits").optional(),
+    firstIntroduced: z.string().optional(),
     dateOfDetection: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Date must be in YYYY-MM-DD format"),
     placeName: z.string().min(3, "place name must be at least 3 characters"),
     coordinates: z.string(),
     description: z.string().min(10, "Description must be at least 10 characters"),
     comment: z.string().optional(),
-    fileUpload: z.any().optional(),
+    image: z.any().optional(),
     submissionAuthor: z.string()
 });
 
@@ -47,7 +47,7 @@ export function CreateSpecieForm() {
         resolver: zodResolver(specieSchema),
         defaultValues: {
             name: "",
-            authorName: "",
+            autorName: "",
             commonNames: "",
             habitat: "",
             firstIntroduced: "",
@@ -56,42 +56,10 @@ export function CreateSpecieForm() {
             coordinates: "",
             description: "",
             comment: "",
-            fileUpload: undefined,
+            image: undefined,
             submissionAuthor: ""
         }
     });
-    //     try {
-    //         const uploadedFile = values.fileUpload
-    //             ? await uploadFile(token, values.fileUpload)
-    //             : null;
-
-    //         const specieData = {
-    //             name: values.name,
-    //             authorName: values.authorName,
-    //             commonNames: values.commonNames,
-    //             description: [
-    //                 {
-    //                     type: "paragraph",
-    //                     children: [{ type: "text", text: values.description }],
-    //                 },
-    //             ],
-    //             habitat: values.habitat,
-    //             dateOfDetection: values.dateOfDetection,
-    //             submissionAuthor: values.submissionAuthor,
-    //         };
-
-    //         const response = await createSpecie(token, specieData, uploadedFile?.id);
-
-    //         if (response.status === "success") {
-    //             toast.success("Record created successfully!");
-    //             form.reset();
-    //         } else {
-    //             toast.error(`Error: ${response.message ?? "Something went wrong"}`);
-    //         }
-    //     } catch (error) {
-    //         toast.error(`Submission failed: ${error}`);
-    //     }
-    // };
 
     useEffect(() => {
         if (user?.username) {
@@ -106,8 +74,8 @@ export function CreateSpecieForm() {
         try {
             let uploadedFile = null;
 
-            if (values.fileUpload) {
-                uploadedFile = await uploadFile(token, values.fileUpload);
+            if (values.image) {
+                uploadedFile = await uploadFile(token, values.image);
                 if (!uploadedFile?.id) {
                     throw new Error("File upload failed.");
                 }
@@ -115,7 +83,7 @@ export function CreateSpecieForm() {
 
             const specieData = {
                 name: values.name,
-                authorName: values.authorName,
+                autorName: values.autorName,
                 commonNames: values.commonNames,
                 habitat: values.habitat,
                 firstIntroduced: values.firstIntroduced,
@@ -135,13 +103,13 @@ export function CreateSpecieForm() {
                     }
                 ],
                 submissionAuthor: values.submissionAuthor,
-                fileUpload: uploadedFile?.id || null
+                image: uploadedFile?.id || null
             };
 
             const response = await createSpecie(token, specieData, uploadedFile?.id);
 
             if (response.status === "success") {
-                toast.success("Record created successfully!");
+                toast.success("Record created successfully! It is already sent for review");
                 form.reset();
             } else {
                 toast.error(`Error: ${response.message || "Unknown error"}`);
@@ -176,7 +144,7 @@ export function CreateSpecieForm() {
                         />
                         <FormField
                             control={form.control}
-                            name="authorName"
+                            name="autorName"
                             render={({ field }) => (
                                 <FormItem>
                                     <FormLabel>Name according to</FormLabel>
@@ -343,7 +311,7 @@ export function CreateSpecieForm() {
 
                     <FormField
                         control={form.control}
-                        name="fileUpload"
+                        name="image"
                         render={({ field: { onChange, ref } }) => (
                             <FormItem>
                                 <FormLabel>Image</FormLabel>

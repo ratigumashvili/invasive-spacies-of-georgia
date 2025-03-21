@@ -56,7 +56,7 @@ const items = [
             {
                 id: 3.1,
                 title: "report_species",
-                path: "/",
+                path: "/dashboard",
             },
             {
                 id: 3.2,
