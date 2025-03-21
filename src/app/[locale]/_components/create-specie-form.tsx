@@ -341,10 +341,10 @@ export function CreateSpecieForm() {
                     />
 
                     <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-2 mt-4">
-                        <Button type="button" variant="destructive" className="w-full sm:w-max rounded-none cursor-pointer py-6" asChild>
+                        <Button type="button" variant="destructive" className="w-full sm:w-max rounded-none cursor-pointer py-5 px-7" asChild>
                             <Link href={"/"}>{t("cancel")}</Link>
                         </Button>
-                        <Button type="submit" className="w-full sm:w-max rounded-none  cursor-pointer py-6">{t("submit")}</Button>
+                        <Button type="submit" className="w-full sm:w-max rounded-none  cursor-pointer py-5 px-7">{t("submit")}</Button>
                     </div>
                 </form>
             </Form>
