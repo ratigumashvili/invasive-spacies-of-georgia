@@ -17,6 +17,7 @@ import geoJsonDataRaw from "@/app/[locale]/_data/coords.json";
 
 import { Place } from "@/types/taxonomy-types";
 import { Species } from "@/types/specie-response";
+import { Link } from "@/i18n/routing";
 
 export function SinglePlaceComponent({
     place,
@@ -74,12 +75,12 @@ export function SinglePlaceComponent({
 
     useEffect(() => {
         if (!isLocalStorageAvailable()) return;
-      
+
         const storedView = localStorage.getItem("view");
         if (storedView === "list" || storedView === "grid") {
-          setSelectedView(storedView);
+            setSelectedView(storedView);
         }
-      }, []);
+    }, []);
 
     return (
         <div>
@@ -99,8 +100,6 @@ export function SinglePlaceComponent({
             </div>
             <Separator className="my-8" />
 
-            {JSON.stringify(selectedView, null, 2)}
-
             {selectedView === "grid" ? (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {data?.map((item) => (
@@ -108,11 +107,30 @@ export function SinglePlaceComponent({
                     ))}
                 </div>
             ) : (
-                <div>
-                    {data?.map((item) => (
-                        <p key={item.documentId}>{item.name}</p>
-                    ))}
-                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Scientific name</th>
+                            <th>Name according to</th>
+                            <th>Ecological group</th>
+                            <th>Introduced</th>
+                            <th>Detected</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {data?.map((item) => (
+                            <tr key={item.documentId}>
+                                <td>
+                                    <Link href={`/species-list/${item.slug}`} className="text-sky-800 font-medium hover:underline">{item.name}</Link>
+                                </td>
+                                <td>{item.autorName}</td>
+                                <td>{item.ecologicalGroup}</td>
+                                <td>{item.firstIntroduced}</td>
+                                <td>{item.dateOfDetection}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
             )}
         </div>
     )
