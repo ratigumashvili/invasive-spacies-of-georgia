@@ -43,10 +43,6 @@ export function CreateSpecieForm() {
         submissionAuthor: z.string()
     });
 
-    if (!user || !token) {
-        return <p className="text-red-500">{t("login_error")}.</p>;
-    }
-
     const form = useForm({
         resolver: zodResolver(specieSchema),
         defaultValues: {
@@ -79,7 +75,7 @@ export function CreateSpecieForm() {
             let uploadedFile = null;
 
             if (values.image) {
-                uploadedFile = await uploadFile(token, values.image);
+                uploadedFile = await uploadFile(token as string, values.image);
                 if (!uploadedFile?.id) {
                     throw new Error("File upload failed.");
                 }
@@ -110,7 +106,7 @@ export function CreateSpecieForm() {
                 image: uploadedFile?.id || null
             };
 
-            const response = await createSpecie(token, specieData, uploadedFile?.id);
+            const response = await createSpecie(token as string, specieData, uploadedFile?.id);
 
             if (response.status === "success") {
                 toast.success(t("success_message"));
@@ -123,6 +119,9 @@ export function CreateSpecieForm() {
         }
     };
 
+    if (!user || !token) {
+        return <p className="text-red-500">{t("login_error")}.</p>;
+    }
 
     return (
         <div className="w-full">
