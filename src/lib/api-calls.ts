@@ -491,9 +491,12 @@ export const createSpecie = async (token: string, specieData: any) => {
 
   const requestData = {
     data: {
-      title: specieData.title,
+      name: specieData.name,
+      authorName: specieData.authorName,
+      commonNames: specieData.commonNames,
       description: specieData.description,
       habitat: specieData.habitat,
+      dateOfDetection: specieData.dateOfDetection
     }
   };
 
