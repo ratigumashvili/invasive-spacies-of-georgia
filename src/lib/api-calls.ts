@@ -496,7 +496,7 @@ export const uploadFile = async (token: string, file: File) => {
   if (!response.ok) {
     throw new Error(data.error?.message || "File upload failed");
   }
-  
+
   return data[0];
 };
 
@@ -505,7 +505,7 @@ Promise<{ status: "success"; data: any } | { status: "failed"; message: string }
   const requestData = {
     data: {
       ...specieData,
-      fileUpload: uploadedFileId, // Link file via ID
+      fileUpload: uploadedFileId,
     },
   };
 
@@ -525,49 +525,3 @@ Promise<{ status: "success"; data: any } | { status: "failed"; message: string }
 
   return { status: "success", data };
 }
-
-
-
-
-// export const createSpecie = async (token: string, specieData: any) => {
-//   if (!token) {
-//       throw new Error("Unauthorized: No token found.");
-//   }
-
-//   const requestData = {
-//     data: {
-//       name: specieData.name,
-//       authorName: specieData.authorName,
-//       commonNames: specieData.commonNames,
-//       description: specieData.description,
-//       habitat: specieData.habitat,
-//       dateOfDetection: specieData.dateOfDetection,
-//       submissionAuthor: specieData.submissionAuthor,
-//     }
-//   };
-
-//   try {
-//       const response = await fetch(`${BASE_API_URL}/test-species?status=draft`, {
-//           method: "POST",
-//           headers: {
-//               "Content-Type": "application/json",
-//               Authorization: `Bearer ${token}`,
-//           },
-//           body: JSON.stringify(requestData),
-//       });
-
-//       const data = await response.json();
-
-//       if (!response.ok) {
-//           throw new Error(data.error?.message || "Failed to create specie");
-//       }
-
-//       return { status: "success", data };
-//   } catch (error: any) {
-//       console.error("API Error:", error.message);
-//       return { status: "failed", message: error.message };
-//   }
-// };
-
-
-

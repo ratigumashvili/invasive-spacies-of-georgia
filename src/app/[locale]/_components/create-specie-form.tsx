@@ -26,7 +26,7 @@ const specieSchema = z.object({
     commonNames: z.string().optional(),
     habitat: z.string().min(3, "Habitat must be provided"),
     dateOfDetection: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Date must be in YYYY-MM-DD format"),
-    placeName: z.string(),
+    placeName: z.string().min(3, "place name must be at least 3 characters"),
     coordinates: z.string(),
     description: z.string().min(10, "Description must be at least 10 characters"),
     fileUpload: z.any().optional(),
@@ -147,7 +147,7 @@ export function CreateSpecieForm() {
                 <form onSubmit={form.handleSubmit(handleSubmit)} className="flex flex-col gap-y-4">
 
                     <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-                    <FormField
+                        <FormField
                             control={form.control}
                             name="name"
                             render={({ field }) => (
@@ -237,6 +237,32 @@ export function CreateSpecieForm() {
                                                 />
                                             </PopoverContent>
                                         </Popover>
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                        <FormField
+                            control={form.control}
+                            name="placeName"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Place name</FormLabel>
+                                    <FormControl>
+                                        <Input {...field} placeholder="Enter location name" />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                        <FormField
+                            control={form.control}
+                            name="coordinates"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Coordinates</FormLabel>
+                                    <FormControl>
+                                        <Input {...field} placeholder="eg: 41.72978190316588, 44.738779670182474" />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
