@@ -1,36 +1,26 @@
 "use client"
 
-import { useEffect, useState } from "react";
 import { LayoutGridIcon, ListIcon } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 
-import { isLocalStorageAvailable } from "@/lib/utils";
+type ViewsProps = {
+    selectedView: "grid" | "list";
+    setSelectedView: (view: "grid" | "list") => void;
+  };
 
-export function Views() {
+export function Views({ selectedView, setSelectedView }: ViewsProps) {
 
-    const [isActive, setIsActive] = useState<"grid" | "list">("grid");
-
-    useEffect(() => {
-        
-        if (!isLocalStorageAvailable()) return;
-
-        const storedView = localStorage.getItem("view");
-        if (storedView === "list" || storedView === "grid") {
-            setIsActive(storedView);
-        }
-    }, []);
-
-    function handleViewChange(view: "list" | "grid") {
+    function handleViewChange(view: "grid" | "list") {
         localStorage.setItem("view", view);
-        setIsActive(view);
+        setSelectedView(view);
       }
 
     return (
         <div className="flex gap-1">
             <Button
                 className="cursor-pointer rounded-none"
-                variant={isActive === "list" ? "default" : "ghost"}
+                variant={selectedView === "list" ? "default" : "ghost"}
                 size="icon"
                 onClick={() => handleViewChange("list")}
             >
@@ -38,7 +28,7 @@ export function Views() {
             </Button>
             <Button
                 className="cursor-pointer rounded-none"
-                variant={isActive === "grid" ? "default" : "ghost"}
+                variant={selectedView === "grid" ? "default" : "ghost"}
                 size="icon"
                 onClick={() => handleViewChange("grid")}
             >

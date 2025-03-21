@@ -1,5 +1,6 @@
 "use client"
 
+import { useEffect, useState } from "react";
 import * as turf from "@turf/turf";
 import { FeatureCollection, Geometry } from "geojson";
 import { useTranslations } from "next-intl";
@@ -10,7 +11,7 @@ import { DropDownAction } from "@/app/[locale]/_components/drop-down-actions";
 import { Separator } from "@/components/ui/separator";
 import { Views } from "@/app/[locale]/_components/views";
 
-import { generateFontByLocale } from "@/lib/utils";
+import { generateFontByLocale, isLocalStorageAvailable } from "@/lib/utils";
 
 import geoJsonDataRaw from "@/app/[locale]/_data/coords.json";
 
@@ -69,6 +70,17 @@ export function SinglePlaceComponent({
     const placeCoordinates: [number, number] = coordinates?.split(",").map(Number) as [number, number];
     const geoJsonData: FeatureCollection<Geometry, { NAME_2?: string; name?: string }> = geoJsonDataRaw as FeatureCollection<Geometry, { NAME_2?: string; name?: string }>;
 
+    const [selectedView, setSelectedView] = useState<"grid" | "list">("grid");
+
+    useEffect(() => {
+        if (!isLocalStorageAvailable()) return;
+      
+        const storedView = localStorage.getItem("view");
+        if (storedView === "list" || storedView === "grid") {
+          setSelectedView(storedView);
+        }
+      }, []);
+
     return (
         <div>
             <div className="mb-8 flex items-start justify-baseline">
@@ -82,20 +94,26 @@ export function SinglePlaceComponent({
                 </div>
                 <div className="flex items-center gap-1">
                     <DropDownAction />
-                    <Views />
+                    <Views selectedView={selectedView} setSelectedView={setSelectedView} />
                 </div>
             </div>
             <Separator className="my-8" />
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {data?.map((item) => (
-                    <SpecieBlock key={item.documentId} data={{ ...item, locale }} />
-                ))}
-            </div>
-            <div>
-                {data?.map((item) => (
-                    <p key={item.documentId}>{item.name}</p>
-                ))}
-            </div>
+
+            {JSON.stringify(selectedView, null, 2)}
+
+            {selectedView === "grid" ? (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {data?.map((item) => (
+                        <SpecieBlock key={item.documentId} data={{ ...item, locale }} />
+                    ))}
+                </div>
+            ) : (
+                <div>
+                    {data?.map((item) => (
+                        <p key={item.documentId}>{item.name}</p>
+                    ))}
+                </div>
+            )}
         </div>
     )
 }
