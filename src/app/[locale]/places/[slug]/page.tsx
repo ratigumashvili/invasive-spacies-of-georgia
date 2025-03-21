@@ -1,6 +1,7 @@
 import Container from "@/app/[locale]/_components/container";
 import { SinglePlaceComponent } from "@/app/[locale]/_components/places/single-place";
 import { Pagination } from "@/app/[locale]/_components/pagination";
+import { NothingFound } from "@/app/[locale]/_components/nothing-found";
 
 import { fetchPlacesDataBySlug, fetchSpeciesByPlaceId } from "@/lib/api-calls";
 
@@ -18,6 +19,10 @@ export default async function SinglePlace({ params, searchParams }: Props) {
     const placeId = placeResponse?.data[0]?.id.toString()
 
     const speciesResponse = await fetchSpeciesByPlaceId(locale, placeId, currentPage, 2)
+
+    if(placeResponse?.data?.length === 0) {
+        return <NothingFound />
+    }
 
     return (
         <Container>

@@ -5,7 +5,6 @@ import { FeatureCollection, Geometry } from "geojson";
 import { useTranslations } from "next-intl";
 import { GlobeIcon } from "lucide-react";
 
-import { NothingFound } from "@/app/[locale]/_components/nothing-found";
 import { SpecieBlock } from "@/app/[locale]/_components/home-page-blocks/specie-block";
 import { DropDownAction } from "@/app/[locale]/_components/drop-down-actions";
 import { Separator } from "@/components/ui/separator";
@@ -37,6 +36,9 @@ export function SinglePlaceComponent({
         geoJsonData: FeatureCollection<Geometry, { NAME_2?: string; name?: string }>,
         coordinates: [number, number]
     ): string | null {
+
+        if (!place || place?.length === 0) return null
+
         const point = turf.point([coordinates[1], coordinates[0]]);
 
         for (const feature of geoJsonData.features) {
@@ -67,10 +69,6 @@ export function SinglePlaceComponent({
     const placeCoordinates: [number, number] = coordinates?.split(",").map(Number) as [number, number];
     const geoJsonData: FeatureCollection<Geometry, { NAME_2?: string; name?: string }> = geoJsonDataRaw as FeatureCollection<Geometry, { NAME_2?: string; name?: string }>;
 
-    if (place?.length === 0) {
-        return <NothingFound />
-    }
-
     return (
         <div>
             <div className="mb-8 flex items-start justify-baseline">
@@ -91,6 +89,11 @@ export function SinglePlaceComponent({
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {data?.map((item) => (
                     <SpecieBlock key={item.documentId} data={{ ...item, locale }} />
+                ))}
+            </div>
+            <div>
+                {data?.map((item) => (
+                    <p key={item.documentId}>{item.name}</p>
                 ))}
             </div>
         </div>
