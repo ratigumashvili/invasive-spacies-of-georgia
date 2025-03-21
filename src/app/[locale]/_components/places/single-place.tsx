@@ -1,3 +1,5 @@
+"use client"
+
 import * as turf from "@turf/turf";
 import { FeatureCollection, Geometry } from "geojson";
 import { useTranslations } from "next-intl";
@@ -7,23 +9,25 @@ import { NothingFound } from "@/app/[locale]/_components/nothing-found";
 import { SpecieBlock } from "@/app/[locale]/_components/home-page-blocks/specie-block";
 import { DropDownAction } from "@/app/[locale]/_components/drop-down-actions";
 import { Separator } from "@/components/ui/separator";
+import { Views } from "@/app/[locale]/_components/views";
 
 import { generateFontByLocale } from "@/lib/utils";
 
 import geoJsonDataRaw from "@/app/[locale]/_data/coords.json";
-import { Place} from "@/types/taxonomy-types";
+
+import { Place } from "@/types/taxonomy-types";
 import { Species } from "@/types/specie-response";
 
-export function SinglePlaceComponent({ 
-    place, 
-    coordinates, 
-    data, 
-    locale 
-}: { 
-    place: Place[], 
-    coordinates: string, 
-    data: Species[], 
-    locale: string 
+export function SinglePlaceComponent({
+    place,
+    coordinates,
+    data,
+    locale
+}: {
+    place: Place[],
+    coordinates: string,
+    data: Species[],
+    locale: string
 }) {
 
     const r = useTranslations("Regions")
@@ -78,7 +82,10 @@ export function SinglePlaceComponent({
                         <GlobeIcon className="w-4 h-4 mr-1" /> {coordinates}
                     </h2>
                 </div>
-                <DropDownAction />
+                <div className="flex items-center gap-1">
+                    <DropDownAction />
+                    <Views />
+                </div>
             </div>
             <Separator className="my-8" />
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

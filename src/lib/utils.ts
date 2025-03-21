@@ -26,3 +26,14 @@ export const monthOrder: Record<string, number> = {
 
 export const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL!
 export const BASE_API_URL = process.env.NEXT_PUBLIC_API_URL!
+
+export function isLocalStorageAvailable() {
+  try {
+    const test = "__storage_test__";
+    localStorage.setItem(test, test);
+    localStorage.removeItem(test);
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
