@@ -26,6 +26,7 @@ const specieSchema = z.object({
     description: z.string().min(10, "Description must be at least 10 characters"),
     habitat: z.string().min(3, "Habitat must be provided"),
     dateOfDetection: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Date must be in YYYY-MM-DD format"),
+    file: z.string().optional(),
     submissionAuthor: z.string()
 });
 
@@ -45,6 +46,7 @@ export function CreateSpecieForm() {
             description: "",
             habitat: "",
             dateOfDetection: "",
+            file: "",
             submissionAuthor: ""
         }
     });
@@ -64,6 +66,7 @@ export function CreateSpecieForm() {
             ],
             habitat: values.habitat,
             dateOfDetection: values.dateOfDetection,
+            file: values.file,
             submissionAuthor: values.submissionAuthor
         };
 
@@ -212,6 +215,20 @@ export function CreateSpecieForm() {
                                 <FormLabel>Habitat</FormLabel>
                                 <FormControl>
                                     <Input {...field} placeholder="Enter habitat type" />
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+
+                    <FormField
+                        control={form.control}
+                        name="file"
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormLabel>File</FormLabel>
+                                <FormControl>
+                                    <Input type="file" {...field} placeholder="Upload specie image" />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
