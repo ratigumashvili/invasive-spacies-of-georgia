@@ -192,5 +192,13 @@
     "coordinates": "Coordinates",
     "recorded_species": "Registered species",
     "read_more": "More about this place"
+  },
+  "Dashboard": {
+    "page_title": "Dashboard",
+    "please": "Please",
+    "register": "register",
+    "or": "or",
+    "sign_in": "Sign in",
+    "view": "to view this page"
   }
 }
