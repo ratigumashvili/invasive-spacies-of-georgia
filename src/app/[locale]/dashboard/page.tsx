@@ -2,10 +2,11 @@
 
 import { Link } from "@/i18n/routing";
 import { useAuth } from "@/context/auth-context";
+import { useLocale, useTranslations } from "next-intl";
 
 import Container from "@/app/[locale]/_components/container";
-import { CreateSpecieForm } from "../_components/create-specie-form";
-import { useLocale, useTranslations } from "next-intl";
+import { CreateSpecieForm } from "@/app/[locale]/_components/create-specie-form";
+
 import { generateFontByLocale } from "@/lib/utils";
 
 export default function DashboardPage() {
@@ -20,7 +21,7 @@ export default function DashboardPage() {
             </h1>
             {user ? (
                 <>
-                    <p>Welcome, {user.username}!</p>
+                    <p className="mb-6">{t("welcome")}, {user.username}!</p>
                     <CreateSpecieForm />
                 </>
             ) : (
