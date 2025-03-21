@@ -3,9 +3,10 @@
 import { useTranslations } from "next-intl";
 
 import { SpeciesEntity } from "@/types/taxonomy-types";
+import { Species } from "@/types/specie-response";
 
 type SingleTaxonMetaProps = {
-    data: SpeciesEntity[];
+    data: Species[];
 };
 
 export function SingleTaxonMeta({ data }: SingleTaxonMetaProps) {

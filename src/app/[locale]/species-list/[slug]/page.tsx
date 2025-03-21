@@ -9,9 +9,10 @@ import SingleTaxonMap from "@/app/[locale]/_components/single-taxon/show-map";
 
 import { fetchSpeciesData } from "@/lib/api-calls";
 
-import { Place, type SpeciesResponse } from "@/types/taxonomy-types";
+import { Place } from "@/types/taxonomy-types";
 
 import { BASE_URL } from "@/lib/utils";
+import { SpeciesResponse } from "@/types/specie-response";
 
 const PageTitle = () => {
     const t = useTranslations("Common")
