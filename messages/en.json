@@ -206,6 +206,7 @@
     "date_error": "Date must be in YYYY-MM-DD format",
     "place_error": "Place name must be at least 2 characters",
     "login_error": "You must be logged in to create a specie",
+    "success_message": "Record created successfully! It is already sent for review",
     "name": "Name",
     "name_placeholder": "Enter Latin name",
     "nat": "Name according to",

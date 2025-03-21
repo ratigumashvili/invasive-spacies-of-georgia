@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect } from "react";
+import { Link } from "@/i18n/routing";
+import { useTranslations } from "next-intl";
 import { z } from "zod";
 import { format } from "date-fns"
 import { useForm } from "react-hook-form";
@@ -19,28 +21,30 @@ import { Calendar } from "@/components/ui/calendar";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Textarea } from "@/components/ui/textarea";
-import { Link } from "@/i18n/routing";
 
-const specieSchema = z.object({
-    name: z.string().min(3, "Name must be at least 3 characters"),
-    autorName: z.string().optional(),
-    commonNames: z.string().optional(),
-    habitat: z.string().optional(),
-    firstIntroduced: z.string().optional(),
-    dateOfDetection: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Date must be in YYYY-MM-DD format"),
-    placeName: z.string().min(2, "Place name must be at least 2 characters"),
-    coordinates: z.string(),
-    description: z.string().optional(),
-    comment: z.string().optional(),
-    image: z.any().optional(),
-    submissionAuthor: z.string()
-});
 
 export function CreateSpecieForm() {
     const { user, token } = useAuth();
 
+    const t = useTranslations("Dashboard")
+
+    const specieSchema = z.object({
+        name: z.string().min(3, t("name_error")),
+        autorName: z.string().optional(),
+        commonNames: z.string().optional(),
+        habitat: z.string().optional(),
+        firstIntroduced: z.string().optional(),
+        dateOfDetection: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, t("date_error")),
+        placeName: z.string().min(2, t("place_error")),
+        coordinates: z.string(),
+        description: z.string().optional(),
+        comment: z.string().optional(),
+        image: z.any().optional(),
+        submissionAuthor: z.string()
+    });
+
     if (!user || !token) {
-        return <p className="text-red-500">You must be logged in to create a specie.</p>;
+        return <p className="text-red-500">{t("login_error")}.</p>;
     }
 
     const form = useForm({
@@ -109,7 +113,7 @@ export function CreateSpecieForm() {
             const response = await createSpecie(token, specieData, uploadedFile?.id);
 
             if (response.status === "success") {
-                toast.success("Record created successfully! It is already sent for review");
+                toast.success(t("success_message"));
                 form.reset();
             } else {
                 toast.error(`Error: ${response.message || "Unknown error"}`);
@@ -123,7 +127,7 @@ export function CreateSpecieForm() {
     return (
         <div className="w-full">
 
-            <h2 className="text-2xl font-medium mb-6">Submit Specie</h2>
+            <h2 className="text-2xl font-medium mb-6">{t("submit_specie")}</h2>
 
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(handleSubmit)} className="flex flex-col gap-y-4">
@@ -134,9 +138,9 @@ export function CreateSpecieForm() {
                             name="name"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Name</FormLabel>
+                                    <FormLabel>{t("name")}</FormLabel>
                                     <FormControl>
-                                        <Input {...field} placeholder="Enter Latin name" className="rounded-none px-3 py-6 text-base placeholder:text-base" />
+                                        <Input {...field} placeholder={t("name_placeholder")} className="rounded-none px-3 py-6 text-base" />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
@@ -147,9 +151,9 @@ export function CreateSpecieForm() {
                             name="autorName"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Name according to</FormLabel>
+                                    <FormLabel>{t("nat")}</FormLabel>
                                     <FormControl>
-                                        <Input {...field} placeholder="Scientific name authorship" className="rounded-none px-3 py-6 text-base placeholder:text-base" />
+                                        <Input {...field} placeholder={t("nat_placeholder")} className="rounded-none px-3 py-6 text-base" />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
@@ -160,9 +164,9 @@ export function CreateSpecieForm() {
                             name="commonNames"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Common names</FormLabel>
+                                    <FormLabel>{t("common_names")}</FormLabel>
                                     <FormControl>
-                                        <Input {...field} placeholder="Provide common names" className="rounded-none px-3 py-6 text-base placeholder:text-base" />
+                                        <Input {...field} placeholder={t("common_names_placeholder")} className="rounded-none px-3 py-6 text-base" />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
@@ -173,9 +177,9 @@ export function CreateSpecieForm() {
                             name="habitat"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Habitat</FormLabel>
+                                    <FormLabel>{t("habitat")}</FormLabel>
                                     <FormControl>
-                                        <Input {...field} placeholder="Provide habitat type" className="rounded-none px-3 py-6 text-base placeholder:text-base" />
+                                        <Input {...field} placeholder={t("habitat_placeholder")} className="rounded-none px-3 py-6 text-base" />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
@@ -189,14 +193,14 @@ export function CreateSpecieForm() {
                             name="firstIntroduced"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Introduced</FormLabel>
+                                    <FormLabel>{t("introduced")}</FormLabel>
                                     <FormControl>
                                         <Input
                                             type="number"
                                             min={0}
                                             {...field}
-                                            placeholder="First introduced in Georgia"
-                                            className="rounded-none px-3 py-6 text-base placeholder:text-base"
+                                            placeholder={t("introduced_placeholder")}
+                                            className="rounded-none px-3 py-6 text-base"
                                             onKeyDown={(e) => {
                                                 if (e.key === '-' || e.key === 'e') {
                                                     e.preventDefault();
@@ -220,7 +224,7 @@ export function CreateSpecieForm() {
                             name="dateOfDetection"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Date of detection</FormLabel>
+                                    <FormLabel>{t("date_of_detection")}</FormLabel>
                                     <FormControl>
                                         <Popover>
                                             <PopoverTrigger asChild>
@@ -232,7 +236,7 @@ export function CreateSpecieForm() {
                                                     )}
                                                 >
                                                     <CalendarIcon className="mr-2 h-4 w-4" />
-                                                    {field.value ? format(new Date(field.value), "PPP") : <span>Pick a date</span>}
+                                                    {field.value ? format(new Date(field.value), "PPP") : <span>{t("pic_date")}</span>}
                                                 </Button>
                                             </PopoverTrigger>
                                             <PopoverContent className="w-auto p-0">
@@ -260,9 +264,9 @@ export function CreateSpecieForm() {
                             name="placeName"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Place name</FormLabel>
+                                    <FormLabel>{t("place_name")}</FormLabel>
                                     <FormControl>
-                                        <Input {...field} placeholder="Enter location name" className="rounded-none px-3 py-6 text-base placeholder:text-base" />
+                                        <Input {...field} placeholder={t("placename_placeholder")} className="rounded-none px-3 py-6 text-base" />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
@@ -273,9 +277,9 @@ export function CreateSpecieForm() {
                             name="coordinates"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Coordinates</FormLabel>
+                                    <FormLabel>{t("coordinates")}</FormLabel>
                                     <FormControl>
-                                        <Input {...field} placeholder="eg: 41.72978190316588, 44.738779670182474" className="rounded-none px-3 py-6 text-base placeholder:text-base" />
+                                        <Input {...field} placeholder={t("coord_placeholder")} className="rounded-none px-3 py-6 text-base" />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
@@ -290,9 +294,9 @@ export function CreateSpecieForm() {
                                 name="description"
                                 render={({ field }) => (
                                     <FormItem className="w-full">
-                                        <FormLabel>Description</FormLabel>
+                                        <FormLabel>{t("description")}</FormLabel>
                                         <FormControl>
-                                            <Textarea rows={6} {...field} placeholder="Enter specie description" className="rounded-none p-3 text-base placeholder:text-base" />
+                                            <Textarea rows={6} {...field} placeholder={t("description_placehodler")} className="rounded-none p-3 text-base" />
                                         </FormControl>
                                         <FormMessage />
                                     </FormItem>
@@ -305,9 +309,9 @@ export function CreateSpecieForm() {
                                 name="comment"
                                 render={({ field }) => (
                                     <FormItem className="w-full">
-                                        <FormLabel>Comment</FormLabel>
+                                        <FormLabel>{t("comment")}</FormLabel>
                                         <FormControl>
-                                            <Textarea rows={6} {...field} placeholder="Enter additional comment" className="rounded-none p-3 text-base placeholder:text-base" />
+                                            <Textarea rows={6} {...field} placeholder={t("comment_placeholder")} className="rounded-none p-3 text-base" />
                                         </FormControl>
                                         <FormMessage />
                                     </FormItem>
@@ -321,7 +325,7 @@ export function CreateSpecieForm() {
                         name="image"
                         render={({ field: { onChange, ref } }) => (
                             <FormItem>
-                                <FormLabel>Image</FormLabel>
+                                <FormLabel>{t("image")}</FormLabel>
                                 <FormControl className="px-3 h-[50px]">
                                     <Input
                                         type="file"
@@ -338,9 +342,9 @@ export function CreateSpecieForm() {
 
                     <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-2 mt-4">
                         <Button type="button" variant="destructive" className="w-full sm:w-max rounded-none cursor-pointer py-6" asChild>
-                            <Link href={"/"}>Cancel</Link>
+                            <Link href={"/"}>{t("cancel")}</Link>
                         </Button>
-                        <Button type="submit" className="w-full sm:w-max rounded-none  cursor-pointer py-6">Submit</Button>
+                        <Button type="submit" className="w-full sm:w-max rounded-none  cursor-pointer py-6">{t("submit")}</Button>
                     </div>
                 </form>
             </Form>
