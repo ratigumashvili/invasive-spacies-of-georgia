@@ -25,12 +25,12 @@ const specieSchema = z.object({
     name: z.string().min(3, "Name must be at least 3 characters"),
     autorName: z.string().optional(),
     commonNames: z.string().optional(),
-    habitat: z.string().min(3, "Habitat must be provided"),
+    habitat: z.string().optional(),
     firstIntroduced: z.string().optional(),
     dateOfDetection: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Date must be in YYYY-MM-DD format"),
-    placeName: z.string().min(3, "place name must be at least 3 characters"),
+    placeName: z.string().min(2, "Place name must be at least 2 characters"),
     coordinates: z.string(),
-    description: z.string().min(10, "Description must be at least 10 characters"),
+    description: z.string().optional(),
     comment: z.string().optional(),
     image: z.any().optional(),
     submissionAuthor: z.string()
@@ -162,7 +162,7 @@ export function CreateSpecieForm() {
                                 <FormItem>
                                     <FormLabel>Common names</FormLabel>
                                     <FormControl>
-                                        <Input {...field} placeholder="Scientific name authorship" className="rounded-none px-3 py-6 text-base placeholder:text-base" />
+                                        <Input {...field} placeholder="Provide common names" className="rounded-none px-3 py-6 text-base placeholder:text-base" />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
@@ -175,7 +175,7 @@ export function CreateSpecieForm() {
                                 <FormItem>
                                     <FormLabel>Habitat</FormLabel>
                                     <FormControl>
-                                        <Input {...field} placeholder="Enter habitat type" className="rounded-none px-3 py-6 text-base placeholder:text-base" />
+                                        <Input {...field} placeholder="Provide habitat type" className="rounded-none px-3 py-6 text-base placeholder:text-base" />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
@@ -202,7 +202,14 @@ export function CreateSpecieForm() {
                                                     e.preventDefault();
                                                 }
                                             }}
+                                            onChange={(e) => {
+                                                const value = e.target.value;
+                                                if (value.length <= 4) {
+                                                    field.onChange(value);
+                                                }
+                                            }}
                                         />
+
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
@@ -333,7 +340,7 @@ export function CreateSpecieForm() {
                         <Button type="button" variant="destructive" className="w-full sm:w-max rounded-none cursor-pointer py-6" asChild>
                             <Link href={"/"}>Cancel</Link>
                         </Button>
-                        <Button type="submit" className="w-full sm:w-max rounded-none  cursor-pointer py-6">Create Specie</Button>
+                        <Button type="submit" className="w-full sm:w-max rounded-none  cursor-pointer py-6">Submit</Button>
                     </div>
                 </form>
             </Form>
