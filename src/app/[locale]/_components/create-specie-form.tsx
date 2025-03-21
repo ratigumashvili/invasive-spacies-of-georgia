@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import { z } from "zod";
 import { format } from "date-fns"
 import { useForm } from "react-hook-form";
@@ -24,7 +25,8 @@ const specieSchema = z.object({
     commonNames: z.string().optional(),
     description: z.string().min(10, "Description must be at least 10 characters"),
     habitat: z.string().min(3, "Habitat must be provided"),
-    dateOfDetection: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Date must be in YYYY-MM-DD format")
+    dateOfDetection: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Date must be in YYYY-MM-DD format"),
+    submissionAuthor: z.string()
 });
 
 export function CreateSpecieForm() {
@@ -43,7 +45,8 @@ export function CreateSpecieForm() {
             description: "",
             habitat: "",
             dateOfDetection: "",
-          }
+            submissionAuthor: ""
+        }
     });
 
     const handleSubmit = async (values: any) => {
@@ -60,24 +63,50 @@ export function CreateSpecieForm() {
                 }
             ],
             habitat: values.habitat,
-            dateOfDetection: values.dateOfDetection
+            dateOfDetection: values.dateOfDetection,
+            submissionAuthor: values.submissionAuthor
         };
 
         const response = await createSpecie(token, specieData);
 
         if (response.status === "success") {
-            toast.success("Record created successfully! It is already sent to review.");
+            toast.success("Record created successfully! It is already sent for review.");
             form.reset();
         } else {
             toast.error(`Error: ${response.message}`);
         }
     };
 
+    useEffect(() => {
+        if (user?.username) {
+            form.setValue("submissionAuthor", `${user.username}, ${user.email}`, {
+                shouldValidate: true,
+                shouldDirty: true,
+            });
+        }
+    }, [user?.username, form]);
+
+
     return (
         <div className="w-full max-w-[500px]">
             <h2 className="text-2xl font-bold mb-6">Create a New Specie</h2>
+            <pre>{JSON.stringify(user, null, 2)}</pre>
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(handleSubmit)} className="flex flex-col gap-y-4">
+
+                    <FormField
+                        control={form.control}
+                        name="submissionAuthor"
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormControl>
+                                    <Input type="hidden" {...field} />
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+
                     <FormField
                         control={form.control}
                         name="name"
@@ -188,6 +217,7 @@ export function CreateSpecieForm() {
                             </FormItem>
                         )}
                     />
+
 
                     <Button type="submit" className="mt-4">Create Specie</Button>
                 </form>

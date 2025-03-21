@@ -4,7 +4,6 @@ import axios from "axios";
 import qs from "query-string";
 
 import { BASE_API_URL, BASE_URL } from "./utils";
-import { useAuth } from "@/context/auth-context";
 
 interface PaginationMeta {
   page: number;
@@ -496,7 +495,8 @@ export const createSpecie = async (token: string, specieData: any) => {
       commonNames: specieData.commonNames,
       description: specieData.description,
       habitat: specieData.habitat,
-      dateOfDetection: specieData.dateOfDetection
+      dateOfDetection: specieData.dateOfDetection,
+      submissionAuthor: specieData.submissionAuthor,
     }
   };
 
