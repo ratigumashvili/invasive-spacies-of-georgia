@@ -9,7 +9,7 @@ import { toast } from "sonner";
 import { CalendarIcon } from "lucide-react";
 
 import { cn } from "@/lib/utils";
-import { createSpecie } from "@/lib/api-calls";
+import { createSpecie, uploadFile } from "@/lib/api-calls";
 
 import { useAuth } from "@/context/auth-context";
 
@@ -18,15 +18,18 @@ import { Input } from "@/components/ui/input";
 import { Calendar } from "@/components/ui/calendar";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Textarea } from "@/components/ui/textarea";
 
 const specieSchema = z.object({
     name: z.string().min(3, "Name must be at least 3 characters"),
     authorName: z.string().optional(),
     commonNames: z.string().optional(),
-    description: z.string().min(10, "Description must be at least 10 characters"),
     habitat: z.string().min(3, "Habitat must be provided"),
     dateOfDetection: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Date must be in YYYY-MM-DD format"),
-    file: z.string().optional(),
+    placeName: z.string(),
+    coordinates: z.string(),
+    description: z.string().min(10, "Description must be at least 10 characters"),
+    fileUpload: z.any().optional(),
     submissionAuthor: z.string()
 });
 
@@ -43,42 +46,47 @@ export function CreateSpecieForm() {
             name: "",
             authorName: "",
             commonNames: "",
-            description: "",
             habitat: "",
             dateOfDetection: "",
-            file: "",
+            placeName: "",
+            coordinates: "",
+            description: "",
+            fileUpload: undefined,
             submissionAuthor: ""
         }
     });
+    //     try {
+    //         const uploadedFile = values.fileUpload
+    //             ? await uploadFile(token, values.fileUpload)
+    //             : null;
 
-    const handleSubmit = async (values: any) => {
-        const specieData = {
-            name: values.name,
-            authorName: values.authorName,
-            commonNames: values.commonNames,
-            description: [
-                {
-                    type: "paragraph",
-                    children: [
-                        { type: "text", text: values.description }
-                    ]
-                }
-            ],
-            habitat: values.habitat,
-            dateOfDetection: values.dateOfDetection,
-            file: values.file,
-            submissionAuthor: values.submissionAuthor
-        };
+    //         const specieData = {
+    //             name: values.name,
+    //             authorName: values.authorName,
+    //             commonNames: values.commonNames,
+    //             description: [
+    //                 {
+    //                     type: "paragraph",
+    //                     children: [{ type: "text", text: values.description }],
+    //                 },
+    //             ],
+    //             habitat: values.habitat,
+    //             dateOfDetection: values.dateOfDetection,
+    //             submissionAuthor: values.submissionAuthor,
+    //         };
 
-        const response = await createSpecie(token, specieData);
+    //         const response = await createSpecie(token, specieData, uploadedFile?.id);
 
-        if (response.status === "success") {
-            toast.success("Record created successfully! It is already sent for review.");
-            form.reset();
-        } else {
-            toast.error(`Error: ${response.message}`);
-        }
-    };
+    //         if (response.status === "success") {
+    //             toast.success("Record created successfully!");
+    //             form.reset();
+    //         } else {
+    //             toast.error(`Error: ${response.message ?? "Something went wrong"}`);
+    //         }
+    //     } catch (error) {
+    //         toast.error(`Submission failed: ${error}`);
+    //     }
+    // };
 
     useEffect(() => {
         if (user?.username) {
@@ -89,109 +97,152 @@ export function CreateSpecieForm() {
         }
     }, [user?.username, form]);
 
+    const handleSubmit = async (values: any) => {
+        try {
+            let uploadedFile = null;
+
+            if (values.fileUpload) {
+                uploadedFile = await uploadFile(token, values.fileUpload);
+                if (!uploadedFile?.id) {
+                    throw new Error("File upload failed.");
+                }
+            }
+
+            const specieData = {
+                name: values.name,
+                authorName: values.authorName,
+                commonNames: values.commonNames,
+                description: [
+                    {
+                        type: "paragraph",
+                        children: [{ type: "text", text: values.description }]
+                    }
+                ],
+                habitat: values.habitat,
+                dateOfDetection: values.dateOfDetection,
+                submissionAuthor: values.submissionAuthor,
+                fileUpload: uploadedFile?.id || null
+            };
+
+            const response = await createSpecie(token, specieData, uploadedFile?.id);
+
+            if (response.status === "success") {
+                toast.success("Record created successfully!");
+                form.reset();
+            } else {
+                toast.error(`Error: ${response.message || "Unknown error"}`);
+            }
+        } catch (error: any) {
+            toast.error(`Submission failed: ${error.message}`);
+        }
+    };
+
 
     return (
-        <div className="w-full max-w-[500px]">
-            <h2 className="text-2xl font-bold mb-6">Create a New Specie</h2>
-            <pre>{JSON.stringify(user, null, 2)}</pre>
+        <div className="w-full">
+
+            <h2 className="text-2xl font-medium mb-6">Submit Specie</h2>
+
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(handleSubmit)} className="flex flex-col gap-y-4">
 
+                    <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
                     <FormField
-                        control={form.control}
-                        name="submissionAuthor"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormControl>
-                                    <Input type="hidden" {...field} />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
+                            control={form.control}
+                            name="name"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Name</FormLabel>
+                                    <FormControl>
+                                        <Input {...field} placeholder="Enter Latin name" />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                        <FormField
+                            control={form.control}
+                            name="authorName"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Name according to</FormLabel>
+                                    <FormControl>
+                                        <Input {...field} placeholder="Scientific name authorship" />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                        <FormField
+                            control={form.control}
+                            name="commonNames"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Common names</FormLabel>
+                                    <FormControl>
+                                        <Input {...field} placeholder="Scientific name authorship" />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                        <FormField
+                            control={form.control}
+                            name="habitat"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Habitat</FormLabel>
+                                    <FormControl>
+                                        <Input {...field} placeholder="Enter habitat type" />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                    </div>
 
-                    <FormField
-                        control={form.control}
-                        name="name"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Scientific Name</FormLabel>
-                                <FormControl>
-                                    <Input {...field} placeholder="Enter specie name" />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-
-                    <FormField
-                        control={form.control}
-                        name="authorName"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Name according to</FormLabel>
-                                <FormControl>
-                                    <Input {...field} placeholder="Scientific name authorship" />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-
-                    <FormField
-                        control={form.control}
-                        name="commonNames"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Common names</FormLabel>
-                                <FormControl>
-                                    <Input {...field} placeholder="Scientific name authorship" />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-
-                    <FormField
-                        control={form.control}
-                        name="dateOfDetection"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Date of detection</FormLabel>
-                                <FormControl>
-                                    <Popover>
-                                        <PopoverTrigger asChild>
-                                            <Button
-                                                variant={"ghost"}
-                                                className={cn(
-                                                    "border justify-start text-left font-normal",
-                                                    !field.value && "text-muted-foreground"
-                                                )}
-                                            >
-                                                <CalendarIcon className="mr-2 h-4 w-4" />
-                                                {field.value ? format(new Date(field.value), "PPP") : <span>Pick a date</span>}
-                                            </Button>
-                                        </PopoverTrigger>
-                                        <PopoverContent className="w-auto p-0">
-                                            <Calendar
-                                                mode="single"
-                                                selected={field.value ? new Date(field.value) : undefined}
-                                                onSelect={(date) => {
-                                                    if (date) {
-                                                        const formatted = format(date, "yyyy-MM-dd");
-                                                        field.onChange(formatted);
-                                                    }
-                                                }}
-                                                disabled={{ after: new Date() }}
-                                                initialFocus
-                                            />
-                                        </PopoverContent>
-                                    </Popover>
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <FormField
+                            control={form.control}
+                            name="dateOfDetection"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Date of detection</FormLabel>
+                                    <FormControl>
+                                        <Popover>
+                                            <PopoverTrigger asChild>
+                                                <Button
+                                                    variant={"ghost"}
+                                                    className={cn(
+                                                        "border justify-start text-left font-normal",
+                                                        !field.value && "text-muted-foreground"
+                                                    )}
+                                                >
+                                                    <CalendarIcon className="mr-2 h-4 w-4" />
+                                                    {field.value ? format(new Date(field.value), "PPP") : <span>Pick a date</span>}
+                                                </Button>
+                                            </PopoverTrigger>
+                                            <PopoverContent className="w-auto p-0">
+                                                <Calendar
+                                                    mode="single"
+                                                    selected={field.value ? new Date(field.value) : undefined}
+                                                    onSelect={(date) => {
+                                                        if (date) {
+                                                            const formatted = format(date, "yyyy-MM-dd");
+                                                            field.onChange(formatted);
+                                                        }
+                                                    }}
+                                                    disabled={{ after: new Date() }}
+                                                    initialFocus
+                                                />
+                                            </PopoverContent>
+                                        </Popover>
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                    </div>
 
                     <FormField
                         control={form.control}
@@ -200,7 +251,7 @@ export function CreateSpecieForm() {
                             <FormItem>
                                 <FormLabel>Description</FormLabel>
                                 <FormControl>
-                                    <Input {...field} placeholder="Enter specie description" />
+                                    <Textarea {...field} placeholder="Enter specie description" />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
@@ -209,26 +260,17 @@ export function CreateSpecieForm() {
 
                     <FormField
                         control={form.control}
-                        name="habitat"
-                        render={({ field }) => (
+                        name="fileUpload"
+                        render={({ field: { onChange, ref } }) => (
                             <FormItem>
-                                <FormLabel>Habitat</FormLabel>
+                                <FormLabel>Image</FormLabel>
                                 <FormControl>
-                                    <Input {...field} placeholder="Enter habitat type" />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-
-                    <FormField
-                        control={form.control}
-                        name="file"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>File</FormLabel>
-                                <FormControl>
-                                    <Input type="file" {...field} placeholder="Upload specie image" />
+                                    <Input
+                                        type="file"
+                                        accept="image/*"
+                                        ref={ref}
+                                        onChange={(e) => onChange(e.target.files?.[0])}
+                                    />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
