@@ -67,7 +67,7 @@ export function CreateSpecieForm() {
 
     useEffect(() => {
         if (user?.username) {
-            form.setValue("submissionAuthor", `${user.username}, ${user.email}`, {
+            form.setValue("submissionAuthor", `${user.username}`, {
                 shouldValidate: true,
                 shouldDirty: true,
             });
