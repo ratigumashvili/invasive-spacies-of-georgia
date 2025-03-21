@@ -21,7 +21,6 @@ export default function DashboardPage() {
             </h1>
             {user ? (
                 <>
-                    <p className="mb-6">{t("welcome")}, {user.username}!</p>
                     <CreateSpecieForm />
                 </>
             ) : (
