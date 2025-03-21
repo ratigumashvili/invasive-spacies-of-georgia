@@ -11,9 +11,20 @@ import { Separator } from "@/components/ui/separator";
 import { generateFontByLocale } from "@/lib/utils";
 
 import geoJsonDataRaw from "@/app/[locale]/_data/coords.json";
-import { SingleSpecieList } from "@/types/random-specie";
+import { Place} from "@/types/taxonomy-types";
+import { Species } from "@/types/specie-response";
 
-export function SinglePlaceComponent({ data, locale }: { data: any, locale: string }) {
+export function SinglePlaceComponent({ 
+    place, 
+    coordinates, 
+    data, 
+    locale 
+}: { 
+    place: Place[], 
+    coordinates: string, 
+    data: Species[], 
+    locale: string 
+}) {
 
     const r = useTranslations("Regions")
     const t = useTranslations("Places")
@@ -49,10 +60,10 @@ export function SinglePlaceComponent({ data, locale }: { data: any, locale: stri
         return null;
     }
 
-    const placeCoordinates: [number, number] = data[0]?.coordinates?.split(",").map(Number) as [number, number];
+    const placeCoordinates: [number, number] = coordinates?.split(",").map(Number) as [number, number];
     const geoJsonData: FeatureCollection<Geometry, { NAME_2?: string; name?: string }> = geoJsonDataRaw as FeatureCollection<Geometry, { NAME_2?: string; name?: string }>;
 
-    if (data.length === 0) {
+    if (place?.length === 0) {
         return <NothingFound />
     }
 
@@ -61,18 +72,18 @@ export function SinglePlaceComponent({ data, locale }: { data: any, locale: stri
             <div className="mb-8 flex items-start justify-baseline">
                 <div className="w-full">
                     <h1 className={`${generateFontByLocale(locale)} text-2xl uppercase font-medium`}>
-                        {data[0]?.title}, {getRegionName(geoJsonData, placeCoordinates)}
+                        {place[0]?.title}, {getRegionName(geoJsonData, placeCoordinates)}
                     </h1>
                     <h2 className="text-base text-muted-foreground flex items-center">
-                        <GlobeIcon className="w-4 h-4 mr-1" /> {data[0]?.coordinates}
+                        <GlobeIcon className="w-4 h-4 mr-1" /> {coordinates}
                     </h2>
                 </div>
                 <DropDownAction />
             </div>
             <Separator className="my-8" />
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {data[0]?.species?.map((item: SingleSpecieList) => (
-                    <SpecieBlock key={item.documentId} data={item as SingleSpecieList} />
+                {data?.map((item) => (
+                    <SpecieBlock key={item.documentId} data={{ ...item, locale }} />
                 ))}
             </div>
         </div>

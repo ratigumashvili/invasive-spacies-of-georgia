@@ -1,9 +1,11 @@
 import { EventItem } from "@/types/event-item";
-import { SpeciesListResponse, SpeciesResponse } from "@/types/taxonomy-types";
+import { SpeciesListResponse } from "@/types/taxonomy-types";
 import axios from "axios";
-import qs from "query-string";
+import qs from "qs";
 
 import { BASE_API_URL, BASE_URL } from "./utils";
+import { PlaceResponse } from "@/types/place-response";
+import { SpeciesResponse } from "@/types/specie-response";
 
 interface PaginationMeta {
   page: number;
@@ -411,6 +413,120 @@ export async function fetchPlacesData(locale: string, page: number = 1, pageSize
 
 
 
+export async function fetchPlacesDataBySlug(locale: string, slug: string) {
+  try {
+    const queryParams = {
+      fields: [
+        "title", "slug", "coordinates"
+      ],
+      
+      locale,
+      filters: {
+        slug: {
+          $eq: slug
+        }
+      },
+      sort: ["title:asc"]
+    };
+
+    const query = qs.stringify(queryParams, { encodeValuesOnly: true });
+    const requestUrl = `${BASE_API_URL}/places?${query}`;
+
+    const response = await fetch(requestUrl, {
+      method: "GET",
+      headers: { "Accept": "application/json" }
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(`Failed to fetch places: ${errorData.error?.message || response.statusText}`);
+    }
+
+    const data: PlaceResponse = await response.json();
+    return data;
+  } catch (error: any) {
+    console.error("Error fetching places data:", error.message);
+    return { data: [], meta: { pagination: { page: 1, pageSize: 25, pageCount: 1, total: 0 } } };
+  }
+}
+
+
+export async function fetchSpeciesByPlaceId(locale: string, placeId: string, page: number = 1, pageSize: number = 24) {
+  try {
+    const queryParams = {
+      fields: [
+        "id",
+        "name",
+        "slug",
+        "autorName",
+        "ecologicalGroup",
+        "firstIntroduced",
+        "isNew",
+        "dateOfDetection"
+      ],
+      populate: {
+        image: {
+          fields: [
+            "documentId",
+            "alternativeText",
+            "caption",
+            "width",
+            "height",
+            "url"
+          ]
+        }
+      },
+      filters: {
+        places: {
+          id: {
+            $eq: placeId
+          }
+        }
+      },
+      pagination: {
+        page: page,
+        pageSize: pageSize
+      },
+      locale,
+      sort: ["name:asc"]
+    };
+    const query = qs.stringify(queryParams, { encodeValuesOnly: true });
+    const requestUrl = `${BASE_API_URL}/species?${query}`;
+
+    const response = await fetch(requestUrl, {
+      method: "GET",
+      headers: { "Accept": "application/json" }
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(`Failed to fetch places: ${errorData.error?.message || response.statusText}`);
+    }
+
+    const data: SpeciesResponse = await response.json();
+    return data;
+  } catch (error: any) {
+    console.error("Error fetching places data:", error.message);
+    return { data: [], meta: { pagination: { page: 1, pageSize: 25, pageCount: 1, total: 0 } } };
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// User authentication & file upload
 
 export const registerUser = async (username: string, email: string, password: string) => {
   try {
@@ -475,10 +591,6 @@ export const loginUser = async (email: string, password: string) => {
   }
 };
 
-
-
-
-
 export const uploadFile = async (token: string, file: File) => {
   const formData = new FormData();
   formData.append("files", file);
@@ -500,8 +612,8 @@ export const uploadFile = async (token: string, file: File) => {
   return data[0];
 };
 
-export async function createSpecie(token: string, specieData: any, uploadedFileId: number): 
-Promise<{ status: "success"; data: any } | { status: "failed"; message: string }> {
+export async function createSpecie(token: string, specieData: any, uploadedFileId: number):
+  Promise<{ status: "success"; data: any } | { status: "failed"; message: string }> {
   const requestData = {
     data: {
       ...specieData,

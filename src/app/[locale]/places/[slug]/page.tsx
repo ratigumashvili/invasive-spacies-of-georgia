@@ -2,7 +2,7 @@ import Container from "@/app/[locale]/_components/container";
 import { SinglePlaceComponent } from "@/app/[locale]/_components/places/single-place";
 import { Pagination } from "@/app/[locale]/_components/pagination";
 
-import { fetchPlacesData } from "@/lib/api-calls";
+import { fetchPlacesDataBySlug, fetchSpeciesByPlaceId } from "@/lib/api-calls";
 
 type Props = {
     params: Promise<{ locale: string, slug: string }>
@@ -14,17 +14,25 @@ export default async function SinglePlace({ params, searchParams }: Props) {
     const resolvedSearchParams = await searchParams
     const currentPage = Number(resolvedSearchParams.page) || 1
 
-    const filter = `&filters[$and][0][slug][$eq]=${slug}`
-    const response = await fetchPlacesData(locale, 1, 1, filter)
+    const placeResponse = await fetchPlacesDataBySlug(locale, slug)
+    const placeId = placeResponse?.data[0]?.id.toString()
+
+    const speciesResponse = await fetchSpeciesByPlaceId(locale, placeId, currentPage, 2)
 
     return (
         <Container>
-            <SinglePlaceComponent data={response?.data} locale={locale} />
+            <SinglePlaceComponent
+                place={placeResponse?.data}
+                coordinates={placeResponse?.data[0]?.coordinates}
+                locale={locale}
+                data={speciesResponse.data}
+            />
             <Pagination
                 currentPage={currentPage}
-                totalPages={response?.meta.pagination.pageCount as number}
+                totalPages={speciesResponse?.meta.pagination.pageCount as number}
                 pathname={`places/${slug}`}
             />
         </Container>
     )
 }
+
