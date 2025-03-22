@@ -74,7 +74,7 @@ export default function GeoJsonMap({ speciesCoordinates }: { speciesCoordinates:
 
                 const calculatedRegionData = calculateRegionDensity(geoJsonTyped, speciesCoordinates);
                 setRegionData(calculatedRegionData);
-                setLoading(false);  // ✅ Data is ready
+                setLoading(false);
             } catch (error) {
                 setLoading(false);
             }
@@ -112,7 +112,7 @@ export default function GeoJsonMap({ speciesCoordinates }: { speciesCoordinates:
             if (geometry.type === "Polygon") {
                 const polygon = turf.polygon(geometry.coordinates as number[][][]);
                 if (turf.booleanPointInPolygon(point, polygon)) {
-                    matchedRegion = regionName;
+                    matchedRegion = t(regionName);
                 }
             } else if (geometry.type === "MultiPolygon") {
                 geometry.coordinates.forEach((polygon) => {
