@@ -4,11 +4,12 @@ import { useEffect, useState } from "react";
 import * as turf from "@turf/turf";
 import { FeatureCollection, Geometry } from "geojson";
 import { useTranslations } from "next-intl";
-import { GlobeIcon } from "lucide-react";
+import { DownloadIcon, GlobeIcon } from "lucide-react";
+import { Link } from "@/i18n/routing";
 
-import { SpecieBlock } from "@/app/[locale]/_components/home-page-blocks/specie-block";
-import { DropDownAction } from "@/app/[locale]/_components/drop-down-actions";
+import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
+import { SpecieBlock } from "@/app/[locale]/_components/home-page-blocks/specie-block";
 import { Views } from "@/app/[locale]/_components/views";
 
 import { generateFontByLocale, isLocalStorageAvailable } from "@/lib/utils";
@@ -17,7 +18,6 @@ import geoJsonDataRaw from "@/app/[locale]/_data/coords.json";
 
 import { Place } from "@/types/taxonomy-types";
 import { Species } from "@/types/specie-response";
-import { Link } from "@/i18n/routing";
 
 export function SinglePlaceComponent({
     place,
@@ -94,7 +94,9 @@ export function SinglePlaceComponent({
                     </h2>
                 </div>
                 <div className="flex items-center gap-1">
-                    <DropDownAction />
+                    <Button variant="outline" size="icon" className="rounded-none cursor-pointer">
+                        <DownloadIcon />
+                    </Button>
                     <Views selectedView={selectedView} setSelectedView={setSelectedView} />
                 </div>
             </div>
