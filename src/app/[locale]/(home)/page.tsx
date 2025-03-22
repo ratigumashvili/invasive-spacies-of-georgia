@@ -26,6 +26,7 @@ export default async function HomePage({ params }: Props) {
   const randomSpecie = await fetchRandomSpecie(locale, "notNew")
   const newSpecies = await fetchRandomSpecie(locale, "isNew")
   const speciesCoordinates = await fetchSpeciesCoordinates(locale)
+  
 
   const newCoordinates = speciesCoordinates?.data?.length
     ? speciesCoordinates.data.flatMap((item: any) =>

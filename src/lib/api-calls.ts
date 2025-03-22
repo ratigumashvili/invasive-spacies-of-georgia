@@ -360,7 +360,7 @@ export async function fetchPlacesDataBySlug(locale: string, slug: string) {
       fields: [
         "title", "slug", "coordinates"
       ],
-      
+
       locale,
       filters: {
         slug: {
