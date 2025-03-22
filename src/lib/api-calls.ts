@@ -474,6 +474,12 @@ export async function fetchSpeciesByPlaceId(locale: string, placeId: string, pag
             "height",
             "url"
           ]
+        },
+        family: {
+          fields: ["name"]
+        },
+        genus: {
+          fields: ["name"]
         }
       },
       filters: {

@@ -87,6 +87,7 @@
   },
   "Species": {
     "scientific_name": "Scientific name",
+    "scientific_name_short": "Scien. name",
     "name_id": "Scientific name id (GBIF)",
     "nat": "Name according to",
     "eco_group": "Ecological group",
@@ -109,7 +110,8 @@
     "synonyms": "Synonyms",
     "taxonomy": "Taxonomy",
     "metadata": "Metadata",
-    "ai": "Additional Information"
+    "ai": "Additional Information",
+    "detected": "Date detected"
   },
   "Regions": {
     "Gagra": "Gagra",

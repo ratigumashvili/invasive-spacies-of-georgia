@@ -18,7 +18,7 @@ export default async function SinglePlace({ params, searchParams }: Props) {
     const placeResponse = await fetchPlacesDataBySlug(locale, slug)
     const placeId = placeResponse?.data[0]?.id.toString()
 
-    const speciesResponse = await fetchSpeciesByPlaceId(locale, placeId, currentPage, 2)
+    const speciesResponse = await fetchSpeciesByPlaceId(locale, placeId, currentPage, 24)
 
     if(placeResponse?.data?.length === 0) {
         return <NothingFound />

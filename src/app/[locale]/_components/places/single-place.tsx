@@ -32,7 +32,7 @@ export function SinglePlaceComponent({
 }) {
 
     const r = useTranslations("Regions")
-    const t = useTranslations("Places")
+    const t = useTranslations("Species")
 
     function getRegionName(
         geoJsonData: FeatureCollection<Geometry, { NAME_2?: string; name?: string }>,
@@ -107,30 +107,36 @@ export function SinglePlaceComponent({
                     ))}
                 </div>
             ) : (
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Scientific name</th>
-                            <th>Name according to</th>
-                            <th>Ecological group</th>
-                            <th>Introduced</th>
-                            <th>Detected</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {data?.map((item) => (
-                            <tr key={item.documentId}>
-                                <td>
-                                    <Link href={`/species-list/${item.slug}`} className="text-sky-800 font-medium hover:underline">{item.name}</Link>
-                                </td>
-                                <td>{item.autorName}</td>
-                                <td>{item.ecologicalGroup}</td>
-                                <td>{item.firstIntroduced}</td>
-                                <td>{item.dateOfDetection}</td>
+                <div className="w-full overflow-x-auto">
+                    <table className="w-full min-w-7xl">
+                        <thead>
+                            <tr>
+                                <th className="text-nowrap">{t("scientific_name")}</th>
+                                <th className="text-nowrap">{t("nat")}</th>
+                                <th className="text-nowrap">{t("eco_group")}</th>
+                                <th>{t("family")}</th>
+                                <th>{t("genus")}</th>
+                                <th className="text-nowrap">{t("first_introduced")}</th>
+                                <th className="text-nowrap">{t("detected")}</th>
                             </tr>
-                        ))}
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            {data?.map((item) => (
+                                <tr key={item.documentId}>
+                                    <td>
+                                        <Link href={`/species-list/${item.slug}`} className="text-sky-800 font-medium hover:underline">{item.name}</Link>
+                                    </td>
+                                    <td>{item.autorName}</td>
+                                    <td>{item.ecologicalGroup}</td>
+                                    <td>{item.family?.name}</td>
+                                    <td>{item.genus?.name}</td>
+                                    <td>{item.firstIntroduced}</td>
+                                    <td>{item.dateOfDetection}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
             )}
         </div>
     )
