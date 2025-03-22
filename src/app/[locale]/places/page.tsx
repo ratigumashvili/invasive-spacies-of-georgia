@@ -15,7 +15,7 @@ export default async function PlacesPage({ params, searchParams }: Props) {
 
     const currentPage = Number(resolvedSearchParams.page) || 1;
 
-    const response = await fetchPlacesData(locale, currentPage)
+    const response = await fetchPlacesData(locale, currentPage,)
 
     return (
         <Container>

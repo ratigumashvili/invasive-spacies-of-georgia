@@ -267,14 +267,29 @@ export async function fetchRandomSpecie(locale: string, filterType?: "isNew" | "
   }
 }
 
-export async function fetchSpeciesCoordinates(locale: string, pageSize: number = 25, filter?: string) {
+
+
+
+
+
+
+
+
+export async function fetchSpeciesCoordinates(locale: string, page: number = 1, pageSize: number = 1000) {
   try {
     const queryParams = {
       fields: ["documentId"],
-      "populate[places][fields]": ["coordinates", "title", "slug"],
-      "pagination[pageSize]": pageSize,
-      locale,
-      filter
+
+      populate: {
+        places: {
+          fields: ["coordinates", "title", "slug"]
+        }
+      },
+      pagination: {
+        page: page,
+        pageSize: pageSize
+      },
+      locale
     };
 
     const query = qs.stringify(queryParams, { encode: false });
@@ -298,92 +313,24 @@ export async function fetchSpeciesCoordinates(locale: string, pageSize: number =
   }
 }
 
-export async function fetchSpeciesByCoordinates(locale: string, pageSize: number = 25, filter?: string) {
-  try {
-    const queryParams = {
-      fields: [
-        "title", "locale", "slug", "coordinates"
-      ],
-
-      "populate[species][fields]": [
-        "name",
-        "slug",
-        "ecologicalGroup",
-        "autorName",
-        "firstIntroduced",
-        "isNew",
-        "dateOfDetection",
-      ],
-
-      "populate[species][populate][family][fields]": [
-        "name",
-        "slug",
-      ],
-
-      "populate[species][populate][genus][fields]": [
-        "name",
-        "slug"
-      ],
-
-      "pagination[pageSize]": pageSize,
-      locale,
-      filter
-    };
-
-    const query = qs.stringify(queryParams, { encode: false });
-    const requestUrl = `${BASE_API_URL}/places?${query}`;
-
-    const response = await fetch(requestUrl, {
-      method: "GET",
-      headers: { "Accept": "application/json" }
-    });
-
-    if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(`Failed to fetch species: ${errorData.error?.message || response.statusText}`);
-    }
-
-    const data: SpeciesListResponse = await response.json();
-    return data;
-  } catch (error: any) {
-    console.error("Error fetching species data:", error.message);
-    return { data: [], meta: { pagination: { page: 1, pageSize: 24, pageCount: 1, total: 0 } } };
-  }
-}
-
-export async function fetchPlacesData(locale: string, page: number = 1, pageSize: number = 24, filter?: string) {
+export async function fetchPlacesData(locale: string, page: number = 1, pageSize: number = 24) {
   try {
     const queryParams = {
       fields: [
         "title", "slug", "coordinates"
       ],
 
-      "populate[species][fields]": [
-        "id",
-        "name",
-        "slug",
-        "autorName",
-        "ecologicalGroup",
-        "firstIntroduced",
-        "isNew",
-        "dateOfDetection"
-      ],
-
-      "populate[species][populate][image][fields]": [
-        "documentId",
-        "alternativeText",
-        "caption",
-        "width",
-        "height",
-        "url"
-      ],
-
-      "pagination[page]": page,
-      "pagination[pageSize]": pageSize,
+      populate: {
+        species: {
+          fields: ["id"]
+        }
+      },
+      pagination: {
+        page: page,
+        pageSize: pageSize
+      },
       locale,
-      filter,
-
-      "sort": "title:asc"
+      sort: ["title:asc"]
     };
 
     const query = qs.stringify(queryParams, { encode: false });
@@ -406,12 +353,6 @@ export async function fetchPlacesData(locale: string, page: number = 1, pageSize
     return { data: [], meta: { pagination: { page: 1, pageSize: 25, pageCount: 1, total: 0 } } };
   }
 }
-
-
-
-
-
-
 
 export async function fetchPlacesDataBySlug(locale: string, slug: string) {
   try {
@@ -449,7 +390,6 @@ export async function fetchPlacesDataBySlug(locale: string, slug: string) {
     return { data: [], meta: { pagination: { page: 1, pageSize: 25, pageCount: 1, total: 0 } } };
   }
 }
-
 
 export async function fetchSpeciesByPlaceId(locale: string, placeId: string, page: number = 1, pageSize: number = 24) {
   try {
@@ -516,21 +456,6 @@ export async function fetchSpeciesByPlaceId(locale: string, placeId: string, pag
     return { data: [], meta: { pagination: { page: 1, pageSize: 25, pageCount: 1, total: 0 } } };
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // User authentication & file upload
 
@@ -642,4 +567,87 @@ export async function createSpecie(token: string, specieData: any, uploadedFileI
   }
 
   return { status: "success", data };
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// has to be removed
+
+export async function fetchSpeciesByCoordinates(locale: string, pageSize: number = 25, filter?: string) {
+  try {
+    const queryParams = {
+      fields: [
+        "title", "locale", "slug", "coordinates"
+      ],
+
+      "populate[species][fields]": [
+        "name",
+        "slug",
+        "ecologicalGroup",
+        "autorName",
+        "firstIntroduced",
+        "isNew",
+        "dateOfDetection",
+      ],
+
+      "populate[species][populate][family][fields]": [
+        "name",
+        "slug",
+      ],
+
+      "populate[species][populate][genus][fields]": [
+        "name",
+        "slug"
+      ],
+
+      "pagination[pageSize]": pageSize,
+      locale,
+      filter
+    };
+
+    const query = qs.stringify(queryParams, { encode: false });
+    const requestUrl = `${BASE_API_URL}/places?${query}`;
+
+    const response = await fetch(requestUrl, {
+      method: "GET",
+      headers: { "Accept": "application/json" }
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(`Failed to fetch species: ${errorData.error?.message || response.statusText}`);
+    }
+
+    const data: SpeciesListResponse = await response.json();
+    return data;
+  } catch (error: any) {
+    console.error("Error fetching species data:", error.message);
+    return { data: [], meta: { pagination: { page: 1, pageSize: 24, pageCount: 1, total: 0 } } };
+  }
 }
