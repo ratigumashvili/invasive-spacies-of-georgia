@@ -183,14 +183,14 @@
     "Kaspi": "Kaspi",
     "Khashuri": "Khashuri",
     "Tbilisi": "Tbilisi",
-    "region": "Region",
+    "region": "District",
     "place": "Place",
     "readmore": "Read more",
     "records": "Records"
   },
   "Places": {
     "page_title": "Registered places",
-    "region": "Region",
+    "region": "District",
     "coordinates": "Coordinates",
     "recorded_species": "Registered species",
     "read_more": "More about this place"

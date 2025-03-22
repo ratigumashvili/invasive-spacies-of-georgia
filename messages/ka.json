@@ -184,14 +184,14 @@
     "Kaspi": "კასპი",
     "Khashuri": "ხაშური",
     "Tbilisi": "თბილისი",
-    "region": "რეგიონი",
+    "region": "რაიონი",
     "place": "ადგილი",
     "readmore": "დაწვრილებით",
     "records": "ჩანაწერი"
   },
   "Places": {
     "page_title": "რეგისტრირებული ადგილები",
-    "region": "რეგიონი",
+    "region": "რაიონი",
     "coordinates": "კოორდინატები",
     "recorded_species": "რეგისტრირებული სახეობა",
     "read_more": "დაწვრილებით"

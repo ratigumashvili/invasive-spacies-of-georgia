@@ -84,6 +84,9 @@ export function SinglePlaceComponent({
 
     return (
         <div>
+            <pre>
+                {}
+            </pre>
             <div className="mb-8 flex items-start justify-baseline">
                 <div className="w-full">
                     <h1 className={`${generateFontByLocale(locale)} text-2xl uppercase font-medium`}>
