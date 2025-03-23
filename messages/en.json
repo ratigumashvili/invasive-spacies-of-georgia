@@ -42,7 +42,8 @@
     "form_login": "Login",
     "published": "Published records",
     "contributed": "Contributted records",
-    "pending": "Pending records"
+    "pending": "Pending records",
+    "species_total": "Of total species"
   },
   "Footer": {
     "isu_full": "Ilia State University",

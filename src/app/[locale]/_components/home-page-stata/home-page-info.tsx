@@ -26,22 +26,33 @@ export async function HomePageInfo({ locale }: { locale: string }) {
         ]
     });
 
+    const total = Number(publishedSpecies?.pagination.total)
+    const contributted = Number(contributedSpeciesMeta?.pagination?.total)
+    const pending = Number(pendingSpecies?.pagination.total)
+
+    const totalContributted = Number((contributted / total * 100).toFixed(2))
+    const totalPending = Number((pending / total * 100).toFixed(2))
+
     return (
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
             <HomePageInfoCard
-                locale={locale}
+                locale={locale as "ka" | "en"}
                 title={"published"}
                 total={publishedSpecies?.pagination.total as number}
             />
             <HomePageInfoCard
-                locale={locale}
+                locale={locale as "ka" | "en"}
                 title={"contributed"}
+                description={"species_total"}
                 total={contributedSpeciesMeta?.pagination.total as number}
+                percentage={totalContributted}
             />
             <HomePageInfoCard
-                locale={locale}
-                title={"contributed"}
+                locale={locale as "ka" | "en"}
+                title={"pending"}
+                description={"species_total"}
                 total={pendingSpecies?.pagination.total as number}
+                percentage={totalPending}
             />
         </div>
     )
