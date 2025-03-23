@@ -8,6 +8,7 @@ import { HomePageBlocks } from '@/app/[locale]/_components/home-page-blocks/home
 import { fetchRandomSpecie, fetchSpeciesCoordinates, getEvents, getSinglePage } from "@/lib/api-calls";
 
 import { HomePageData, } from '@/types/single-types';
+import { HomePageInfo } from '../_components/home-page-info';
 
 type Props = {
   params: Promise<{ locale: string }>
@@ -81,6 +82,8 @@ export default async function HomePage({ params }: Props) {
           slug
         }))}
       />
+
+      <HomePageInfo locale={locale} />
 
     </Container>
   );

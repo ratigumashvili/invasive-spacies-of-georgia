@@ -6,6 +6,7 @@ import qs from "qs";
 import { BASE_API_URL, BASE_URL } from "./utils";
 import { PlaceResponse } from "@/types/place-response";
 import { SpeciesResponse } from "@/types/specie-response";
+import { SpeciesCount } from "@/types/species-count";
 
 interface PaginationMeta {
   page: number;
@@ -271,9 +272,30 @@ export async function fetchRandomSpecie(locale: string, filterType?: "isNew" | "
 
 
 
+export async function getAllSpeciesCount(locale: string) {
+  try {
+    const queryParams = {
+      pagination: {
+        pageSize: 0,
+      },
+      locale    
+    }
+    
+    const query = qs.stringify(queryParams, { encodeValuesOnly: true, });
+    const response = await fetch(`${BASE_API_URL}/species?${query}`);
+    
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(`Failed to fetch data: ${errorData.error?.message || response.statusText}`);
+    }
 
+    const json: SpeciesCount = await response.json();
 
-
+    return json.meta;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+  }
+}
 
 export async function fetchSpeciesCoordinates(locale: string, page: number = 1, pageSize: number = 1000) {
   try {
