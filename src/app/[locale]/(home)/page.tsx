@@ -3,12 +3,12 @@ import HomePageMap from "@/app/[locale]/_components/home-page-map";
 import { AppTitle } from "@/app/[locale]/_components/app-title";
 import { HomePageSlider } from "@/app/[locale]/_components/home-page-slider";
 import { HomePageActions } from "@/app/[locale]/_components/home-page-actions";
-import { HomePageBlocks } from '@/app/[locale]/_components/home-page-blocks/home-page-blocks';
+import { HomePageBlocks } from "@/app/[locale]/_components/home-page-blocks/home-page-blocks";
+import { HomePageInfo } from "@/app/[locale]/_components/home-page-stata/home-page-info"
 
 import { fetchRandomSpecie, fetchSpeciesCoordinates, getEvents, getSinglePage } from "@/lib/api-calls";
 
-import { HomePageData, } from '@/types/single-types';
-import { HomePageInfo } from '../_components/home-page-info';
+import { HomePageData, } from "@/types/single-types";
 
 type Props = {
   params: Promise<{ locale: string }>
@@ -27,7 +27,7 @@ export default async function HomePage({ params }: Props) {
   const randomSpecie = await fetchRandomSpecie(locale, "notNew")
   const newSpecies = await fetchRandomSpecie(locale, "isNew")
   const speciesCoordinates = await fetchSpeciesCoordinates(locale)
-  
+
 
   const newCoordinates = speciesCoordinates?.data?.length
     ? speciesCoordinates.data.flatMap((item: any) =>
@@ -75,6 +75,8 @@ export default async function HomePage({ params }: Props) {
         events={events}
       />
 
+      <HomePageInfo locale={locale} />
+
       <HomePageMap
         speciesCoordinates={formattedCoordinates.map(({ coordinates, title, slug }) => ({
           coordinates,
@@ -82,8 +84,6 @@ export default async function HomePage({ params }: Props) {
           slug
         }))}
       />
-
-      <HomePageInfo locale={locale} />
 
     </Container>
   );

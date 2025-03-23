@@ -272,13 +272,14 @@ export async function fetchRandomSpecie(locale: string, filterType?: "isNew" | "
 
 
 
-export async function getAllSpeciesCount(locale: string) {
+export async function getAllSpeciesCount(locale: string, filters?: any) {
   try {
     const queryParams = {
       pagination: {
         pageSize: 0,
       },
-      locale    
+      locale,
+      filters
     }
     
     const query = qs.stringify(queryParams, { encodeValuesOnly: true, });

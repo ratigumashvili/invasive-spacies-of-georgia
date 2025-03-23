@@ -39,7 +39,10 @@
     "no_account": "Don't have an account yet?",
     "register": "Register",
     "allready_account": "Allready have an acoount?",
-    "form_login": "Login"
+    "form_login": "Login",
+    "published": "Published records",
+    "contributed": "Contributted records",
+    "pending": "Pending records"
   },
   "Footer": {
     "isu_full": "Ilia State University",

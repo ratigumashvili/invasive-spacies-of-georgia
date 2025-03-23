@@ -1,8 +1,10 @@
 export interface SpeciesCount {
     meta: {
-        pagination: number,
-        pageSize: number,
-        pageCount: number,
-        total: 5
+        pagination: {
+            page: number;
+            pageSize: number;
+            pageCount: number;
+            total: number;
+        };
     }
 }
