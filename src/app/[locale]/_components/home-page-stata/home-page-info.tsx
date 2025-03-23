@@ -3,7 +3,7 @@ import { HomePageInfoCard } from "./home-page-info-card";
 
 export async function HomePageInfo({ locale }: { locale: string }) {
 
-    const publishedSpecies = await getAllSpeciesCount(locale)
+    const totalRecords = await getAllSpeciesCount(locale)
     const contributedSpeciesMeta = await getAllSpeciesCount(locale, {
         $and: [
             {
@@ -23,7 +23,7 @@ export async function HomePageInfo({ locale }: { locale: string }) {
         ]
     });
 
-    const total = Number(publishedSpecies?.pagination.total)
+    const total = Number(totalRecords?.pagination.total)
     const contributted = Number(contributedSpeciesMeta?.pagination?.total)
     const pending = Number(pendingSpecies?.pagination.total)
 
@@ -36,7 +36,7 @@ export async function HomePageInfo({ locale }: { locale: string }) {
             <HomePageInfoCard
                 locale={locale as "ka" | "en"}
                 title={"total"}
-                total={publishedSpecies?.pagination.total as number}
+                total={totalRecords?.pagination.total as number}
             />
             <HomePageInfoCard
                 locale={locale as "ka" | "en"}
