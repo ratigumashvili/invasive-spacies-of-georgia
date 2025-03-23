@@ -268,13 +268,10 @@ export async function fetchRandomSpecie(locale: string, filterType?: "isNew" | "
   }
 }
 
-
-
-
-
 export async function getAllSpeciesCount(locale: string, filters?: any) {
   try {
     const queryParams = {
+      status: "all",
       pagination: {
         pageSize: 0,
       },

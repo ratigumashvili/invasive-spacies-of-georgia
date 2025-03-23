@@ -43,6 +43,7 @@
     "published": "Published records",
     "contributed": "Contributted records",
     "pending": "Pending records",
+    "total": "Total records",
     "species_total": "Of total species"
   },
   "Footer": {
@@ -115,7 +116,9 @@
     "taxonomy": "Taxonomy",
     "metadata": "Metadata",
     "ai": "Additional Information",
-    "detected": "Date detected"
+    "detected": "Date detected",
+    "water": "Water",
+    "land": "Land"
   },
   "Regions": {
     "Gagra": "Gagra",

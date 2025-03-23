@@ -11,6 +11,18 @@ type SingleTaxonMetaProps = {
 
 export function SingleTaxonMeta({ data }: SingleTaxonMetaProps) {
     const t = useTranslations("Species")
+
+    function detectGroup(type: string) {
+        if(type === "water") {
+            return t("water")
+        } 
+        if (type === "land") {
+            return t("land")
+        } else {
+            return
+        }
+    }
+
     return (
         <div className="border border-sky-800 border-l-8 bg-slate-50 my-8 md:my-0 p-4">
             <h2 className="text-2xl font-medium mb-4">{data[0]?.name}</h2>
@@ -25,7 +37,7 @@ export function SingleTaxonMeta({ data }: SingleTaxonMetaProps) {
                 <dt>{t("nat")}</dt>
                 <dd>{data[0]?.autorName}</dd>
                 <dt>{t("eco_group")}</dt>
-                <dd>{data[0]?.ecologicalGroup}</dd>
+                <dd>{detectGroup(data[0]?.ecologicalGroup as string)}</dd>
                 <dt>{t("status")}</dt>
                 <dd>Alien</dd>
                 <dt>{t("enviroments")}</dt>

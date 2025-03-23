@@ -1,7 +1,4 @@
-import { Card, CardHeader, CardTitle } from "@/components/ui/card";
-
 import { getAllSpeciesCount } from "@/lib/api-calls"
-import { generateFontByLocale } from "@/lib/utils";
 import { HomePageInfoCard } from "./home-page-info-card";
 
 export async function HomePageInfo({ locale }: { locale: string }) {
@@ -35,9 +32,10 @@ export async function HomePageInfo({ locale }: { locale: string }) {
 
     return (
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+
             <HomePageInfoCard
                 locale={locale as "ka" | "en"}
-                title={"published"}
+                title={"total"}
                 total={publishedSpecies?.pagination.total as number}
             />
             <HomePageInfoCard
