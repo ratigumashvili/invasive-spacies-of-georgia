@@ -74,7 +74,6 @@ export function SingleTaxonMeta({ data }: SingleTaxonMetaProps) {
                 <dt>{t("HabitatType")}</dt>
                 <dd>
                     {data[0]?.habitats?.map((item, index) => (
-                        // <p key={item.id}>{item.code} - {item.name}{separator(index, data[0]?.habitats, )}</p>
                         <Popover key={index}>
                             <PopoverTrigger className="cursor-help">{item.code} - {item.name}{separator(index, data[0]?.habitats,)}</PopoverTrigger>
                             <PopoverContent className="max-h-[300px] overflow-y-scroll">
@@ -98,25 +97,10 @@ export function SingleTaxonMeta({ data }: SingleTaxonMetaProps) {
                         </Link>)
                         : (<>{t("no")}</>)}
                 </dd>
-
                 <dt>{t("first_introduced")}</dt>
                 <dd>{data[0]?.firstRecorded}</dd>
-
                 <dt>{t("recordsNumber")}</dt>
                 <dd>{data[0]?.places?.length}</dd>
-
-                {/* <dt>{t("enviroments")}</dt>
-                <dd>Freshwater, Terrestrial</dd>
-                <dt>{t("concern")}</dt>
-                <dd>Yes</dd>
-                <dt>{t("partly_native")}</dt>
-                <dd>Yes</dd>
-                <dt>{t("horizon_scaning")}</dt>
-                <dd>No</dd>
-                <dt>{t("impact")}</dt>
-                <dd>Yes</dd>
-                <dt>{t("impact_source")}</dt>
-                <dd>CABI NOBANIS SEBI</dd> */}
             </dl>
 
             <h3 className="text-lg font-medium my-4 text-muted-foreground">{t("ai")}</h3>
