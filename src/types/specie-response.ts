@@ -24,7 +24,7 @@ export type Species = {
     scientificNameId: string;
     scientificNameUrl: string;
     autorName?: string;
-    ecologicalGroup?: string;
+    lifeForm?: string;
     firstIntroduced?: string;
     isNew?: boolean;
     dateOfDetection?: string | null;

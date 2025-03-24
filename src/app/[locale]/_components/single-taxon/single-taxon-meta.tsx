@@ -14,11 +14,14 @@ export function SingleTaxonMeta({ data }: SingleTaxonMetaProps) {
     const t = useTranslations("Species")
 
     function detectGroup(type: string) {
-        if (type === "water") {
-            return t("water")
+        if (type === "terrestrial") {
+            return t("terrestrial")
         }
-        if (type === "land") {
-            return t("land")
+        if (type === "aquatic") {
+            return t("aquatic")
+        }
+        if (type === "semiaquatic") {
+            return t("semiaquatic")
         } else {
             return
         }
@@ -61,7 +64,7 @@ export function SingleTaxonMeta({ data }: SingleTaxonMetaProps) {
                     </Link>
                 </dd>
                 <dt>{t("eco_group")}</dt>
-                <dd>{detectGroup(data[0]?.ecologicalGroup as string)}</dd>
+                <dd>{detectGroup(data[0]?.lifeForm as string)}</dd>
                 <dt>{t("status")}</dt>
                 <dd>Alien</dd>
                 <dt>{t("enviroments")}</dt>

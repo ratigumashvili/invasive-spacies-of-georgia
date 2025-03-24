@@ -27,7 +27,7 @@ export function SpeciesTable({ data }: { data: Species[] }) {
                                     <Link href={`/species-list/${item.slug}`} className="text-sky-800 font-medium hover:underline">{item.name}</Link>
                                 </td>
                                 <td>{item.autorName}</td>
-                                <td>{item.ecologicalGroup}</td>
+                                <td>{item.lifeForm}</td>
                                 <td>{item.family?.name}</td>
                                 <td>{item.genus?.name}</td>
                                 <td>{item.firstIntroduced}</td>

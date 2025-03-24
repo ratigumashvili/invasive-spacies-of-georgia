@@ -121,8 +121,9 @@
     "metadata": "Metadata",
     "ai": "Additional Information",
     "detected": "Date detected",
-    "water": "Water",
-    "land": "Land"
+    "terrestrial": "Terrestrial",
+    "aquatic": "Aquatic",
+    "semiaquatic": "Semiaquatic"
   },
   "Regions": {
     "Gagra": "Gagra",

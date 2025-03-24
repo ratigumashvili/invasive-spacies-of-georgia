@@ -5,7 +5,7 @@ export type SingleSpecieList = {
     slug: string;
     locale: string;
     autorName?: string;
-    ecologicalGroup?: string;
+    lifeForm?: string;
     firstIntroduced?: string;
     isNew?: boolean;
     dateOfDetection?: string | null;

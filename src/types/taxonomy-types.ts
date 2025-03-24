@@ -31,7 +31,7 @@ export interface LocalizationEntity {
   publishedAt: string;
   locale: string;
   name: string;
-  ecologicalGroup: string;
+  lifeForm: string;
   coordinates: string;
 }
 
@@ -53,7 +53,7 @@ export interface SpeciesEntity {
   locale: string;
   name: string;
   slug: string,
-  ecologicalGroup: string;
+  lifeForm: string;
   coordinates: string;
   firstIntroduced: number,
   isNew: boolean,

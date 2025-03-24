@@ -53,7 +53,7 @@ export function SpecieBlock({ data }: { data: SingleSpecieList }) {
                     <dt>{t("nat")}:</dt>
                     <dd><p>{data?.autorName}</p></dd>
                     <dt>{t("eco_group")}:</dt>
-                    <dd><p>{data?.ecologicalGroup}</p></dd>
+                    <dd><p>{data?.lifeForm}</p></dd>
                     {!data?.isNew ? (
                         <>
                             <dt>{t("first_introduced")}:</dt>
