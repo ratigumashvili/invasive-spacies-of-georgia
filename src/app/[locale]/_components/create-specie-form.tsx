@@ -32,7 +32,7 @@ export function CreateSpecieForm() {
         name: z.string().min(3, t("name_error")),
         autorName: z.string().optional(),
         commonNames: z.string().optional(),
-        habitat: z.string().optional(),
+        // habitat: z.string().optional(),
         firstRecorded: z.string().optional(),
         dateOfDetection: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, t("date_error")),
         placeName: z.string().min(2, t("place_error")),
@@ -49,7 +49,7 @@ export function CreateSpecieForm() {
             name: "",
             autorName: "",
             commonNames: "",
-            habitat: "",
+            // habitat: "",
             firstRecorded: "",
             dateOfDetection: "",
             placeName: "",
@@ -85,7 +85,7 @@ export function CreateSpecieForm() {
                 name: values.name,
                 autorName: values.autorName,
                 commonNames: values.commonNames,
-                habitat: values.habitat,
+                // habitat: values.habitat,
                 firstRecorded: values.firstRecorded,
                 dateOfDetection: values.dateOfDetection,
                 placeName: values.placeName,
@@ -171,7 +171,7 @@ export function CreateSpecieForm() {
                                 </FormItem>
                             )}
                         />
-                        <FormField
+                        {/* <FormField
                             control={form.control}
                             name="habitat"
                             render={({ field }) => (
@@ -183,7 +183,7 @@ export function CreateSpecieForm() {
                                     <FormMessage />
                                 </FormItem>
                             )}
-                        />
+                        /> */}
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-4">

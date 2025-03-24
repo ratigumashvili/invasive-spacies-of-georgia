@@ -37,3 +37,5 @@ export function isLocalStorageAvailable() {
     return false;
   }
 }
+
+export const separator = (index: number, array: any, separatorType: string = ', ', separatorEnd: string = ".") => index === array.length - 1 ? separatorEnd : separatorType

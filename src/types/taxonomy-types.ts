@@ -43,6 +43,14 @@ export interface Place {
   coordinates: string,
 }
 
+export interface Habitat {
+  id: number,
+  documentId: string,
+  code: string,
+  name: string,
+  description: string,
+}
+
 export interface SpeciesEntity {
   id: number;
   documentId: string;
@@ -60,6 +68,7 @@ export interface SpeciesEntity {
   dateOfDetection: Date,
   image: Image,
   places: Place[],
+  habitats: Habitat[],
   kingdom: TaxonomyEntity;
   phylum: TaxonomyEntity;
   class: TaxonomyEntity;

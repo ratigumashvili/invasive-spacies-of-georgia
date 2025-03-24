@@ -16,6 +16,14 @@ export interface Place {
     coordinates: string,
 }
 
+export interface Habitat {
+    id: number,
+    documentId: string,
+    code: string,
+    name: string,
+    description: string,
+}
+
 export type Species = {
     id: number;
     documentId: string;
@@ -35,6 +43,7 @@ export type Species = {
     family: TaxonomyEntity;
     genus: TaxonomyEntity;
     places: Place[],
+    habitats: Habitat[],
     createdAt: string;
     updatedAt: string;
     publishedAt: string;

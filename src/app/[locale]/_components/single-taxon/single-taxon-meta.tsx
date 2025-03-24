@@ -2,9 +2,9 @@
 
 import { useTranslations } from "next-intl";
 
-import { SpeciesEntity } from "@/types/taxonomy-types";
 import { Species } from "@/types/specie-response";
 import { Link } from "@/i18n/routing";
+import { separator } from "@/lib/utils";
 
 type SingleTaxonMetaProps = {
     data: Species[];
@@ -13,7 +13,7 @@ type SingleTaxonMetaProps = {
 export function SingleTaxonMeta({ data }: SingleTaxonMetaProps) {
     const t = useTranslations("Species")
 
-    function detectGroup(type: string) {
+    function detectLifeForm(type: string) {
         if (type === "terrestrial") {
             return t("terrestrial")
         }
@@ -48,26 +48,42 @@ export function SingleTaxonMeta({ data }: SingleTaxonMetaProps) {
                 <dd>{data[0]?.family?.name}</dd>
                 <dt>{t("genus")}</dt>
                 <dd>{data[0]?.genus?.name}</dd>
+                <dt>{t("scientific_name")}</dt>
+                <dd><em>{data[0]?.name}</em></dd>
+                <dt>{t("nat")}</dt>
+                <dd>{data[0]?.autorName}</dd>
             </dl>
 
             <h3 className="text-lg font-medium my-4 text-muted-foreground">{t("metadata")}</h3>
 
             <dl className="data-list">
-                <dt>{t("scientific_name")}</dt>
-                <dd><em>{data[0]?.name}</em></dd>
-                <dt>{t("nat")}</dt>
-                <dd>{data[0]?.autorName}</dd>
                 <dt>{t("name_id")}</dt>
                 <dd>
                     <Link href={`${data[0]?.scientificNameUrl ?? '#'}`} target="blank">
                         {data[0]?.scientificNameId}
                     </Link>
                 </dd>
+
+                <dt>{t("HabitatType")}</dt>
+                <dd>
+                    {data[0]?.habitats?.map((item, index) => (
+                        <p key={item.id}>{item.code} - {item.name}{separator(index, data[0]?.habitats, )}</p>
+                    ))}
+                </dd>
+
                 <dt>{t("eco_group")}</dt>
-                <dd>{detectGroup(data[0]?.lifeForm as string)}</dd>
+                <dd>{detectLifeForm(data[0]?.lifeForm as string)}</dd>
+
                 <dt>{t("status")}</dt>
-                <dd>Alien</dd>
-                <dt>{t("enviroments")}</dt>
+                <dd>Non-Native | Invasive</dd>
+
+                <dt>Risk Assessed</dt>
+                <dd>Yes | no (if yes = link)</dd>
+
+                <dt>First recorded</dt>
+                <dd>{data[0]?.firstRecorded}</dd>
+
+                {/* <dt>{t("enviroments")}</dt>
                 <dd>Freshwater, Terrestrial</dd>
                 <dt>{t("concern")}</dt>
                 <dd>Yes</dd>
@@ -78,7 +94,7 @@ export function SingleTaxonMeta({ data }: SingleTaxonMetaProps) {
                 <dt>{t("impact")}</dt>
                 <dd>Yes</dd>
                 <dt>{t("impact_source")}</dt>
-                <dd>CABI NOBANIS SEBI</dd>
+                <dd>CABI NOBANIS SEBI</dd> */}
             </dl>
 
             <h3 className="text-lg font-medium my-4 text-muted-foreground">{t("ai")}</h3>

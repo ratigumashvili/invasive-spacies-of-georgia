@@ -84,7 +84,7 @@ export async function fetchSpeciesData(locale: string, page: number = 1, pageSiz
   try {
     const queryParams = {
       fields: [
-        "autorName", "locale", "name", "slug", "lifeForm", "firstRecorded", "isNew", "dateOfDetection", "scientificNameId", "scientificNameUrl"
+        "autorName", "locale", "name", "slug", "lifeForm", "firstRecorded", "isNew", "dateOfDetection", "scientificNameId", "scientificNameUrl",
       ],
 
       populate: {
@@ -97,7 +97,8 @@ export async function fetchSpeciesData(locale: string, page: number = 1, pageSiz
         order: { fields: ["name", "slug"] },
         family: { fields: ["name", "slug"] },
         genus: { fields: ["name", "slug"], },
-        places: { fields: ["title", "slug", "coordinates"] }
+        places: { fields: ["title", "slug", "coordinates"] },
+        habitats: { fields: ["code", "name", "description"]}
       },
       pagination: {
         page,

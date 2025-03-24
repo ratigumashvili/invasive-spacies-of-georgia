@@ -124,7 +124,8 @@
     "detected": "დაფიქსირების თარიღი",
     "terrestrial": "ხმელეთის",
     "aquatic": "წყლის",
-    "semiaquatic": "წყალხმელეთა"
+    "semiaquatic": "წყალხმელეთა",
+    "HabitatType": "ჰაბიტატის ტიპი"
   },
   "Regions": {
     "Gagra": "გაგრა",
