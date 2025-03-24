@@ -3,7 +3,7 @@ import { useTranslations } from "next-intl"
 
 import { Species } from "@/types/specie-response"
 
-export function SpeciesTable({ data }: { data: any }) {
+export function SpeciesTable({ data }: { data: Species[] }) {
     const t = useTranslations("Species")
     return (
         <div className="w-full overflow-x-auto">
