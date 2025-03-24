@@ -241,6 +241,17 @@
     "submit": "Submit"
   },
   "Search": {
-    "page_title": "Search"
+    "page_title": "Search",
+    "search_for_species": "Search for species",
+    "kingdom": "Kingdom",
+    "phylum": "Phylum",
+    "class": "Class",
+    "order": "Order",
+    "family": "Family",
+    "genus": "Genus",
+    "specie": "Species",
+    "placeholder_text": "Provide Latin name",
+    "cancel": "Cancel",
+    "submit": "Search"
   }
 }

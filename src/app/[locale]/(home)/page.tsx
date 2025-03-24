@@ -5,6 +5,7 @@ import { HomePageSlider } from "@/app/[locale]/_components/home-page-slider";
 import { HomePageActions } from "@/app/[locale]/_components/home-page-actions";
 import { HomePageBlocks } from "@/app/[locale]/_components/home-page-blocks/home-page-blocks";
 import { HomePageInfo } from "@/app/[locale]/_components/home-page-stata/home-page-info"
+import { SearchComponent } from '@/app/[locale]/_components/search';
 
 import { fetchRandomSpecie, fetchSpeciesCoordinates, getEvents, getSinglePage } from "@/lib/api-calls";
 
@@ -74,6 +75,10 @@ export default async function HomePage({ params }: Props) {
         randomSpecie={randomSpecie}
         events={events}
       />
+
+      <div className='mb-8'>
+        <SearchComponent />
+      </div>
 
       <HomePageInfo locale={locale} />
 

@@ -242,6 +242,17 @@
     "submit": "გაგზავნა"
   },
   "Search": {
-    "page_title": "ძიება"
+    "page_title": "ძიება",
+    "search_for_species": "მოძებნეთ სახეობა",
+    "kingdom": "სამეფო",
+    "phylum": "ტიპი",
+    "class": "კლასი",
+    "order": "რიგი",
+    "family": "ოჯახი",
+    "genus": "გვარი",
+    "specie": "სახეობა",
+    "placeholder_text": "ჩაწერეთ ლათინური სახელწოდება",
+    "cancel": "გაუქმება",
+    "submit": "ძებნა"
   }
 }
