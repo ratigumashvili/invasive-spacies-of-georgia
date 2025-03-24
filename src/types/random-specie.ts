@@ -18,7 +18,7 @@ export type SingleSpecieList = {
     name: string;
     slug: string;
     locale: string;
-    autorName?: string; // ✅ make optional
+    autorName?: string;
     ecologicalGroup?: string;
     firstIntroduced?: string;
     isNew?: boolean;
