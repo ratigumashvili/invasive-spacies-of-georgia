@@ -97,7 +97,7 @@
   "Species": {
     "scientific_name": "სამეცნიერო სახელწოდება",
     "scientific_name_short": "სამეც. სახელწოდება",
-    "name_id": "სამეცნიერო სახელწოდების id (GBIF)",
+    "name_id": "ტაქსონის ID (GBIF)",
     "nat": "სახელწოდების ავტორი",
     "nat_short": "სახელწ. ავტორი",
     "eco_group": "ეკოლოგიური ჯგუფი",
