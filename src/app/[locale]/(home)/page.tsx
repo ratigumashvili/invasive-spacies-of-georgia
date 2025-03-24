@@ -10,6 +10,7 @@ import { SearchComponent } from '@/app/[locale]/_components/search';
 import { fetchRandomSpecie, fetchSpeciesCoordinates, getEvents, getSinglePage } from "@/lib/api-calls";
 
 import { HomePageData, } from "@/types/single-types";
+import { Link } from '@/i18n/routing';
 
 type Props = {
   params: Promise<{ locale: string }>
@@ -75,6 +76,11 @@ export default async function HomePage({ params }: Props) {
         randomSpecie={randomSpecie}
         events={events}
       />
+
+      <div className='flex gap-4'>
+        <Link href={`/species-list?kingdom=animalia`}>Animals</Link>
+        <Link href={`/species-list?kingdom=plantae`}>Plants</Link>
+      </div>
 
       <div className='mb-8'>
         <SearchComponent />
