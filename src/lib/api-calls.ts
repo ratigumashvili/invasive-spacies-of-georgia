@@ -84,7 +84,7 @@ export async function fetchSpeciesData(locale: string, page: number = 1, pageSiz
   try {
     const queryParams = {
       fields: [
-        "autorName", "locale", "name", "slug", "ecologicalGroup", "firstIntroduced", "isNew", "dateOfDetection"
+        "autorName", "locale", "name", "slug", "ecologicalGroup", "firstIntroduced", "isNew", "dateOfDetection", "scientificNameId", "scientificNameUrl"
       ],
 
       populate: {

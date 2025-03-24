@@ -4,6 +4,7 @@ import { useTranslations } from "next-intl";
 
 import { SpeciesEntity } from "@/types/taxonomy-types";
 import { Species } from "@/types/specie-response";
+import { Link } from "@/i18n/routing";
 
 type SingleTaxonMetaProps = {
     data: Species[];
@@ -13,9 +14,9 @@ export function SingleTaxonMeta({ data }: SingleTaxonMetaProps) {
     const t = useTranslations("Species")
 
     function detectGroup(type: string) {
-        if(type === "water") {
+        if (type === "water") {
             return t("water")
-        } 
+        }
         if (type === "land") {
             return t("land")
         } else {
@@ -25,17 +26,23 @@ export function SingleTaxonMeta({ data }: SingleTaxonMetaProps) {
 
     return (
         <div className="border border-sky-800 border-l-8 bg-slate-50 my-8 md:my-0 p-4">
-            <h2 className="text-2xl font-medium mb-4">{data[0]?.name}</h2>
+            <h2 className="text-2xl font-medium mb-4">
+                <em>{data[0]?.name}</em> {`(${data[0]?.autorName})`}
+            </h2>
 
             <h3 className="text-lg font-medium my-4 text-muted-foreground">{t("metadata")}</h3>
 
             <dl className="data-list">
                 <dt>{t("scientific_name")}</dt>
-                <dd>{data[0]?.name}</dd>
-                <dt>{t("name_id")}</dt>
-                <dd>456</dd>
+                <dd><em>{data[0]?.name}</em></dd>
                 <dt>{t("nat")}</dt>
                 <dd>{data[0]?.autorName}</dd>
+                <dt>{t("name_id")}</dt>
+                <dd>
+                    <Link href={`${data[0]?.scientificNameUrl ?? '#'}`} target="blank">
+                        {data[0]?.scientificNameId}
+                    </Link>
+                </dd>
                 <dt>{t("eco_group")}</dt>
                 <dd>{detectGroup(data[0]?.ecologicalGroup as string)}</dd>
                 <dt>{t("status")}</dt>

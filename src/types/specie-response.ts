@@ -21,6 +21,8 @@ export type Species = {
     documentId: string;
     name: string;
     slug: string;
+    scientificNameId: string;
+    scientificNameUrl: string;
     autorName?: string;
     ecologicalGroup?: string;
     firstIntroduced?: string;
