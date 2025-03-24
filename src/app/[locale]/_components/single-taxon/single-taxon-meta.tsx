@@ -102,6 +102,9 @@ export function SingleTaxonMeta({ data }: SingleTaxonMetaProps) {
                 <dt>{t("first_introduced")}</dt>
                 <dd>{data[0]?.firstRecorded}</dd>
 
+                <dt>{t("recordsNumber")}</dt>
+                <dd>{data[0]?.places?.length}</dd>
+
                 {/* <dt>{t("enviroments")}</dt>
                 <dd>Freshwater, Terrestrial</dd>
                 <dt>{t("concern")}</dt>
