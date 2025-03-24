@@ -14,17 +14,17 @@ const items = [
             {
                 id: 1.1,
                 title: "legal_docs",
-                path: "/"
+                path: "/legal-docs"
             },
             {
                 id: 1.2,
                 title: "scientific_literature",
-                path: "/"
+                path: "/literature"
             },
             {
                 id: 1.3,
                 title: "research",
-                path: "/"
+                path: "/research"
             }
         ]
     },
