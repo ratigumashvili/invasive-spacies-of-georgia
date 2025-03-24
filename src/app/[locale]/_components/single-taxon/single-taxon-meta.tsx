@@ -1,10 +1,17 @@
 "use client"
 
 import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/routing";
+
+import {
+    Popover,
+    PopoverContent,
+    PopoverTrigger,
+  } from "@/components/ui/popover"
+
+import { separator } from "@/lib/utils";
 
 import { Species } from "@/types/specie-response";
-import { Link } from "@/i18n/routing";
-import { separator } from "@/lib/utils";
 
 type SingleTaxonMetaProps = {
     data: Species[];
@@ -67,7 +74,13 @@ export function SingleTaxonMeta({ data }: SingleTaxonMetaProps) {
                 <dt>{t("HabitatType")}</dt>
                 <dd>
                     {data[0]?.habitats?.map((item, index) => (
-                        <p key={item.id}>{item.code} - {item.name}{separator(index, data[0]?.habitats, )}</p>
+                        // <p key={item.id}>{item.code} - {item.name}{separator(index, data[0]?.habitats, )}</p>
+                        <Popover key={index}>
+                            <PopoverTrigger className="cursor-help">{item.code} - {item.name}{separator(index, data[0]?.habitats, )}</PopoverTrigger>
+                            <PopoverContent className="max-h-[300px] overflow-y-scroll">
+                                {item.description}
+                            </PopoverContent>
+                        </Popover>
                     ))}
                 </dd>
 
