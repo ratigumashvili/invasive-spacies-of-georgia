@@ -239,5 +239,8 @@
     "image": "Image",
     "cancel": "Cancel",
     "submit": "Submit"
+  },
+  "Search": {
+    "page_title": "Search"
   }
 }
