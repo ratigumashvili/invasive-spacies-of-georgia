@@ -1,17 +1,3 @@
-// export interface SingleSpecieList {
-//     id: number,
-//     documentId: string,
-//     autorName: string,
-//     locale: string,
-//     name: string,
-//     slug: string,
-//     ecologicalGroup: string,
-//     firstIntroduced: number,
-//     isNew: boolean,
-//     dateOfDetection: Date,
-//     image: Image
-// }
-
 export type SingleSpecieList = {
     id: number;
     documentId: string;
