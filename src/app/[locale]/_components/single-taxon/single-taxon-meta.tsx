@@ -70,7 +70,6 @@ export function SingleTaxonMeta({ data }: SingleTaxonMetaProps) {
                         {data[0]?.scientificNameId}
                     </Link>
                 </dd>
-
                 <dt>{t("HabitatType")}</dt>
                 <dd>
                     {data[0]?.habitats?.map((item, index) => (
@@ -82,13 +81,10 @@ export function SingleTaxonMeta({ data }: SingleTaxonMetaProps) {
                         </Popover>
                     ))}
                 </dd>
-
                 <dt>{t("eco_group")}</dt>
                 <dd>{detectLifeForm(data[0]?.lifeForm as string)}</dd>
-
                 <dt>{t("status")}</dt>
                 <dd>{data[0]?.taxonStatus && data[0]?.taxonStatus === "non-invasive" ? t("non-native") : t("invasive")}</dd>
-
                 <dt>{t("risk_assessed")}</dt>
                 <dd>
                     {data[0]?.riskAssessed && data[0]?.riskAssessed === "yes"
