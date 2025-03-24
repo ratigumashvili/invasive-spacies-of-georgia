@@ -44,7 +44,11 @@
     "contributed": "Contributted records",
     "pending": "Pending records",
     "total": "Total records",
-    "species_total": "Of total species"
+    "species_total": "Of total species",
+    "browse_animals": "Browse Species by Animals",
+    "browse_plants": "Browse Species by Plants",
+    "species_animalia": "Species registered within Kingdom Animalia",
+    "species_plantae": "Species registered within Kingdom Plantae"
   },
   "Footer": {
     "isu_full": "Ilia State University",

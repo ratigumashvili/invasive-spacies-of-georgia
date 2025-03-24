@@ -127,6 +127,43 @@ export async function fetchSpeciesData(locale: string, page: number = 1, pageSiz
   }
 }
 
+export async function getSpeciesCountByKingdom(locale: string, filters?: string) {
+  try {
+    const queryParams = {
+      status: "published",
+      pagination: {
+        pageSize: 0,
+      },
+      locale,
+      filters: {
+        $and: [
+          {
+            kingdom: {
+              name: {
+                $eq: filters
+              }
+            }
+          }
+        ]
+      }
+    }
+
+    const query = qs.stringify(queryParams, { encodeValuesOnly: true, });
+    const response = await fetch(`${BASE_API_URL}/species?${query}`);
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(`Failed to fetch data: ${errorData.error?.message || response.statusText}`);
+    }
+
+    const json: SpeciesCount = await response.json();
+
+    return json.meta;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+  }
+}
+
 export const getSinglePage = async <T>(
   path: string,
   locale: string,

@@ -35,11 +35,10 @@ export default async function SpeciesList({ params, searchParams }: Props) {
       }, { encodeValuesOnly: true });
       
 
-    const response = await fetchSpeciesData(locale, currentPage, 1, queryString)
+    const response = await fetchSpeciesData(locale, currentPage, 24, queryString)
 
     return (
         <Container>
-            <pre>{JSON.stringify(capitalizedKingdom, null, 2)}</pre>
             <SpeciesListClient response={response} />
             <Pagination
                 currentPage={currentPage}

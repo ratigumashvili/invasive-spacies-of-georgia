@@ -26,9 +26,9 @@ const taxonomy = [
 export function SearchComponent() {
     const t = useTranslations("Search")
     return (
-        <Card className="rounded-none bg-slate-100">
+        <Card className="rounded-none bg-slate-50">
             <CardHeader>
-                <CardTitle className="text-lg">{t("search_for_species")}</CardTitle>
+                <CardTitle className="text-xl">{t("search_for_species")}</CardTitle>
             </CardHeader>
             <CardContent>
                 <form>

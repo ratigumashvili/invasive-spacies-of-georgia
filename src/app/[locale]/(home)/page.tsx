@@ -1,3 +1,5 @@
+import qs from "qs";
+
 import Container from '@/app/[locale]/_components/container';
 import HomePageMap from "@/app/[locale]/_components/home-page-map";
 import { AppTitle } from "@/app/[locale]/_components/app-title";
@@ -5,12 +7,13 @@ import { HomePageSlider } from "@/app/[locale]/_components/home-page-slider";
 import { HomePageActions } from "@/app/[locale]/_components/home-page-actions";
 import { HomePageBlocks } from "@/app/[locale]/_components/home-page-blocks/home-page-blocks";
 import { HomePageInfo } from "@/app/[locale]/_components/home-page-stata/home-page-info"
+import { BrowseByTaxonomy } from '@/app/[locale]/_components/browse-by-taxonomy';
 import { SearchComponent } from '@/app/[locale]/_components/search';
 
-import { fetchRandomSpecie, fetchSpeciesCoordinates, getEvents, getSinglePage } from "@/lib/api-calls";
+import { fetchRandomSpecie, fetchSpeciesCoordinates, getEvents, getSinglePage, getSpeciesCountByKingdom } from "@/lib/api-calls";
 
 import { HomePageData, } from "@/types/single-types";
-import { Link } from '@/i18n/routing';
+
 
 type Props = {
   params: Promise<{ locale: string }>
@@ -24,11 +27,15 @@ export default async function HomePage({ params }: Props) {
     return await getSinglePage<HomePageData>("home-page", locale, "fields[0]=title&fields[1]=subtitle&fields[2]=version&populate[images][fields][0]=documentId&populate[images][fields][1]=name&populate[images][fields][2]=alternativeText&populate[images][fields][3]=caption&populate[images][fields][4]=width&populate[images][fields][5]=height&populate[images][fields][6]=url");
   };
 
+
+
   const data = await fetchHomePageData(locale)
   const events = await getEvents(locale)
   const randomSpecie = await fetchRandomSpecie(locale, "notNew")
   const newSpecies = await fetchRandomSpecie(locale, "isNew")
   const speciesCoordinates = await fetchSpeciesCoordinates(locale)
+  const animalia = await getSpeciesCountByKingdom(locale, "Animalia")
+  const plantae = await getSpeciesCountByKingdom(locale, "Plantae")
 
 
   const newCoordinates = speciesCoordinates?.data?.length
@@ -77,10 +84,10 @@ export default async function HomePage({ params }: Props) {
         events={events}
       />
 
-      <div className='flex gap-4'>
-        <Link href={`/species-list?kingdom=animalia`}>Animals</Link>
-        <Link href={`/species-list?kingdom=plantae`}>Plants</Link>
-      </div>
+      <BrowseByTaxonomy
+        animaliaCount={animalia?.pagination.total as number}
+        plantaeCount={plantae?.pagination.total as number}
+      />
 
       <div className='mb-8'>
         <SearchComponent />
