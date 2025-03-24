@@ -55,7 +55,7 @@ export interface SpeciesEntity {
   slug: string,
   lifeForm: string;
   coordinates: string;
-  firstIntroduced: number,
+  firstRecorded: number,
   isNew: boolean,
   dateOfDetection: Date,
   image: Image,

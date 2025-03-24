@@ -33,7 +33,7 @@ export function CreateSpecieForm() {
         autorName: z.string().optional(),
         commonNames: z.string().optional(),
         habitat: z.string().optional(),
-        firstIntroduced: z.string().optional(),
+        firstRecorded: z.string().optional(),
         dateOfDetection: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, t("date_error")),
         placeName: z.string().min(2, t("place_error")),
         coordinates: z.string(),
@@ -50,7 +50,7 @@ export function CreateSpecieForm() {
             autorName: "",
             commonNames: "",
             habitat: "",
-            firstIntroduced: "",
+            firstRecorded: "",
             dateOfDetection: "",
             placeName: "",
             coordinates: "",
@@ -86,7 +86,7 @@ export function CreateSpecieForm() {
                 autorName: values.autorName,
                 commonNames: values.commonNames,
                 habitat: values.habitat,
-                firstIntroduced: values.firstIntroduced,
+                firstRecorded: values.firstRecorded,
                 dateOfDetection: values.dateOfDetection,
                 placeName: values.placeName,
                 coordinates: values.coordinates,
@@ -189,7 +189,7 @@ export function CreateSpecieForm() {
                     <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-4">
                         <FormField
                             control={form.control}
-                            name="firstIntroduced"
+                            name="firstRecorded"
                             render={({ field }) => (
                                 <FormItem>
                                     <FormLabel>{t("introduced")}</FormLabel>

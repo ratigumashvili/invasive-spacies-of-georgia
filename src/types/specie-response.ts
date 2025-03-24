@@ -25,7 +25,7 @@ export type Species = {
     scientificNameUrl: string;
     autorName?: string;
     lifeForm?: string;
-    firstIntroduced?: string;
+    firstRecorded?: string;
     isNew?: boolean;
     dateOfDetection?: string | null;
     kingdom: TaxonomyEntity;

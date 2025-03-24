@@ -84,7 +84,7 @@ export async function fetchSpeciesData(locale: string, page: number = 1, pageSiz
   try {
     const queryParams = {
       fields: [
-        "autorName", "locale", "name", "slug", "lifeForm", "firstIntroduced", "isNew", "dateOfDetection", "scientificNameId", "scientificNameUrl"
+        "autorName", "locale", "name", "slug", "lifeForm", "firstRecorded", "isNew", "dateOfDetection", "scientificNameId", "scientificNameUrl"
       ],
 
       populate: {
@@ -261,7 +261,7 @@ export async function fetchRandomSpecie(locale: string, filterType?: "isNew" | "
           "name",
           "slug",
           "lifeForm",
-          "firstIntroduced",
+          "firstRecorded",
           "isNew",
           "dateOfDetection"
         ],
@@ -460,7 +460,7 @@ export async function fetchSpeciesByPlaceId(locale: string, placeId: string, pag
         "slug",
         "autorName",
         "lifeForm",
-        "firstIntroduced",
+        "firstRecorded",
         "isNew",
         "dateOfDetection"
       ],
@@ -671,7 +671,7 @@ export async function fetchSpeciesByCoordinates(locale: string, pageSize: number
         "slug",
         "lifeForm",
         "autorName",
-        "firstIntroduced",
+        "firstRecorded",
         "isNew",
         "dateOfDetection",
       ],

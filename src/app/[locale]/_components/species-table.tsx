@@ -30,7 +30,7 @@ export function SpeciesTable({ data }: { data: Species[] }) {
                                 <td>{item.lifeForm}</td>
                                 <td>{item.family?.name}</td>
                                 <td>{item.genus?.name}</td>
-                                <td>{item.firstIntroduced}</td>
+                                <td>{item.firstRecorded}</td>
                                 <td>{item.dateOfDetection}</td>
                             </tr>
                         ))}

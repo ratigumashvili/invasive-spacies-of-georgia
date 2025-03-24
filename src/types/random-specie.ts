@@ -6,7 +6,7 @@ export type SingleSpecieList = {
     locale: string;
     autorName?: string;
     lifeForm?: string;
-    firstIntroduced?: string;
+    firstRecorded?: string;
     isNew?: boolean;
     dateOfDetection?: string | null;
     image?: {
