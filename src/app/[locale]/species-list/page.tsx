@@ -1,3 +1,5 @@
+import qs from "qs";
+
 import Container from "@/app/[locale]/_components/container";
 import { Pagination } from "@/app/[locale]/_components/pagination";
 import { SpeciesListClient } from "@/app/[locale]/_components/species-list-client";
@@ -12,9 +14,28 @@ type Props = {
 export default async function SpeciesList({ params, searchParams }: Props) {
     const { locale } = await params
     const resolvedSearchParams = await searchParams
-    const currentPage = Number(resolvedSearchParams.page) || 1
 
-    const response = await fetchSpeciesData(locale, currentPage)
+    const currentPage = Number(resolvedSearchParams.page) || 1
+    const kingdom = resolvedSearchParams.kingdom as string
+
+    const capitalizedKingdom = kingdom && kingdom?.charAt(0).toUpperCase() + kingdom.slice(1)
+
+    const queryString = qs.stringify({
+        filters: {
+          $and: [
+            {
+              kingdom: {
+                name: {
+                  $eq: capitalizedKingdom
+                }
+              }
+            }
+          ]
+        }
+      }, { encodeValuesOnly: true });
+      
+
+    const response = await fetchSpeciesData(locale, currentPage, 24, queryString)
 
     return (
         <Container>

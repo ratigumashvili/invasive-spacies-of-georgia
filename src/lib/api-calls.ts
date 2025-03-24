@@ -80,30 +80,33 @@ export async function fetchStrapiData<T>(
   }
 }
 
-export async function fetchSpeciesData(locale: string, page: number = 1, pageSize: number = 24, filter?: string) {
+export async function fetchSpeciesData(locale: string, page: number = 1, pageSize: number = 2, filterQuery?: string) {
   try {
     const queryParams = {
       fields: [
         "autorName", "locale", "name", "slug", "ecologicalGroup", "firstIntroduced", "isNew", "dateOfDetection"
       ],
 
-      "populate[image][fields]": ["documentId", "alternativeText", "caption", "width", "height", "url"],
-
-      "populate[kingdom][fields]": ["name", "slug"],
-      "populate[phylum][fields]": ["name", "slug"],
-      "populate[class][fields]": ["name", "slug"],
-      "populate[order][fields]": ["name", "slug"],
-      "populate[family][fields]": ["name", "slug"],
-      "populate[genus][fields]": ["name", "slug"],
-      "populate[places][fields]": ["title", "slug", "coordinates"],
-
-      "pagination[page]": page,
-      "pagination[pageSize]": pageSize,
+      populate: {
+        image: {
+          fields: ["documentId", "alternativeText", "caption", "width", "height", "url"]
+        },
+        kingdom: { fields: ["name", "slug"] },
+        phylum: { fields: ["name", "slug"] },
+        class: { fields: ["name", "slug"] },
+        order: { fields: ["name", "slug"] },
+        family: { fields: ["name", "slug"] },
+        genus: { fields: ["name", "slug"], },
+        places: { fields: ["title", "slug", "coordinates"] }
+      },
+      pagination: {
+        page,
+        pageSize
+      },
       locale,
-      filter
     };
 
-    const query = qs.stringify(queryParams, { encode: false });
+    const query = `${qs.stringify(queryParams, { encodeValuesOnly: true })}${filterQuery ? `&${filterQuery}` : ''}`;
     const requestUrl = `${BASE_API_URL}/species?${query}`;
 
     const response = await fetch(requestUrl, {
@@ -278,10 +281,10 @@ export async function getAllSpeciesCount(locale: string, filters?: any) {
       locale,
       filters
     }
-    
+
     const query = qs.stringify(queryParams, { encodeValuesOnly: true, });
     const response = await fetch(`${BASE_API_URL}/species?${query}`);
-    
+
     if (!response.ok) {
       const errorData = await response.json();
       throw new Error(`Failed to fetch data: ${errorData.error?.message || response.statusText}`);
