@@ -33,6 +33,7 @@ export type Species = {
     scientificNameUrl: string;
     autorName?: string;
     lifeForm?: string;
+    taxonStatus: string;
     firstRecorded?: string;
     isNew?: boolean;
     dateOfDetection?: string | null;
@@ -42,6 +43,8 @@ export type Species = {
     order: TaxonomyEntity;
     family: TaxonomyEntity;
     genus: TaxonomyEntity;
+    riskAssessed: string;
+    riskAssessedUrl: string;
     places: Place[],
     habitats: Habitat[],
     createdAt: string;

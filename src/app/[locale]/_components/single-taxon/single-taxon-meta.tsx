@@ -7,7 +7,7 @@ import {
     Popover,
     PopoverContent,
     PopoverTrigger,
-  } from "@/components/ui/popover"
+} from "@/components/ui/popover"
 
 import { separator } from "@/lib/utils";
 
@@ -76,7 +76,7 @@ export function SingleTaxonMeta({ data }: SingleTaxonMetaProps) {
                     {data[0]?.habitats?.map((item, index) => (
                         // <p key={item.id}>{item.code} - {item.name}{separator(index, data[0]?.habitats, )}</p>
                         <Popover key={index}>
-                            <PopoverTrigger className="cursor-help">{item.code} - {item.name}{separator(index, data[0]?.habitats, )}</PopoverTrigger>
+                            <PopoverTrigger className="cursor-help">{item.code} - {item.name}{separator(index, data[0]?.habitats,)}</PopoverTrigger>
                             <PopoverContent className="max-h-[300px] overflow-y-scroll">
                                 {item.description}
                             </PopoverContent>
@@ -88,12 +88,18 @@ export function SingleTaxonMeta({ data }: SingleTaxonMetaProps) {
                 <dd>{detectLifeForm(data[0]?.lifeForm as string)}</dd>
 
                 <dt>{t("status")}</dt>
-                <dd>Non-Native | Invasive</dd>
+                <dd>{data[0]?.taxonStatus && data[0]?.taxonStatus === "non-invasive" ? t("non-native") : t("invasive")}</dd>
 
-                <dt>Risk Assessed</dt>
-                <dd>Yes | no (if yes = link)</dd>
+                <dt>{t("risk_assessed")}</dt>
+                <dd>
+                    {data[0]?.riskAssessed && data[0]?.riskAssessed === "yes"
+                        ? (<Link href={`${data[0]?.riskAssessedUrl ?? '#'}`} target="blank">
+                            {t("yes")}
+                        </Link>)
+                        : (<>{t("no")}</>)}
+                </dd>
 
-                <dt>First recorded</dt>
+                <dt>{t("first_introduced")}</dt>
                 <dd>{data[0]?.firstRecorded}</dd>
 
                 {/* <dt>{t("enviroments")}</dt>
