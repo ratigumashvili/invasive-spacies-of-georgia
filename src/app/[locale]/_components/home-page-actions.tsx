@@ -1,9 +1,10 @@
 "use client"
 
 import { Link } from "@/i18n/routing";
+import { useLocale, useTranslations } from "next-intl";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { useLocale, useTranslations } from "next-intl";
+
 import { generateFontByLocale } from "@/lib/utils";
 
 const items = [
