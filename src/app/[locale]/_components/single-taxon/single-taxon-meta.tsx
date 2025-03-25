@@ -1,5 +1,7 @@
 "use client"
 
+import { ReactNode } from "react";
+import { jsPDF } from "jspdf";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/routing";
 
@@ -9,7 +11,7 @@ import {
     PopoverTrigger,
 } from "@/components/ui/popover"
 
-import { generateTextBasedPdf, separator } from "@/lib/utils";
+import { separator } from "@/lib/utils";
 
 import { Species } from "@/types/specie-response";
 import { Button } from "@/components/ui/button";
@@ -36,11 +38,86 @@ export function SingleTaxonMeta({ data }: SingleTaxonMetaProps) {
         }
     }
 
-    function generatePdf() {
+    function generateTextBasedPdf(data: Species) {
+        const pdf = new jsPDF();
 
+        pdf.setFontSize(18);
+        pdf.text(`${data.name} (${data.autorName})`, 14, 20);
+
+        pdf.setFontSize(14);
+        pdf.text("Taxonomy", 14, 30);
+
+        const taxonomy: [string, string | undefined, boolean?, string?][] = [
+            ["Kingdom", data.kingdom?.name],
+            ["Phylum", data.phylum?.name],
+            ["Class", data.class?.name],
+            ["Order", data.order?.name],
+            ["Family", data.family?.name],
+            ["Genus", data.genus?.name],
+            ["Scientific Name", data.name, true],
+            ["Author Name", data.autorName],
+        ];
+
+        let y = 40;
+        taxonomy.forEach(([label, value, isItalic, link]) => {
+            pdf.setFontSize(11);
+            pdf.setFont("helvetica", "normal");
+            pdf.text(`${label}:`, 14, y);
+
+            if (isItalic) {
+                pdf.setFont("helvetica", "italic");
+            }
+
+            const displayValue = value || "-";
+
+            if (link) {
+                pdf.setTextColor(0, 0, 255);
+                pdf.textWithLink(displayValue, 60, y, { url: link });
+                pdf.setTextColor(0, 0, 0);
+            } else {
+                pdf.text(displayValue, 60, y);
+            }
+
+            y += 8;
+        });
+
+
+        pdf.setFontSize(14);
+        pdf.text("Metadata", 14, y + 6);
+        y += 14;
+
+        const metadata: [string, string | number | null | undefined, boolean?, string?][] = [
+            ["Taxon ID", data.scientificNameId, false, data.scientificNameUrl],
+            ["Habitat Types", data.habitats?.map((h) => `${h.code} - ${h.name}`).join(", ")],
+            ["Ecological Group", detectLifeForm(data?.lifeForm as string)],
+            ["Status", data?.taxonStatus && data?.taxonStatus === "non-invasive" ? t("non-native") : t("invasive")],
+            ["Risk Assessed", data.riskAssessed],
+            ["First Introduced", data.firstRecorded],
+            ["Number of Records", data.places?.length],
+        ];
+
+        metadata.forEach(([label, value, isItalic, link]) => {
+            const displayValue = String(value ?? "-");
+
+            pdf.setFontSize(11);
+            pdf.setFont("helvetica", isItalic ? "italic" : "normal");
+            pdf.text(`${label}:`, 14, y);
+
+            if (link) {
+                pdf.setTextColor(0, 0, 255);
+                pdf.textWithLink(displayValue, 60, y, { url: link });
+                pdf.setTextColor(0, 0, 0);
+            } else {
+                pdf.text(displayValue, 60, y);
+            }
+
+            y += 8;
+        });
+
+
+        pdf.save(`${data.name || "species-details"}.pdf`);
     }
 
-    
 
     return (
         <>
