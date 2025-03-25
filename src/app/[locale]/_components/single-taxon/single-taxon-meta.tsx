@@ -9,7 +9,7 @@ import {
     PopoverTrigger,
 } from "@/components/ui/popover"
 
-import { separator } from "@/lib/utils";
+import { generateTextBasedPdf, separator } from "@/lib/utils";
 
 import { Species } from "@/types/specie-response";
 import { Button } from "@/components/ui/button";
@@ -17,6 +17,7 @@ import { Button } from "@/components/ui/button";
 type SingleTaxonMetaProps = {
     data: Species[];
 };
+
 
 export function SingleTaxonMeta({ data }: SingleTaxonMetaProps) {
     const t = useTranslations("Species")
@@ -38,6 +39,8 @@ export function SingleTaxonMeta({ data }: SingleTaxonMetaProps) {
     function generatePdf() {
 
     }
+
+    
 
     return (
         <>
@@ -132,7 +135,7 @@ export function SingleTaxonMeta({ data }: SingleTaxonMetaProps) {
             </div>
 
             <Button
-                onClick={generatePdf}
+                onClick={() => generateTextBasedPdf(data[0])}
                 size="lg"
                 className="mt-8 rounded-none cursor-pointer"
             >
