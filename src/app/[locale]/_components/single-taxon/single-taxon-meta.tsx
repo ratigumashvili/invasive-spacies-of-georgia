@@ -91,7 +91,7 @@ export function SingleTaxonMeta({ data }: SingleTaxonMetaProps) {
             ["Habitat Types", data.habitats?.map((h) => `${h.code} - ${h.name}`).join(", ")],
             ["Ecological Group", detectLifeForm(data?.lifeForm as string)],
             ["Status", data?.taxonStatus && data?.taxonStatus === "non-invasive" ? t("non-native") : t("invasive")],
-            ["Risk Assessed", data.riskAssessed],
+            ["Risk Assessed", t(data?.riskAssessed), false, data.riskAssessedUrl ? data.riskAssessedUrl : ""],
             ["First Introduced", data.firstRecorded],
             ["Number of Records", data.places?.length],
         ];
