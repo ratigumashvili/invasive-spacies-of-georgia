@@ -11,7 +11,7 @@ import { exportDataAsCSV } from "@/lib/utils"
 import { SpecieDownload } from "@/types/specie-response"
 import { SettingsIcon } from "lucide-react"
 
-export function DropDownAction({csvData}: {csvData: SpecieDownload}) {
+export function DropDownAction({specieData}: {specieData: SpecieDownload}) {
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -22,7 +22,7 @@ export function DropDownAction({csvData}: {csvData: SpecieDownload}) {
             <DropdownMenuContent className="bg-white z-10 min-w-[200px]" align="end">
                 <DropdownMenuItem className="text-base cursor-pointer">Copy url</DropdownMenuItem>
                 <DropdownMenuItem className="text-base cursor-pointer">Print page</DropdownMenuItem>
-                <DropdownMenuItem className="text-base cursor-pointer" onClick={() => exportDataAsCSV(csvData)}>
+                <DropdownMenuItem className="text-base cursor-pointer" onClick={() => exportDataAsCSV(specieData)}>
                     Download data
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />

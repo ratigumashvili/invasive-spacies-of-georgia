@@ -65,7 +65,7 @@ export default async function SingleSpecieList({ params }: Props) {
         <Container>
             <div className="flex items-center justify-between mb-8">
                 <PageTitle />
-                <DropDownAction csvData={downloadData} />
+                <DropDownAction specieData={downloadData} />
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-0 md:gap-4 w-full">
                 <div className="col-span-2">
