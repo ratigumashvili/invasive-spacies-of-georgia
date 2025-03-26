@@ -4,14 +4,19 @@ import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuItem,
-    DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { exportDataAsCSV } from "@/lib/utils"
-import { SpecieDownload } from "@/types/specie-response"
+import { DistributionDownload, SpecieDownload } from "@/types/specie-response"
 import { SettingsIcon } from "lucide-react"
 
-export function DropDownAction({specieData}: {specieData: SpecieDownload}) {
+export function DropDownAction({
+    specieData, 
+    distribution
+}: {
+    specieData: SpecieDownload, 
+    distribution: DistributionDownload[]
+}) {
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -19,14 +24,15 @@ export function DropDownAction({specieData}: {specieData: SpecieDownload}) {
                     <SettingsIcon className="w-5 h-5" />
                 </button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="bg-white z-10 min-w-[200px]" align="end">
-                <DropdownMenuItem className="text-base cursor-pointer">Copy url</DropdownMenuItem>
-                <DropdownMenuItem className="text-base cursor-pointer">Print page</DropdownMenuItem>
-                <DropdownMenuItem className="text-base cursor-pointer" onClick={() => exportDataAsCSV(specieData)}>
-                    Download data
+            <DropdownMenuContent className="bg-white z-10 min-w-[200px] rounded-none" align="end">
+                <DropdownMenuItem className="text-base cursor-pointer rounded-none">Copy url</DropdownMenuItem>
+                <DropdownMenuItem className="text-base cursor-pointer rounded-none">Print page</DropdownMenuItem>
+                <DropdownMenuItem className="text-base cursor-pointer rounded-none" onClick={() => exportDataAsCSV(specieData)}>
+                    Download specie data
                 </DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem className="text-base cursor-pointer">Feedback</DropdownMenuItem>
+                <DropdownMenuItem className="text-base cursor-pointer rounded-none" onClick={() => exportDataAsCSV(distribution)}>
+                    Download distribution data
+                </DropdownMenuItem>
             </DropdownMenuContent>
         </DropdownMenu>
     )

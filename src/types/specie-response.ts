@@ -27,6 +27,11 @@ export interface SpecieDownload {
     references: string,
 }
 
+export interface DistributionDownload {
+    place: string,
+    coordinates: string
+}
+
 export interface TaxonomyEntity {
     id: number;
     documentId: string;

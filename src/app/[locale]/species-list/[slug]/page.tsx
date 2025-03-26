@@ -61,11 +61,19 @@ export default async function SingleSpecieList({ params }: Props) {
         references: strapiRichTextToPlainText(data[0]?.references ?? []),
     }
 
+    const downloadDistributionData = data[0]?.places?.map((place) => ({
+        place: place.title,
+        coordinates: place.coordinates
+      })) ?? [];
+
     return (
         <Container>
             <div className="flex items-center justify-between mb-8">
                 <PageTitle />
-                <DropDownAction specieData={downloadData} />
+                <DropDownAction 
+                    specieData={downloadData}
+                    distribution={downloadDistributionData}
+                />
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-0 md:gap-4 w-full">
                 <div className="col-span-2">
