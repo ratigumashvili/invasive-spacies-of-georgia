@@ -12,7 +12,7 @@ import { fetchSpeciesData } from "@/lib/api-calls";
 import { Place } from "@/types/taxonomy-types";
 
 import { BASE_URL, strapiRichTextToPlainText } from "@/lib/utils";
-import { SpeciesResponse } from "@/types/specie-response";
+import { SpecieDownload, SpeciesResponse } from "@/types/specie-response";
 
 const PageTitle = () => {
     const t = useTranslations("Common")
@@ -51,7 +51,7 @@ export default async function SingleSpecieList({ params }: Props) {
         riskAssessed: data[0]?.riskAssessed,
         riskAssessedUrl: data[0]?.riskAssessedUrl,
         firstRecordInGeorgia: data[0]?.firstRecorded,
-        recordNumber: data[0]?.places.length,
+        recordNumber: data[0]?.places.length || 0,
         identification: strapiRichTextToPlainText(data[0]?.identification ?? []),
         ecology: strapiRichTextToPlainText(data[0]?.ecology ?? []),
         distribution: strapiRichTextToPlainText(data[0]?.distribution ?? []),
