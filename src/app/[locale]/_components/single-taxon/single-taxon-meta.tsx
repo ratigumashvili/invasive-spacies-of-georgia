@@ -197,7 +197,7 @@ export function SingleTaxonMeta({ data }: SingleTaxonMetaProps) {
                         {data[0]?.habitats?.map((item, index) => (
                             <Popover key={index}>
                                 <PopoverTrigger className="cursor-help">{item.code} - {item.name}{separator(index, data[0]?.habitats,)}</PopoverTrigger>
-                                <PopoverContent className="max-h-[300px] overflow-y-scroll">
+                                <PopoverContent className="max-h-[300px] rounded-none overflow-y-scroll">
                                     {item.description}
                                 </PopoverContent>
                             </Popover>
