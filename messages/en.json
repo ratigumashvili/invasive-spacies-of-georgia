@@ -130,7 +130,13 @@
     "terrestrial": "Terrestrial",
     "aquatic": "Aquatic",
     "semiaquatic": "Semiaquatic",
-    "HabitatType": "Habitat Type"
+    "HabitatType": "Habitat Type",
+    "identification": "Identification",
+    "ecology": "Ecology",
+    "distribution": "Distribution",
+    "invasionHistory": "Invasion History",
+    "wcid": "What can I do",
+    "references": "References"
   },
   "Regions": {
     "Gagra": "Gagra",

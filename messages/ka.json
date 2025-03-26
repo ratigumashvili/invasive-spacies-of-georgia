@@ -131,7 +131,13 @@
     "terrestrial": "ხმელეთის",
     "aquatic": "წყლის",
     "semiaquatic": "წყალხმელეთა",
-    "HabitatType": "ჰაბიტატის ტიპი"
+    "HabitatType": "ჰაბიტატის ტიპი",
+    "identification": "იდენტიფიკაცია",
+    "ecology": "ეკოლოგია",
+    "distribution": "დისტრიბუცია",
+    "invasionHistory": "ინვაზიის ისტორია",
+    "wcid": "რისი გაკეთება შემიძლია",
+    "references": "წყაროები"
   },
   "Regions": {
     "Gagra": "გაგრა",
