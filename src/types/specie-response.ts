@@ -24,6 +24,16 @@ export interface Habitat {
     description: string,
 }
 
+export interface Image {
+    id: number;
+    documentId: string;
+    alternativeText: string | null;
+    caption: string;
+    width: number;
+    height: number;
+    url: string;
+}
+
 export type Species = {
     id: number;
     documentId: string;
@@ -37,14 +47,21 @@ export type Species = {
     firstRecorded?: string;
     isNew?: boolean;
     dateOfDetection?: string | null;
+    riskAssessed: string;
+    riskAssessedUrl: string;
+    identification: string;
+    ecology: string;
+    distribution: string,
+    invasionHistory: string;
+    impact: string;
+    wcid: string;
+    references: string;
     kingdom: TaxonomyEntity;
     phylum: TaxonomyEntity;
     class: TaxonomyEntity;
     order: TaxonomyEntity;
     family: TaxonomyEntity;
     genus: TaxonomyEntity;
-    riskAssessed: string;
-    riskAssessedUrl: string;
     places: Place[],
     habitats: Habitat[],
     createdAt: string;

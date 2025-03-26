@@ -37,8 +37,8 @@ export function CreateSpecieForm() {
         dateOfDetection: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, t("date_error")),
         placeName: z.string().min(2, t("place_error")),
         coordinates: z.string(),
-        description: z.string().optional(),
-        comment: z.string().optional(),
+        // description: z.string().optional(),
+        // comment: z.string().optional(),
         image: z.any().optional(),
         submissionAuthor: z.string()
     });
@@ -54,8 +54,8 @@ export function CreateSpecieForm() {
             dateOfDetection: "",
             placeName: "",
             coordinates: "",
-            description: "",
-            comment: "",
+            // description: "",
+            // comment: "",
             image: undefined,
             submissionAuthor: ""
         }
@@ -286,7 +286,7 @@ export function CreateSpecieForm() {
                         />
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-4">
+                    {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-4">
                         <div className="flex flex-row items-start w-full">
                             <FormField
                                 control={form.control}
@@ -317,7 +317,7 @@ export function CreateSpecieForm() {
                                 )}
                             />
                         </div>
-                    </div>
+                    </div> */}
 
                     <FormField
                         control={form.control}
