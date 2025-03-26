@@ -1,7 +1,7 @@
 import { clsx, type ClassValue } from "clsx"
 import { twMerge } from "tailwind-merge"
 import { jsPDF } from "jspdf";
-import { Species } from "@/types/specie-response";
+import { BlocksContent } from "@strapi/blocks-react-renderer";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
@@ -42,54 +42,99 @@ export function isLocalStorageAvailable() {
 
 export const separator = (index: number, array: any, separatorType: string = ', ', separatorEnd: string = ".") => index === array.length - 1 ? separatorEnd : separatorType
 
-export function generateTextBasedPdf(data: Species) {
-  const pdf = new jsPDF();
+export function renderBlocksContentToPdf(
+  pdf: jsPDF,
+  content: BlocksContent,
+  startY: number
+): number {
+  let y = startY;
+  const pageHeight = pdf.internal.pageSize.height;
 
-  pdf.setFontSize(18);
-  pdf.text(`${data.name} (${data.autorName})`, 14, 20);
+  const isTextNode = (node: any): node is {
+    text: string;
+    bold?: boolean;
+    italic?: boolean;
+    underline?: boolean;
+    strikethrough?: boolean;
+    code?: boolean;
+  } => typeof node.text === "string";
 
-  pdf.setFontSize(14);
-  pdf.text("Taxonomy", 14, 30);
+  const extractTextFromChildren = (children: any[]): string => {
+    return children.filter(isTextNode).map((child) => child.text).join("");
+  };
 
-  const taxonomy: [string, string | undefined][] = [
-    ["Kingdom", data.kingdom?.name],
-    ["Phylum", data.phylum?.name],
-    ["Class", data.class?.name],
-    ["Order", data.order?.name],
-    ["Family", data.family?.name],
-    ["Genus", data.genus?.name],
-    ["Scientific Name", data.name],
-    ["Author Name", data.autorName],
-  ];
+  const addLine = (text: string, fontStyle = "normal") => {
+    if (y > pageHeight - 20) {
+      pdf.addPage();
+      y = 20;
+    }
 
-  let y = 40;
-  taxonomy.forEach(([label, value]) => {
+    pdf.setFont("helvetica", fontStyle);
     pdf.setFontSize(11);
-    pdf.text(`${label}:`, 14, y);
-    pdf.text(value || "-", 60, y);
+    pdf.text(text, 14, y);
     y += 8;
+  };
+
+  content.forEach((block) => {
+    switch (block.type) {
+      case "heading": {
+        const headingText = extractTextFromChildren(block.children);
+        pdf.setFontSize(14);
+        pdf.setFont("helvetica", "bold");
+        pdf.text(headingText, 14, y);
+        y += 10;
+        break;
+      }
+
+      case "paragraph": {
+        block.children.forEach((child: any) => {
+          if (!isTextNode(child)) return;
+
+          let style: "normal" | "bold" | "italic" | "bolditalic" = "normal";
+          if (child.bold) style = "bold";
+          if (child.italic) style = style === "bold" ? "bolditalic" : "italic";
+
+          if (child.code) {
+            pdf.setFont("courier", "normal");
+          } else {
+            pdf.setFont("helvetica", style);
+          }
+
+          const text = child.text;
+
+          if (child.underline) {
+            pdf.setTextColor(0, 0, 255);
+            pdf.textWithLink(text, 14, y, { url: "#" });
+            pdf.setTextColor(0, 0, 0);
+          } else if (child.strikethrough) {
+            pdf.text(text, 14, y);
+            const width = pdf.getStringUnitWidth(text) * 11 / pdf.internal.scaleFactor;
+            pdf.setLineWidth(0.5);
+            pdf.line(14, y - 3, 14 + width, y - 3);
+          } else {
+            pdf.text(text, 14, y);
+          }
+
+          y += 8;
+        });
+        break;
+      }
+
+      case "list": {
+        const isOrdered = block.format === "ordered";
+        block.children.forEach((item: any, i: number) => {
+          const bullet = isOrdered ? `${i + 1}.` : "•";
+          const line = `${bullet} ${extractTextFromChildren(item.children)}`;
+          addLine(line);
+        });
+        break;
+      }
+
+      default:
+        break;
+    }
   });
 
-  pdf.setFontSize(14);
-  pdf.text("Metadata", 14, y + 6);
-  y += 14;
-
-  const metadata: [string, string | number | null | undefined][] = [
-    ["Taxon ID", data.scientificNameId],
-    ["Habitat Types", data.habitats?.map((h) => `${h.code} - ${h.name}`).join(", ")],
-    ["Ecological Group", data.lifeForm],
-    ["Status", data.taxonStatus],
-    ["Risk Assessed", data.riskAssessed],
-    ["First Introduced", data.firstRecorded],
-    ["Number of Records", data.places?.length],
-  ];
-
-  metadata.forEach(([label, value]) => {
-    pdf.setFontSize(11);
-    pdf.text(`${label}:`, 14, y);
-    pdf.text(value?.toString() || "-", 60, y);
-    y += 8;
-  });
-
-  pdf.save(`${data.name || "species-details"}.pdf`);
+  return y;
 }
+

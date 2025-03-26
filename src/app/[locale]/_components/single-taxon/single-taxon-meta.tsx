@@ -11,7 +11,7 @@ import {
     PopoverTrigger,
 } from "@/components/ui/popover"
 
-import { separator } from "@/lib/utils";
+import { renderBlocksContentToPdf, separator } from "@/lib/utils";
 
 import { Species } from "@/types/specie-response";
 import { Button } from "@/components/ui/button";
@@ -124,6 +124,33 @@ export function SingleTaxonMeta({ data }: SingleTaxonMetaProps) {
             y += 8;
         });
 
+        pdf.setFontSize(12);
+        pdf.text("Identification", 14, y + 6);
+        y = renderBlocksContentToPdf(pdf, identificationContent, y + 14);
+
+        pdf.setFontSize(12);
+        pdf.text("Ecology", 14, y + 6);
+        y = renderBlocksContentToPdf(pdf, ecologyContent, y + 14);
+
+        pdf.setFontSize(12);
+        pdf.text("Distribution", 14, y + 6);
+        y = renderBlocksContentToPdf(pdf, distributionContent, y + 14);
+
+        pdf.setFontSize(12);
+        pdf.text("Invasion History", 14, y + 6);
+        y = renderBlocksContentToPdf(pdf, invasionHistoryContent, y + 14);
+
+        pdf.setFontSize(12);
+        pdf.text("Impact", 14, y + 6);
+        y = renderBlocksContentToPdf(pdf, impactContent, y + 14);
+
+        pdf.setFontSize(12);
+        pdf.text("What can I do", 14, y + 6);
+        y = renderBlocksContentToPdf(pdf, wcidContent, y + 14);
+
+        pdf.setFontSize(12);
+        pdf.text("References", 14, y + 6);
+        y = renderBlocksContentToPdf(pdf, referencesContent, y + 14);
 
         pdf.save(`${data.name || "species-details"}.pdf`);
     }
