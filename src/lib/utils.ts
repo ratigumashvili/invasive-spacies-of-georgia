@@ -138,6 +138,42 @@ export function renderBlocksContentToPdf(
   return y;
 }
 
+export function strapiRichTextToPlainText(blocks: any[]): string {
+  let plainText = "";
+
+  blocks.forEach((block) => {
+    if (block.children && Array.isArray(block.children)) {
+      block.children.forEach((child: any) => {
+        if (child.text) {
+          plainText += child.text;
+        } else if (child.children) {
+          child.children.forEach((nestedChild: any) => {
+            if (nestedChild.text) {
+              plainText += nestedChild.text;
+            }
+          });
+        }
+      });
+    }
+
+    if (block.type === "list" && Array.isArray(block.children)) {
+      block.children.forEach((item: any) => {
+        const itemText = item.children
+          ?.map((c: any) => c.text ?? "")
+          .join(" ")
+          .trim();
+        if (itemText) {
+          plainText += `- ${itemText}\n`;
+        }
+      });
+    }
+
+    plainText += "\n";
+  });
+
+  return plainText.trim();
+}
+
 export const exportDataAsCSV = (dataObject: any) => {
   const convertToCSV = (objArray: any) => {
       const array = Array.isArray(objArray) ? objArray : [objArray];

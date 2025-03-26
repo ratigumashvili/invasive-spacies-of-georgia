@@ -1,5 +1,32 @@
 import { StrapiRichText } from "./rich-text-blocks";
 
+export interface SpecieDownload {
+    kingdom: string,
+    phylum: string,
+    class: string,
+    order: string,
+    family: string,
+    genus: string,
+    scientific_name: string,
+    scientific_name_authorship: string,
+    taxonId: string,
+    taxonId_url: string,
+    habitatType: string[],
+    ecologicalGroup: string,
+    status: string,
+    riskAssessed: string,
+    riskAssessedUrl: string,
+    firstRecordInGeorgia: string,
+    recordNumber: string,
+    identification: string,
+    ecology: string,
+    distribution: string,
+    invasionHistory: string,
+    impact: string,
+    whatCanIDo: string,
+    references: string,
+}
+
 export interface TaxonomyEntity {
     id: number;
     documentId: string;

@@ -8,9 +8,10 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { exportDataAsCSV } from "@/lib/utils"
+import { SpecieDownload } from "@/types/specie-response"
 import { SettingsIcon } from "lucide-react"
 
-export function DropDownAction({csvData}: {csvData: any}) {
+export function DropDownAction({csvData}: {csvData: SpecieDownload}) {
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
