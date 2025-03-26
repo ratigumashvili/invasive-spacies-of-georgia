@@ -7,9 +7,10 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { exportDataAsCSV } from "@/lib/utils"
 import { SettingsIcon } from "lucide-react"
 
-export function DropDownAction() {
+export function DropDownAction({csvData}: {csvData: any}) {
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -20,7 +21,9 @@ export function DropDownAction() {
             <DropdownMenuContent className="bg-white z-10 min-w-[200px]" align="end">
                 <DropdownMenuItem className="text-base cursor-pointer">Copy url</DropdownMenuItem>
                 <DropdownMenuItem className="text-base cursor-pointer">Print page</DropdownMenuItem>
-                <DropdownMenuItem className="text-base cursor-pointer">Download data</DropdownMenuItem>
+                <DropdownMenuItem className="text-base cursor-pointer" onClick={() => exportDataAsCSV(csvData)}>
+                    Download data
+                </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem className="text-base cursor-pointer">Feedback</DropdownMenuItem>
             </DropdownMenuContent>

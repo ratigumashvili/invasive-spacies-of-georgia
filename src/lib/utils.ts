@@ -138,3 +138,28 @@ export function renderBlocksContentToPdf(
   return y;
 }
 
+export const exportDataAsCSV = (dataObject: any) => {
+  const convertToCSV = (objArray: any) => {
+      const array = Array.isArray(objArray) ? objArray : [objArray];
+      const headers = Object.keys(array[0]).join(",");
+      const rows = array.map(row =>
+          Object.values(row)
+              .map(value => `"${value}"`)
+              .join(",")
+      );
+
+      return [headers, ...rows].join("\n");
+  };
+
+  const csvString = convertToCSV(dataObject);
+  const csvBlob = new Blob([csvString], { type: "text/csv;charset=utf-8;" });
+
+  const link = document.createElement("a");
+  const url = URL.createObjectURL(csvBlob);
+  link.href = url;
+  link.download = "data.csv";
+
+  link.click();
+
+  URL.revokeObjectURL(url);
+};
