@@ -1,3 +1,5 @@
+import { StrapiRichText } from "./rich-text-blocks";
+
 export interface TaxonomyEntity {
     id: number;
     documentId: string;
@@ -49,13 +51,13 @@ export type Species = {
     dateOfDetection?: string | null;
     riskAssessed: string;
     riskAssessedUrl: string;
-    identification: string;
-    ecology: string;
-    distribution: string,
-    invasionHistory: string;
-    impact: string;
-    wcid: string;
-    references: string;
+    identification: StrapiRichText;
+    ecology: StrapiRichText;
+    distribution: StrapiRichText,
+    invasionHistory: StrapiRichText;
+    impact: StrapiRichText;
+    wcid: StrapiRichText;
+    references: StrapiRichText;
     kingdom: TaxonomyEntity;
     phylum: TaxonomyEntity;
     class: TaxonomyEntity;

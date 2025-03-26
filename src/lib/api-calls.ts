@@ -96,7 +96,14 @@ export async function fetchSpeciesData(locale: string, page: number = 1, pageSiz
         "scientificNameUrl", 
         "taxonStatus",
         "riskAssessed",
-        "riskAssessedUrl"
+        "riskAssessedUrl",
+        "identification",
+        "ecology",
+        "distribution",
+        "invasionHistory",
+        "impact",
+        "wcid",
+        "references"
       ],
 
       populate: {
@@ -276,7 +283,8 @@ export async function fetchRandomSpecie(locale: string, filterType?: "isNew" | "
           "lifeForm",
           "firstRecorded",
           "isNew",
-          "dateOfDetection"
+          "dateOfDetection",
+          "identification"
         ],
 
         "populate[image][fields]": ["documentId", "alternativeText", "caption", "width", "height", "url"],

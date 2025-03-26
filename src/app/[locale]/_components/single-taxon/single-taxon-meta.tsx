@@ -1,6 +1,6 @@
 "use client"
 
-import { ReactNode } from "react";
+import { BlocksRenderer, type BlocksContent } from '@strapi/blocks-react-renderer';
 import { jsPDF } from "jspdf";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/routing";
@@ -23,6 +23,16 @@ type SingleTaxonMetaProps = {
 
 export function SingleTaxonMeta({ data }: SingleTaxonMetaProps) {
     const t = useTranslations("Species")
+
+    const defaultContent: BlocksContent = [];
+
+    const identificationContent = (data[0]?.identification as BlocksContent) ?? defaultContent;
+    const ecologyContent = (data[0]?.ecology as BlocksContent) ?? defaultContent;
+    const distributionContent = (data[0]?.distribution as BlocksContent) ?? defaultContent;
+    const invasionHistoryContent = (data[0]?.invasionHistory as BlocksContent) ?? defaultContent;
+    const impactContent = (data[0]?.impact as BlocksContent) ?? defaultContent;
+    const wcidContent = (data[0]?.wcid as BlocksContent) ?? defaultContent;
+    const referencesContent = (data[0]?.references as BlocksContent) ?? defaultContent;
 
     function detectLifeForm(type: string) {
         if (type === "terrestrial") {
@@ -118,7 +128,6 @@ export function SingleTaxonMeta({ data }: SingleTaxonMetaProps) {
         pdf.save(`${data.name || "species-details"}.pdf`);
     }
 
-
     return (
         <>
             <div className="border border-sky-800 border-l-8 bg-slate-50 my-8 md:my-0 p-4">
@@ -185,28 +194,46 @@ export function SingleTaxonMeta({ data }: SingleTaxonMetaProps) {
                     <dd>{data[0]?.places?.length}</dd>
                 </dl>
 
-                <h3 className="text-lg font-medium my-4 text-muted-foreground">{t("ai")}</h3>
+                <h3 className="text-lg font-medium my-4 text-muted-foreground">{t("identification")}</h3>
 
                 <div className="rich-text">
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa dignissimos, nisi ullam quis dolore optio esse atque quasi placeat odio nesciunt deleniti iure ex, vero doloremque. Temporibus aliquid animi ex!</p>
+                    <BlocksRenderer content={identificationContent} />
                 </div>
 
-                <h3 className="text-lg font-medium my-4 text-muted-foreground">{t("assessments")}</h3>
+                <h3 className="text-lg font-medium my-4 text-muted-foreground">{t("ecology")}</h3>
 
                 <div className="rich-text">
-                    <p>According to Commission Delegated Regulation (EU) 2018/968</p>
+                    <BlocksRenderer content={ecologyContent} />
                 </div>
 
-                <h3 className="text-lg font-medium my-4 text-muted-foreground">{t("common_names")}</h3>
+                <h3 className="text-lg font-medium my-4 text-muted-foreground">{t("distribution")}</h3>
 
                 <div className="rich-text">
-                    <p>Floating pennywort, Grote waternavel, Hydrocotyle à feuilles de renoncule, Soldinella reniforme</p>
+                    <BlocksRenderer content={distributionContent} />
                 </div>
 
-                <h3 className="text-lg font-medium my-4 text-muted-foreground">{t("synonyms")}</h3>
+                <h3 className="text-lg font-medium my-4 text-muted-foreground">{t("invasionHistory")}</h3>
 
                 <div className="rich-text">
-                    <p>Hydrocotyle batrachioides, Hydrocotyle cymbalarifolia, Hydrocotyle natans, Hydrocotyle nutans</p>
+                    <BlocksRenderer content={invasionHistoryContent} />
+                </div>
+
+                <h3 className="text-lg font-medium my-4 text-muted-foreground">{t("impact")}</h3>
+
+                <div className="rich-text">
+                    <BlocksRenderer content={impactContent} />
+                </div>
+
+                <h3 className="text-lg font-medium my-4 text-muted-foreground">{t("wcid")}</h3>
+
+                <div className="rich-text">
+                    <BlocksRenderer content={wcidContent} />
+                </div>
+
+                <h3 className="text-lg font-medium my-4 text-muted-foreground">{t("references")}</h3>
+
+                <div className="rich-text">
+                    <BlocksRenderer content={referencesContent} />
                 </div>
 
             </div>
