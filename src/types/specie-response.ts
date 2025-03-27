@@ -69,6 +69,7 @@ export interface Image {
 }
 
 export interface User {
+    id: number,
     username: string,
     email: string
 }

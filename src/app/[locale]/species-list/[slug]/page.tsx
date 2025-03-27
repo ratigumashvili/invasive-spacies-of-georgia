@@ -7,13 +7,15 @@ import { SingleTaxonMeta } from "@/app/[locale]/_components/single-taxon/single-
 import { DropDownAction } from "@/app/[locale]/_components/drop-down-actions";
 import SingleTaxonMap from "@/app/[locale]/_components/single-taxon/show-map";
 import { GeneratePdfButton } from "@/app/[locale]/_components/generate-pdf-button";
+import { SingleSpecieCite } from "@/app/[locale]/_components/single-specie-cite";
 
-import { fetchSpeciesData } from "@/lib/api-calls";
+import { fetchSpeciesData, getSinglePage } from "@/lib/api-calls";
 
 import { Place } from "@/types/taxonomy-types";
 
 import { BASE_URL, strapiRichTextToPlainText } from "@/lib/utils";
 import { SpeciesResponse } from "@/types/specie-response";
+import { HomePageData } from "@/types/single-types";
 
 const PageTitle = () => {
     const t = useTranslations("Common")
@@ -27,11 +29,16 @@ type Props = {
 }
 
 export default async function SingleSpecieList({ params }: Props) {
+
     const { slug, locale } = await params
 
     const filter = `&filters[$and][0][slug][$eq]=${slug}`
 
     const { data, meta }: SpeciesResponse = await fetchSpeciesData(locale, 1, 1, filter);
+
+    const fetchAppTitle = async (locale: "en"): Promise<HomePageData> => {
+        return await getSinglePage<HomePageData>("home-page", locale, "fields[0]=title&fields[1]=subtitle&fields[2]=version");
+      };
 
     if (data?.length === 0 || meta.pagination.total === 0) return <NothingFound />
 
@@ -65,14 +72,16 @@ export default async function SingleSpecieList({ params }: Props) {
     const downloadDistributionData = data[0]?.places?.map((place) => ({
         place: place.title,
         coordinates: place.coordinates
-      })) ?? [];
+    })) ?? [];
+
+    const appData = await fetchAppTitle("en")
 
     return (
         <Container>
             <pre>{JSON.stringify(data[0].authors, null, 2)}</pre>
             <div className="flex items-center justify-between mb-8">
                 <PageTitle />
-                <DropDownAction 
+                <DropDownAction
                     specieData={downloadData}
                     distribution={downloadDistributionData}
                 />
@@ -101,6 +110,14 @@ export default async function SingleSpecieList({ params }: Props) {
                     </div>
                 </div>
             </div>
+            <SingleSpecieCite 
+                authors={data[0]?.authors}
+                recordTitle={data[0]?.name}
+                recordAuthor={data[0]?.autorName as string}
+                appTitle={appData.title}
+                appSubTitle={appData.subtitle}
+                appVersion={appData.version}
+            />
             <GeneratePdfButton data={data[0]} />
         </Container>
     )

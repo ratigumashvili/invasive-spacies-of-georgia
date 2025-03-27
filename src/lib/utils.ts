@@ -135,7 +135,6 @@ export function renderBlocksContentToPdf(
   return y;
 }
 
-
 export function strapiRichTextToPlainText(blocks: any[]): string {
   let plainText = "";
 
@@ -197,3 +196,13 @@ export const exportDataAsCSV = (dataObject: any) => {
 
   URL.revokeObjectURL(url);
 };
+
+export function formatNameToCitationStyle(fullName: string): string {
+  const parts = fullName.trim().split(" ");
+  if (parts.length < 2) return fullName;
+
+  const lastName = parts[parts.length - 1];
+  const initials = parts.slice(0, -1).map(n => n[0].toUpperCase() + ".").join(" ");
+
+  return `${lastName} ${initials}`;
+}
