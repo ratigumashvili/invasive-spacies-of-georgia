@@ -30,7 +30,7 @@ export function DropDownAction({
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
-                <button className="cursor-pointer p-2 focus:outline-0">
+                <button className="cursor-pointer p-2 focus:outline-0 print:hidden">
                     <SettingsIcon className="w-5 h-5" />
                 </button>
             </DropdownMenuTrigger>

@@ -20,7 +20,7 @@ import { HomePageData } from "@/types/single-types";
 const PageTitle = () => {
     const t = useTranslations("Common")
     return (
-        <h1 className="text-2xl font-medium">{t("species_factsheets")}</h1>
+        <h1 className="text-2xl font-medium print:hidden">{t("species_factsheets")}</h1>
     )
 }
 
@@ -78,7 +78,7 @@ export default async function SingleSpecieList({ params }: Props) {
 
     return (
         <Container>
-            <div className="flex items-center justify-between mb-8">
+            <div className="flex items-center justify-between mb-8 print:hidden">
                 <PageTitle />
                 <DropDownAction
                     specieData={downloadData}
@@ -86,10 +86,10 @@ export default async function SingleSpecieList({ params }: Props) {
                 />
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-0 md:gap-4 w-full">
-                <div className="col-span-2">
+                <div className="col-span-2 print:col-span-3">
                     <SingleTaxonMeta data={data} />
                 </div>
-                <div className="col-span-1">
+                <div className="col-span-1 print:hidden">
                     <div className="my-0">
                         {data[0]?.image?.url ? (
                             <div className="mb-4">

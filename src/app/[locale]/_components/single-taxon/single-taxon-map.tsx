@@ -21,7 +21,7 @@ export default function SingleTaxonMap({ places }: SingleTaxonMapProps) {
     return (
         <>
             <MapContainer
-                className='w-full h-[400px] z-0'
+                className='w-full h-[400px] z-0 print:hidden'
                 center={center as LatLngExpression}
                 zoom={6}
                 scrollWheelZoom={false}

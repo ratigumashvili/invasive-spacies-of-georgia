@@ -38,13 +38,13 @@ export function SingleSpecieCite({
 
     return (
         <div className="p-4 text-sm mt-4 border relative pr-[60px]">
-            <span className="font-medium pr-1">Cite:</span>
+            <span className="font-medium pr-1 print:hidden">Cite:</span>
             <span ref={ref}>
                 {authors.map((author, index) => (
                     <span key={author.id}>{formatNameToCitationStyle(author.username)}{separator(index, authors, ", ", " ")}</span>
                 ))} 2005. <em>{recordTitle}</em>, {recordAuthor} – FactSheet. {appTitle}, {appSubTitle} {appVersion}. Accessed at: {url}. Date accessed: {format(new Date(Date.now()), "PPP")}
             </span>
-            <ClipboardCopyIcon className="w-4 h-4 absolute right-4 top-4 cursor-pointer" onClick={handleCopy} />
+            <ClipboardCopyIcon className="w-4 h-4 absolute right-4 top-4 cursor-pointer print:hidden" onClick={handleCopy} />
         </div>
     )
 }

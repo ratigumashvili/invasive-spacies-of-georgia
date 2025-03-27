@@ -12,7 +12,7 @@ const detectDate = () => {
 export function Footer() {
     const t = useTranslations("Footer")
     return (
-        <footer className="mt-auto bg-black text-white shadow-gray-300">
+        <footer className="mt-auto bg-black text-white shadow-gray-300 print:hidden">
             <div className="w-full max-w-7xl mx-auto py-8 px-4 sm:px-8 flex flex-col md:flex-row items-center justify-between">
                 <div className="text-sm flex flex-col text-center md:text-left gap-y-1 mb-4 md:mb-0 px-4 md:px-0">
                     <p className="flex items-center gap-1">

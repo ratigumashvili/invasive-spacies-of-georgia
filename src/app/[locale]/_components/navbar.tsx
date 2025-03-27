@@ -102,7 +102,7 @@ export function Navbar({ locale }: { locale: LocaleType }) {
     }
 
     return (
-        <header>
+        <header className="print:hidden">
             <div className="bg-sky-800 text-white py-2">
                 <nav className="flex flex-col md:flex-row items-center justify-between w-full max-w-7xl mx-auto px-4 sm:px-8">
                     <div className="flex items-center justify-center flex-wrap gap-x-2 gap-y-2 md:gap-y-0 mb-4 md:mb-0">

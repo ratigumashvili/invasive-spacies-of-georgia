@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 import { renderBlocksContentToPdf } from "@/lib/utils";
 import { Species } from "@/types/specie-response";
 
-export function GeneratePdfButton({data}: {data: Species}) {
+export function GeneratePdfButton({ data }: { data: Species }) {
 
     const t = useTranslations("Species")
 
@@ -145,12 +145,14 @@ export function GeneratePdfButton({data}: {data: Species}) {
     }
 
     return (
-        <Button
-            onClick={() => generateTextBasedPdf(data)}
-            size="lg"
-            className="mt-8 rounded-none cursor-pointer"
-        >
-            Generate PDF
-        </Button>
+        <>
+            <Button
+                onClick={() => generateTextBasedPdf(data)}
+                size="lg"
+                className="mt-8 rounded-none cursor-pointer print:hidden"
+            >
+                Generate PDF
+            </Button>
+        </>
     )
 }
