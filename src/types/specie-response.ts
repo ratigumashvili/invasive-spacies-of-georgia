@@ -68,6 +68,11 @@ export interface Image {
     url: string;
 }
 
+export interface User {
+    username: string,
+    email: string
+}
+
 export type Species = {
     id: number;
     documentId: string;
@@ -98,6 +103,7 @@ export type Species = {
     genus: TaxonomyEntity;
     places: Place[],
     habitats: Habitat[],
+    authors: User[],
     createdAt: string;
     updatedAt: string;
     publishedAt: string;

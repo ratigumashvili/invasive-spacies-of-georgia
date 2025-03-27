@@ -1,7 +1,6 @@
 "use client"
 
 import { BlocksRenderer, type BlocksContent } from '@strapi/blocks-react-renderer';
-import { jsPDF } from "jspdf";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/routing";
 

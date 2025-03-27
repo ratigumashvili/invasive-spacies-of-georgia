@@ -69,6 +69,7 @@ export default async function SingleSpecieList({ params }: Props) {
 
     return (
         <Container>
+            <pre>{JSON.stringify(data[0].authors, null, 2)}</pre>
             <div className="flex items-center justify-between mb-8">
                 <PageTitle />
                 <DropDownAction 

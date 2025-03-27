@@ -84,16 +84,16 @@ export async function fetchSpeciesData(locale: string, page: number = 1, pageSiz
   try {
     const queryParams = {
       fields: [
-        "autorName", 
-        "locale", 
-        "name", 
-        "slug", 
-        "lifeForm", 
-        "firstRecorded", 
-        "isNew", 
-        "dateOfDetection", 
-        "scientificNameId", 
-        "scientificNameUrl", 
+        "autorName",
+        "locale",
+        "name",
+        "slug",
+        "lifeForm",
+        "firstRecorded",
+        "isNew",
+        "dateOfDetection",
+        "scientificNameId",
+        "scientificNameUrl",
         "taxonStatus",
         "riskAssessed",
         "riskAssessedUrl",
@@ -117,7 +117,8 @@ export async function fetchSpeciesData(locale: string, page: number = 1, pageSiz
         family: { fields: ["name", "slug"] },
         genus: { fields: ["name", "slug"], },
         places: { fields: ["title", "slug", "coordinates"] },
-        habitats: { fields: ["code", "name", "description"]}
+        habitats: { fields: ["code", "name", "description"] },
+        authors: {fields: ["username", "email"]}
       },
       pagination: {
         page,
