@@ -49,74 +49,65 @@ export function renderBlocksContentToPdf(
 ): number {
   let y = startY;
   const pageHeight = pdf.internal.pageSize.height;
+  const lineHeight = 8;
+  const marginLeft = 14;
+  const contentWidth = 180;
 
-  const isTextNode = (node: any): node is {
-    text: string;
-    bold?: boolean;
-    italic?: boolean;
-    underline?: boolean;
-    strikethrough?: boolean;
-    code?: boolean;
-  } => typeof node.text === "string";
-
-  const extractTextFromChildren = (children: any[]): string => {
-    return children.filter(isTextNode).map((child) => child.text).join("");
-  };
-
-  const addLine = (text: string, fontStyle = "normal") => {
-    if (y > pageHeight - 20) {
+  const checkPageOverflow = (additionalHeight = lineHeight) => {
+    if (y + additionalHeight > pageHeight - 20) {
       pdf.addPage();
       y = 20;
     }
-
-    pdf.setFont("helvetica", fontStyle);
-    pdf.setFontSize(11);
-    pdf.text(text, 14, y);
-    y += 8;
   };
 
-  content.forEach((block) => {
+  const addWrappedText = (
+    text: string,
+    options?: { fontStyle?: "normal" | "bold" | "italic"; link?: string }
+  ) => {
+    const { fontStyle = "normal", link } = options || {};
+    pdf.setFont("helvetica", fontStyle);
+    pdf.setFontSize(11);
+    const wrapped = pdf.splitTextToSize(text, contentWidth);
+
+    wrapped.forEach((line: any) => {
+      checkPageOverflow();
+      if (link) {
+        pdf.setTextColor(0, 0, 255);
+        pdf.textWithLink(line, marginLeft, y, { url: link });
+        pdf.setTextColor(0, 0, 0);
+      } else {
+        pdf.text(line, marginLeft, y);
+      }
+      y += lineHeight;
+    });
+  };
+
+  content.forEach((block: any) => {
     switch (block.type) {
       case "heading": {
-        const headingText = extractTextFromChildren(block.children);
-        pdf.setFontSize(14);
+        const headingText = block.children
+          .map((c: any) => c.text ?? "")
+          .join("");
+        pdf.setFontSize(13);
         pdf.setFont("helvetica", "bold");
-        pdf.text(headingText, 14, y);
+        checkPageOverflow(10);
+        pdf.text(headingText, marginLeft, y);
         y += 10;
         break;
       }
 
       case "paragraph": {
+        const lines: string[] = [];
+
         block.children.forEach((child: any) => {
-          if (!isTextNode(child)) return;
-
-          let style: "normal" | "bold" | "italic" | "bolditalic" = "normal";
-          if (child.bold) style = "bold";
-          if (child.italic) style = style === "bold" ? "bolditalic" : "italic";
-
-          if (child.code) {
-            pdf.setFont("courier", "normal");
+          if (child.type === "link") {
+            const linkText = child.children?.map((c: any) => c.text ?? "").join("") ?? "";
+            addWrappedText(linkText, { link: child.url });
           } else {
-            pdf.setFont("helvetica", style);
+            addWrappedText(child.text ?? "");
           }
-
-          const text = child.text;
-
-          if (child.underline) {
-            pdf.setTextColor(0, 0, 255);
-            pdf.textWithLink(text, 14, y, { url: "#" });
-            pdf.setTextColor(0, 0, 0);
-          } else if (child.strikethrough) {
-            pdf.text(text, 14, y);
-            const width = pdf.getStringUnitWidth(text) * 11 / pdf.internal.scaleFactor;
-            pdf.setLineWidth(0.5);
-            pdf.line(14, y - 3, 14 + width, y - 3);
-          } else {
-            pdf.text(text, 14, y);
-          }
-
-          y += 8;
         });
+
         break;
       }
 
@@ -124,8 +115,14 @@ export function renderBlocksContentToPdf(
         const isOrdered = block.format === "ordered";
         block.children.forEach((item: any, i: number) => {
           const bullet = isOrdered ? `${i + 1}.` : "•";
-          const line = `${bullet} ${extractTextFromChildren(item.children)}`;
-          addLine(line);
+          const itemText = item.children
+            .map((c: any) =>
+              c.type === "link"
+                ? c.children?.map((sc: any) => sc.text ?? "").join("") ?? ""
+                : c.text ?? ""
+            )
+            .join(" ");
+          addWrappedText(`${bullet} ${itemText}`);
         });
         break;
       }
@@ -137,6 +134,7 @@ export function renderBlocksContentToPdf(
 
   return y;
 }
+
 
 export function strapiRichTextToPlainText(blocks: any[]): string {
   let plainText = "";

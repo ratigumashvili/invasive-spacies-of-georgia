@@ -6,13 +6,14 @@ import { NothingFound } from "@/app/[locale]/_components/nothing-found";
 import { SingleTaxonMeta } from "@/app/[locale]/_components/single-taxon/single-taxon-meta";
 import { DropDownAction } from "@/app/[locale]/_components/drop-down-actions";
 import SingleTaxonMap from "@/app/[locale]/_components/single-taxon/show-map";
+import { GeneratePdfButton } from "@/app/[locale]/_components/generate-pdf-button";
 
 import { fetchSpeciesData } from "@/lib/api-calls";
 
 import { Place } from "@/types/taxonomy-types";
 
 import { BASE_URL, strapiRichTextToPlainText } from "@/lib/utils";
-import { SpecieDownload, SpeciesResponse } from "@/types/specie-response";
+import { SpeciesResponse } from "@/types/specie-response";
 
 const PageTitle = () => {
     const t = useTranslations("Common")
@@ -99,6 +100,7 @@ export default async function SingleSpecieList({ params }: Props) {
                     </div>
                 </div>
             </div>
+            <GeneratePdfButton data={data[0]} />
         </Container>
     )
 }
