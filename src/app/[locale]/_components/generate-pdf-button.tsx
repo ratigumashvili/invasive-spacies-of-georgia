@@ -3,13 +3,10 @@
 
 import jsPDF from "jspdf";
 import { useTranslations } from "next-intl";
-
-import { Button } from "@/components/ui/button";
-
 import { BlocksContent } from "@strapi/blocks-react-renderer";
 
+import { Button } from "@/components/ui/button";
 import { renderBlocksContentToPdf } from "@/lib/utils";
-
 import { Species } from "@/types/specie-response";
 
 export function GeneratePdfButton({data}: {data: Species}) {
