@@ -81,7 +81,7 @@ export default async function SingleSpecieList({ params }: Props) {
                     <SingleTaxonMeta data={data} />
                 </div>
                 <div className="col-span-1">
-                    <div className="my-0 md:my-8 lg:my-0">
+                    <div className="my-0">
                         {data[0]?.image?.url ? (
                             <div className="mb-4">
                                 <Image
