@@ -29,7 +29,7 @@ export default async function Search({ params, searchParams }: Props) {
 
     const { name, type, page } = resolvedSearchParams;
 
-    const currentPage = Number(resolvedSearchParams.page) || 1
+    const currentPage = Number(page) || 1
 
     let data;
 

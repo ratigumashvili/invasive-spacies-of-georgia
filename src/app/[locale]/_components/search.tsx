@@ -1,8 +1,9 @@
 "use client"
 
+import { useRef } from "react"
 import { useSearchParams } from "next/navigation"
 import { useTranslations } from "next-intl"
-import { useRouter } from "@/i18n/routing"
+import { usePathname, useRouter } from "@/i18n/routing"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -28,7 +29,10 @@ const taxonomy = [
 export function SearchComponent() {
     const t = useTranslations("Search")
 
+    const formRef = useRef<HTMLFormElement | null>(null)
+    
     const router = useRouter()
+    const pathname = usePathname()
     const searchParams = useSearchParams()
     const defaultValue = searchParams.get("type") || "species"
 
@@ -41,16 +45,31 @@ export function SearchComponent() {
         router.push(`/search?name=${encodeURIComponent(name)}&type=${type}`)
     }
 
+    function handleResetForm() {
+        if(pathname === "/search") {
+            router.push("/search")
+        } else {
+            formRef?.current?.reset()
+        }
+    }
+
     return (
         <Card className="rounded-none bg-slate-50">
             <CardHeader>
                 <CardTitle className="text-xl">{t("search_for_species")}</CardTitle>
             </CardHeader>
             <CardContent>
-                <form action={handleFormSubmit}>
+                <form action={handleFormSubmit} ref={formRef}>
                     <div className="flex items-center gap-2 mb-4">
                         <Input id="name" name="name" className="py-4 px-3 rounded-none bg-white" placeholder={t("placeholder_text")} />
-                        <Button type="button" variant="destructive" className="rounded-none cursor-pointer">{t("cancel")}</Button>
+                        <Button
+                            type="button"
+                            variant="destructive"
+                            onClick={handleResetForm}
+                            className="rounded-none cursor-pointer"
+                        >
+                            {t("cancel")}
+                        </Button>
                         <Button type="submit" className="rounded-none cursor-pointer">{t("submit")}</Button>
                     </div>
                     <div>
