@@ -658,7 +658,7 @@ export async function searchSpecieByType(locale: string, type: string, name: str
     const dynamicFilter = {
       [type]: {
         name: {
-          $eqi: name,
+          $contains: name,
         },
       },
     };
@@ -709,7 +709,7 @@ export async function searchSpecieByName(locale: string, name: string, page: num
         $and: [
           {
             name: {
-              $eqi: name
+              $contains: name
             }
           }
         ],

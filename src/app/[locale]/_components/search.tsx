@@ -30,7 +30,7 @@ export function SearchComponent() {
     const t = useTranslations("Search")
 
     const formRef = useRef<HTMLFormElement | null>(null)
-    
+
     const router = useRouter()
     const pathname = usePathname()
     const searchParams = useSearchParams()
@@ -47,7 +47,7 @@ export function SearchComponent() {
 
     function handleResetForm() {
         if(pathname === "/search") {
-            router.push("/search")
+            router.replace("/search")
         } else {
             formRef?.current?.reset()
         }
