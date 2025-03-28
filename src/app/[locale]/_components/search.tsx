@@ -27,15 +27,18 @@ const taxonomy = [
 
 export function SearchComponent() {
     const t = useTranslations("Search")
+
     const router = useRouter()
     const searchParams = useSearchParams()
     const defaultValue = searchParams.get("type") || "specie"
 
     function handleFormSubmit(formData: FormData) {
-        const name = formData.get("name");
-        const type = formData.get("type")
+        const name = formData.get("name")?.toString().trim();
+        const type = formData.get("type")?.toString()
 
-        router.push(`/search?name=${name}&type=${type}`)
+        if (!name) return
+
+        router.push(`/search?name=${encodeURIComponent(name)}&type=${type}`)
     }
 
     return (
@@ -53,7 +56,7 @@ export function SearchComponent() {
                     <div>
                         <RadioGroup defaultValue={defaultValue} name="type" className="flex items-center gap-2">
                             {taxonomy.map((item) => (
-                                <div key={item.label} className="flex gap-x-2">
+                                <div key={item.label} className="flex gap-x-2" role="radiogroup">
                                     <RadioGroupItem value={item.label} id={item.label} className="bg-white" />
                                     <Label htmlFor={item.label}>{t(item.label)}</Label>
                                 </div>
