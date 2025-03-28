@@ -275,6 +275,8 @@
     "name": "Latin name",
     "type": "Taxon type",
     "found": "Found",
-    "records": "record(s)"
+    "records": "record(s)",
+    "nothing_found": "Nothing found",
+    "try_other": "Try another options"
   }
 }

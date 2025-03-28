@@ -3,14 +3,15 @@ import { useTranslations } from "next-intl";
 import Container from "@/app/[locale]/_components/container";
 import { SearchComponent } from "@/app/[locale]/_components/search";
 import { SpeciesTable } from "@/app/[locale]/_components/species-table";
-import { NothingFound } from "@/app/[locale]/_components/nothing-found";
+import { SearchResults } from "@/app/[locale]/_components/search-results";
+import { SearchNoResults } from "@/app/[locale]/_components/search-no-results";
 import { Pagination } from "@/app/[locale]/_components/pagination";
 
 import { generateFontByLocale } from "@/lib/utils";
 import { searchSpecieByName, searchSpecieByType } from "@/lib/api-calls";
 
 import { Species } from "@/types/specie-response";
-import { SearchResults } from "../_components/search-results";
+
 
 type Props = {
     params: Promise<{ locale: string }>
@@ -37,9 +38,9 @@ export default async function Search({ params, searchParams }: Props) {
     let response;
 
     if (type && type !== "species") {
-        response = await searchSpecieByType(locale, type as string, name as string, currentPage, 1);
+        response = await searchSpecieByType(locale, type as string, name as string, currentPage, 24);
     } else {
-        response = await searchSpecieByName(locale, name as string, currentPage, 1);
+        response = await searchSpecieByName(locale, name as string, currentPage, 24);
     }
 
     if (!name || !type) {
@@ -59,7 +60,7 @@ export default async function Search({ params, searchParams }: Props) {
             
             {name && <SearchResults length={response.meta.pagination.total} />}
             
-            {name && type && response.data.length === 0 && <NothingFound />}
+            {name && type && response.data.length === 0 && <SearchNoResults />}
             
             <section className="mt-8">
                 <SpeciesTable data={response.data as Species[]} />
