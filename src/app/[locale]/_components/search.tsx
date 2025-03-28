@@ -22,7 +22,7 @@ const taxonomy = [
     { label: "order" },
     { label: "family" },
     { label: "genus" },
-    { label: "specie" }
+    { label: "species" }
 ]
 
 export function SearchComponent() {
@@ -30,7 +30,7 @@ export function SearchComponent() {
 
     const router = useRouter()
     const searchParams = useSearchParams()
-    const defaultValue = searchParams.get("type") || "specie"
+    const defaultValue = searchParams.get("type") || "species"
 
     function handleFormSubmit(formData: FormData) {
         const name = formData.get("name")?.toString().trim();

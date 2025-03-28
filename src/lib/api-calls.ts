@@ -651,7 +651,91 @@ export async function createSpecie(token: string, specieData: any, uploadedFileI
   return { status: "success", data };
 }
 
+// Search
 
+export async function searchSpecieByType(locale: string, type: string, name: string) {
+  try {
+    const dynamicFilter = {
+      [type]: {
+        name: {
+          $eqi: name,
+        },
+      },
+    };
+
+    const queryParams = {
+      fields: ["name", "slug"],
+      locale,
+      filters: {
+        $and: [dynamicFilter],
+      },
+      sort: ["name:asc"],
+    };
+
+    const query = qs.stringify(queryParams, { encodeValuesOnly: true });
+    const requestUrl = `${BASE_API_URL}/species?${query}`;
+
+    const response = await fetch(requestUrl, {
+      method: "GET",
+      headers: { Accept: "application/json" },
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(`Failed to fetch species: ${errorData.error?.message || response.statusText}`);
+    }
+
+    const data: PlaceResponse = await response.json();
+    return data;
+  } catch (error: any) {
+    console.error("Error fetching species data:", error.message);
+    return {
+      data: [],
+      meta: { pagination: { page: 1, pageSize: 25, pageCount: 1, total: 0 } },
+    };
+  }
+}
+
+export async function searchSpecieByName(locale: string, name: string) {
+  try {
+    const queryParams = {
+      fields: ["name", "slug"],
+      locale,
+      filters: {
+        $and: [
+          {
+            name: {
+              $eqi: name
+            }
+          }
+        ],
+      },
+      sort: ["name:asc"],
+    };
+
+    const query = qs.stringify(queryParams, { encodeValuesOnly: true });
+    const requestUrl = `${BASE_API_URL}/species?${query}`;
+
+    const response = await fetch(requestUrl, {
+      method: "GET",
+      headers: { Accept: "application/json" },
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(`Failed to fetch species: ${errorData.error?.message || response.statusText}`);
+    }
+
+    const data: PlaceResponse = await response.json();
+    return data;
+  } catch (error: any) {
+    console.error("Error fetching species data:", error.message);
+    return {
+      data: [],
+      meta: { pagination: { page: 1, pageSize: 25, pageCount: 1, total: 0 } },
+    };
+  }
+}
 
 
 

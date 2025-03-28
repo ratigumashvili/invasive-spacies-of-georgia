@@ -6,6 +6,7 @@ import { SearchComponent } from "@/app/[locale]/_components/search";
 import { NothingFound } from "@/app/[locale]/_components/nothing-found";
 
 import { generateFontByLocale } from "@/lib/utils";
+import { searchSpecieByName, searchSpecieByType } from "@/lib/api-calls";
 
 type Props = {
     params: Promise<{ locale: string }>
@@ -25,12 +26,19 @@ export default async function Search({ params, searchParams }: Props) {
     const { locale } = await params
     const resolvedSearchParams = await searchParams;
 
-    const {  } = resolvedSearchParams;
+    const { name, type } = resolvedSearchParams;
+
+    const data = type !== "species" 
+        ? await searchSpecieByType(locale, type as string, name as string)
+        : await searchSpecieByName(locale, name as string)
 
     return (
         <Container>
             <PageTitle locale={locale} />
             <SearchComponent />
+            <pre>name: {JSON.stringify(name, null, 2)}</pre>
+            <pre>type: {JSON.stringify(type, null, 2)}</pre>
+            <pre>data: {JSON.stringify(data, null, 2)}</pre>
         </Container>
     )
 }
