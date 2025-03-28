@@ -697,7 +697,7 @@ export async function searchSpecieByType(locale: string, type: string, name: str
       throw new Error(`Failed to fetch species: ${errorData.error?.message || response.statusText}`);
     }
 
-    const data: PlaceResponse = await response.json();
+    const data: SpeciesResponse = await response.json();
     return data;
   } catch (error: any) {
     console.error("Error fetching species data:", error.message);
@@ -750,7 +750,7 @@ export async function searchSpecieByName(locale: string, name: string, page: num
       throw new Error(`Failed to fetch species: ${errorData.error?.message || response.statusText}`);
     }
 
-    const data: PlaceResponse = await response.json();
+    const data: SpeciesResponse = await response.json();
     return data;
   } catch (error: any) {
     console.error("Error fetching species data:", error.message);
