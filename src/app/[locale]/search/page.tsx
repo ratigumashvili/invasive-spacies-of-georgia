@@ -54,14 +54,17 @@ export default async function Search({ params, searchParams }: Props) {
     return (
         <Container>
             <PageTitle locale={locale} />
+            
             <SearchComponent />
-            {/* <pre>name: {JSON.stringify(name, null, 2)}</pre>
-            <pre>type: {JSON.stringify(type, null, 2)}</pre>
-            <pre>data: {JSON.stringify(response, null, 2)}</pre> */}
+            
             {name && <SearchResults />}
+            
+            {name && type && response.data.length === 0 && <NothingFound />}
+            
             <section className="mt-8">
                 <SpeciesTable data={response.data as Species[]} />
             </section>
+            
             <Pagination
                 currentPage={currentPage}
                 totalPages={response.meta.pagination.pageCount}

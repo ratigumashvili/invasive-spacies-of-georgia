@@ -7,7 +7,7 @@ export function SearchResults() {
     const searchParams = useSearchParams()
     const t = useTranslations("Search")
     return (
-        <section className="my-8 border p-4">
+        <section className="mt-8 border p-4">
             {t("searched_for")}: <span className="font-medium">{t("name")}</span>: {searchParams.get("name")}, <span className="font-medium">{t("type")}</span>: {searchParams.get("type")}
         </section>
     )
