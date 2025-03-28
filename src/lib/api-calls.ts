@@ -653,7 +653,7 @@ export async function createSpecie(token: string, specieData: any, uploadedFileI
 
 // Search
 
-export async function searchSpecieByType(locale: string, type: string, name: string) {
+export async function searchSpecieByType(locale: string, type: string, name: string, page: number = 1, pageSize: number = 1) {
   try {
     const dynamicFilter = {
       [type]: {
@@ -668,6 +668,10 @@ export async function searchSpecieByType(locale: string, type: string, name: str
       locale,
       filters: {
         $and: [dynamicFilter],
+      },
+      pagination: {
+        page,
+        pageSize
       },
       sort: ["name:asc"],
     };
@@ -696,7 +700,7 @@ export async function searchSpecieByType(locale: string, type: string, name: str
   }
 }
 
-export async function searchSpecieByName(locale: string, name: string) {
+export async function searchSpecieByName(locale: string, name: string, page: number = 1, pageSize: number = 24) {
   try {
     const queryParams = {
       fields: ["name", "slug"],
@@ -709,6 +713,10 @@ export async function searchSpecieByName(locale: string, name: string) {
             }
           }
         ],
+      },
+      pagination: {
+        page,
+        pageSize
       },
       sort: ["name:asc"],
     };
