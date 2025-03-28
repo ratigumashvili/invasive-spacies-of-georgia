@@ -664,7 +664,15 @@ export async function searchSpecieByType(locale: string, type: string, name: str
     };
 
     const queryParams = {
-      fields: ["name", "slug"],
+      fields: ["name", "slug", "autorName", "lifeForm", "firstRecorded", "dateOfDetection"],
+      populate: {
+        family: {
+          fields: ["name", "slug"]
+        },
+        genus: {
+          fields: ["name", "slug"]
+        }
+      },
       locale,
       filters: {
         $and: [dynamicFilter],
@@ -703,7 +711,15 @@ export async function searchSpecieByType(locale: string, type: string, name: str
 export async function searchSpecieByName(locale: string, name: string, page: number = 1, pageSize: number = 1) {
   try {
     const queryParams = {
-      fields: ["name", "slug"],
+      fields: ["name", "slug", "autorName", "lifeForm", "firstRecorded", "dateOfDetection"],
+      populate: {
+        family: {
+          fields: ["name", "slug"]
+        },
+        genus: {
+          fields: ["name", "slug"]
+        }
+      },
       locale,
       filters: {
         $and: [
