@@ -57,7 +57,7 @@ export default async function Search({ params, searchParams }: Props) {
             
             <SearchComponent />
             
-            {name && <SearchResults />}
+            {name && <SearchResults length={response.meta.pagination.total} />}
             
             {name && type && response.data.length === 0 && <NothingFound />}
             

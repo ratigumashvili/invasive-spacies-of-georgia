@@ -273,6 +273,8 @@
     "submit": "Search",
     "searched_for": "You searched for",
     "name": "Latin name",
-    "type": "Taxon type"
+    "type": "Taxon type",
+    "found": "Found",
+    "records": "record(s)"
   }
 }
