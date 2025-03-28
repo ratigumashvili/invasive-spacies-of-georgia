@@ -270,6 +270,9 @@
     "species": "Species",
     "placeholder_text": "Provide Latin name",
     "cancel": "Cancel",
-    "submit": "Search"
+    "submit": "Search",
+    "searched_for": "You searched for",
+    "name": "Latin name",
+    "type": "Taxon type"
   }
 }

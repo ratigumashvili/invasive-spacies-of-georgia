@@ -10,6 +10,7 @@ import { generateFontByLocale } from "@/lib/utils";
 import { searchSpecieByName, searchSpecieByType } from "@/lib/api-calls";
 
 import { Species } from "@/types/specie-response";
+import { SearchResults } from "../_components/search-results";
 
 type Props = {
     params: Promise<{ locale: string }>
@@ -57,6 +58,7 @@ export default async function Search({ params, searchParams }: Props) {
             {/* <pre>name: {JSON.stringify(name, null, 2)}</pre>
             <pre>type: {JSON.stringify(type, null, 2)}</pre>
             <pre>data: {JSON.stringify(response, null, 2)}</pre> */}
+            {name && <SearchResults />}
             <section className="mt-8">
                 <SpeciesTable data={response.data as Species[]} />
             </section>
