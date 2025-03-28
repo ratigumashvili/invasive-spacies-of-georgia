@@ -10,6 +10,21 @@ import { BASE_URL } from "@/lib/utils";
 
 export function SpecieBlock({ data }: { data: SingleSpecieList }) {
     const t = useTranslations("Common")
+    const s = useTranslations("Species")
+
+    function detectLifeForm(value: string) {
+        switch (value) {
+            case "aquatic":
+                return s("aquatic")
+            case "semiaquatic":
+                return s("semiaquatic")
+            case "terrestrial":
+                return s("terrestrial")
+            default:
+                return "Unknown";
+        }
+    }
+
     return (
         <Card className="rounded-none bg-slate-50 p-0 pb-6 flex-col h-full">
             <CardHeader className="p-0 flex">
@@ -53,7 +68,7 @@ export function SpecieBlock({ data }: { data: SingleSpecieList }) {
                     <dt>{t("nat")}:</dt>
                     <dd><p>{data?.autorName}</p></dd>
                     <dt>{t("eco_group")}:</dt>
-                    <dd><p>{data?.lifeForm}</p></dd>
+                    <dd>{detectLifeForm(data?.lifeForm as string)}</dd>
                     {!data?.isNew ? (
                         <>
                             <dt>{t("first_introduced")}:</dt>
