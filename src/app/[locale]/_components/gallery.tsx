@@ -10,6 +10,7 @@ import type { SlideImage } from "yet-another-react-lightbox";
 
 import "yet-another-react-lightbox/styles.css";
 import "yet-another-react-lightbox/plugins/captions.css";
+import { BASE_URL } from "@/lib/utils";
 
 type CustomSlide = SlideImage & {
     title?: string;
@@ -39,7 +40,7 @@ export function Gallery({ photos }: { photos: ImageType[] }) {
     };
 
     return (
-        <section className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        <section className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
             {photos.map((image, index) => (
                 <div
                     key={image.id}
@@ -47,12 +48,13 @@ export function Gallery({ photos }: { photos: ImageType[] }) {
                     onClick={() => handleImageClick(index)}
                 >
                     <Image
-                        src={image.url}
+                        src={`${BASE_URL}${image.url}`}
                         alt={image.alternativeText || "Photo"}
                         fill
                         className="object-cover"
                         sizes="(max-width: 768px) 100vw, 33vw"
                     />
+                    <small className="block mt-2 text-center absolute -bottom-0 left-0 right-0 p-1 bg-white !line-clamp-1">{image?.caption}</small>
                 </div>
             ))}
 
@@ -69,7 +71,7 @@ export function Gallery({ photos }: { photos: ImageType[] }) {
                         <div className="text-center text-white w-full">
                           <div className="relative w-full h-[65vh]">
                             <Image
-                              src={customSlide.src}
+                              src={`${BASE_URL}${customSlide.src}`}
                               alt={customSlide.title || "Image"}
                               fill
                               style={{ objectFit: "contain" }}
@@ -81,7 +83,7 @@ export function Gallery({ photos }: { photos: ImageType[] }) {
                           </div>
                           {customSlide.title && (
                             <div className="mt-4">
-                              <h2 className="text-3xl italic">{customSlide.title}</h2>
+                              <h2 className="text-xl italic">{customSlide.title}</h2>
                             </div>
                           )}
                         </div>
