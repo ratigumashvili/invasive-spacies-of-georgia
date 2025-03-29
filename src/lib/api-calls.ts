@@ -536,6 +536,9 @@ export async function fetchSpeciesByPlaceId(locale: string, placeId: string, pag
             "url"
           ]
         },
+        detectionDate: {
+          sort: ['year:desc', 'month:desc', 'day:desc']
+        },
         family: {
           fields: ["name"]
         },
