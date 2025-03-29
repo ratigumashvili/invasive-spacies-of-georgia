@@ -278,5 +278,8 @@
     "records": "record(s)",
     "nothing_found": "Nothing found",
     "try_other": "Try another options"
+  },
+  "Research": {
+    "page_title": "Research"
   }
 }
