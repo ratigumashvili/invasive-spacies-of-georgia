@@ -2,6 +2,7 @@ import { clsx, type ClassValue } from "clsx"
 import { twMerge } from "tailwind-merge"
 import { jsPDF } from "jspdf";
 import { BlocksContent } from "@strapi/blocks-react-renderer";
+import { DetectionDate } from "@/types/specie-response";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
@@ -217,4 +218,14 @@ export function formatDetectionDate(day?: number, month?: number, year?: number)
   } else {
     return "-";
   }
+}
+
+export function removeDuplicateDetectionDates(dates: DetectionDate[]) {
+  const seen = new Set();
+  return dates.filter((date) => {
+    const key = `${date.day || ""}-${date.month || ""}-${date.year}`;
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
 }

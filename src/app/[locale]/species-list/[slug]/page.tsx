@@ -91,7 +91,6 @@ export default async function SingleSpecieList({ params }: Props) {
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-0 md:gap-4 w-full">
                 <div className="col-span-2 print:col-span-3">
-                    {/* <pre>{JSON.stringify(data[0], null, 2)}</pre> */}
                     <SingleTaxonMeta data={data} />
                 </div>
                 <div className="col-span-1 print:hidden">
