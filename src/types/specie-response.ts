@@ -17,6 +17,7 @@ export interface SpecieDownload {
     riskAssessed: string,
     riskAssessedUrl: string,
     firstRecordInGeorgia: string | undefined,
+    detectionDate?: DetectionDate[];
     recordNumber: number,
     identification: string,
     ecology: string,
@@ -94,7 +95,6 @@ export type Species = {
     taxonStatus: string;
     firstRecorded?: string;
     isNew?: boolean;
-    dateOfDetection?: string | null;
     riskAssessed: string;
     riskAssessedUrl: string;
     identification: StrapiRichText;

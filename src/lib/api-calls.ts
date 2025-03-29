@@ -90,7 +90,6 @@ export async function fetchSpeciesData(locale: string, page: number = 1, pageSiz
         "name",
         "slug",
         "lifeForm",
-        "firstRecorded",
         "isNew",
         "dateOfDetection",
         "scientificNameId",

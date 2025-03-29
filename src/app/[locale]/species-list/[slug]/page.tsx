@@ -13,7 +13,7 @@ import { fetchSpeciesData, getSinglePage } from "@/lib/api-calls";
 
 import { Place } from "@/types/taxonomy-types";
 
-import { BASE_URL, strapiRichTextToPlainText } from "@/lib/utils";
+import { BASE_URL, formatDetectionDate, getOldestDetectionDate, removeDuplicateDetectionDates, strapiRichTextToPlainText } from "@/lib/utils";
 import { SpeciesResponse } from "@/types/specie-response";
 import { HomePageData } from "@/types/single-types";
 
@@ -38,7 +38,13 @@ export default async function SingleSpecieList({ params }: Props) {
 
     const fetchAppTitle = async (locale: "en"): Promise<HomePageData> => {
         return await getSinglePage<HomePageData>("home-page", locale, "fields[0]=title&fields[1]=subtitle&fields[2]=version");
-      };
+    };
+
+    const detectionDates = removeDuplicateDetectionDates(
+        data[0]?.detectionDate || []
+    );
+
+    const oldest = getOldestDetectionDate(data[0]?.detectionDate || []);
 
     if (data?.length === 0 || meta.pagination.total === 0) return <NothingFound />
 
@@ -58,7 +64,8 @@ export default async function SingleSpecieList({ params }: Props) {
         status: data[0]?.taxonStatus,
         riskAssessed: data[0]?.riskAssessed,
         riskAssessedUrl: data[0]?.riskAssessedUrl,
-        firstRecordInGeorgia: data[0]?.firstRecorded,
+        firstRecordInGeorgia: formatDetectionDate(oldest?.day, oldest?.month, oldest?.year),
+        dateDetected: detectionDates.map((date) => (formatDetectionDate(date.day, date.month, date.year))),
         recordNumber: data[0]?.places.length || 0,
         identification: strapiRichTextToPlainText(data[0]?.identification ?? []),
         ecology: strapiRichTextToPlainText(data[0]?.ecology ?? []),
@@ -113,7 +120,7 @@ export default async function SingleSpecieList({ params }: Props) {
                     </div>
                 </div>
             </div>
-            <SingleSpecieCite 
+            <SingleSpecieCite
                 authors={data[0]?.authors}
                 recordTitle={data[0]?.name}
                 recordAuthor={data[0]?.autorName as string}

@@ -229,3 +229,18 @@ export function removeDuplicateDetectionDates(dates: DetectionDate[]) {
     return true;
   });
 }
+
+export function getOldestDetectionDate(dates: DetectionDate[]): DetectionDate | null {
+  if (!dates.length) return null;
+
+  return dates.reduce((oldest, current) => {
+    const toDate = (d: DetectionDate) => {
+      const year = d.year;
+      const month = d.month ?? 1;
+      const day = d.day ?? 1;
+      return new Date(year, month - 1, day);
+    };
+
+    return toDate(current) < toDate(oldest) ? current : oldest;
+  }, dates[0]);
+}
