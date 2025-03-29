@@ -119,7 +119,10 @@ export async function fetchSpeciesData(locale: string, page: number = 1, pageSiz
         genus: { fields: ["name", "slug"], },
         places: { fields: ["title", "slug", "coordinates"] },
         habitats: { fields: ["code", "name", "description"] },
-        authors: {fields: ["username", "email"]}
+        authors: {fields: ["username", "email"]},
+        detectionDate: {
+          sort: ['year:desc', 'month:desc', 'day:desc']
+        },
       },
       pagination: {
         page,

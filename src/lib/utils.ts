@@ -206,3 +206,15 @@ export function formatNameToCitationStyle(fullName: string): string {
 
   return `${lastName} ${initials}`;
 }
+
+export function formatDetectionDate(day?: number, month?: number, year?: number): string {
+  if (day && month && year) {
+    return `${String(day).padStart(2, "0")}/${String(month).padStart(2, "0")}/${year}`;
+  } else if (month && year) {
+    return `${String(month).padStart(2, "0")}/${year}`;
+  } else if (year) {
+    return `${year}`;
+  } else {
+    return "-";
+  }
+}

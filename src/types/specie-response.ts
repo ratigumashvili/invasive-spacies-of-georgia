@@ -75,6 +75,13 @@ export interface User {
     email: string
 }
 
+export interface DetectionDate {
+    id: number,
+    year: number,
+    month: number,
+    day: number
+}
+
 export type Species = {
     id: number;
     documentId: string;
@@ -103,9 +110,10 @@ export type Species = {
     order: TaxonomyEntity;
     family: TaxonomyEntity;
     genus: TaxonomyEntity;
-    places: Place[],
-    habitats: Habitat[],
-    authors: User[],
+    places: Place[];
+    habitats: Habitat[];
+    authors: User[];
+    detectionDate: DetectionDate[];
     createdAt: string;
     updatedAt: string;
     publishedAt: string;

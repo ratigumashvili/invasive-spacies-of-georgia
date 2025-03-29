@@ -10,7 +10,7 @@ import {
     PopoverTrigger,
 } from "@/components/ui/popover"
 
-import { separator } from "@/lib/utils";
+import { formatDetectionDate, separator } from "@/lib/utils";
 
 import { Species } from "@/types/specie-response";
 
@@ -44,7 +44,7 @@ export function SingleTaxonMeta({ data }: SingleTaxonMetaProps) {
         } else {
             return
         }
-    }
+    }      
 
     return (
         <div className="border border-sky-800 border-l-8 bg-slate-50 my-8 md:my-0 p-4">
@@ -107,6 +107,12 @@ export function SingleTaxonMeta({ data }: SingleTaxonMetaProps) {
                 </dd>
                 <dt>{t("first_introduced")}</dt>
                 <dd>{data[0]?.firstRecorded}</dd>
+                <dt>Date detected</dt>
+                <dd>
+                    {data[0]?.detectionDate.map((date) => (
+                        <p key={date.id}>{formatDetectionDate(date.day, date.month, date.year)}</p>
+                    ))}
+                </dd>
                 <dt>{t("recordsNumber")}</dt>
                 <dd>{data[0]?.places?.length}</dd>
             </dl>
