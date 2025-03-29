@@ -29,7 +29,8 @@ export interface SpecieDownload {
 
 export interface DistributionDownload {
     place: string,
-    coordinates: string
+    lat: string,
+    lng: string
 }
 
 export interface TaxonomyEntity {

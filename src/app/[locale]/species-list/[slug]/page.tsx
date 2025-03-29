@@ -69,9 +69,13 @@ export default async function SingleSpecieList({ params }: Props) {
         references: strapiRichTextToPlainText(data[0]?.references ?? []),
     }
 
+    const coordinates = data[0]?.places?.map((item) => item.coordinates)
+    const [latStr, lngStr] = coordinates[0].split(",").map((part) => part.trim())
+
     const downloadDistributionData = data[0]?.places?.map((place) => ({
         place: place.title,
-        coordinates: place.coordinates
+        lat: latStr,
+        lng: lngStr
     })) ?? [];
 
     const appData = await fetchAppTitle("en")
