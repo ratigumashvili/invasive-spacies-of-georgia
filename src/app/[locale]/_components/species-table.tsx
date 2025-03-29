@@ -2,6 +2,7 @@ import { Link } from "@/i18n/routing"
 import { useTranslations } from "next-intl"
 
 import { Species } from "@/types/specie-response"
+import { formatDetectionDate, getOldestDetectionDate } from "@/lib/utils"
 
 export function SpeciesTable({ data }: { data: Species[] }) {
     const t = useTranslations("Species")
@@ -43,7 +44,12 @@ export function SpeciesTable({ data }: { data: Species[] }) {
                                 <td>{detectLifeForm(item.lifeForm as string)}</td>
                                 <td>{item.family?.name}</td>
                                 <td>{item.genus?.name}</td>
-                                <td>tobemodified</td>
+                                {(item.detectionDate?.length ?? 0) > 0 ? (() => {
+                                    const oldest = getOldestDetectionDate(item.detectionDate!);
+                                    return (
+                                        <td>{formatDetectionDate(oldest?.day, oldest?.month, oldest?.year)}</td>
+                                    );
+                                })() : <td></td>}
                             </tr>
                         ))}
                     </tbody>

@@ -1,3 +1,5 @@
+import { DetectionDate } from "./specie-response";
+
 export type SingleSpecieList = {
     id: number;
     documentId: string;
@@ -7,7 +9,7 @@ export type SingleSpecieList = {
     autorName?: string;
     lifeForm?: string;
     isNew?: boolean;
-    dateOfDetection?: string | null;
+    detectionDate?: DetectionDate[];
     image?: {
       id: number;
       documentId: string;

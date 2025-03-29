@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 
 import { SingleSpecieList } from "@/types/random-specie";
-import { BASE_URL } from "@/lib/utils";
+import { BASE_URL, formatDetectionDate, getOldestDetectionDate } from "@/lib/utils";
 
 export function SpecieBlock({ data }: { data: SingleSpecieList }) {
     const t = useTranslations("Common")
@@ -69,24 +69,15 @@ export function SpecieBlock({ data }: { data: SingleSpecieList }) {
                     <dd><p>{data?.autorName}</p></dd>
                     <dt>{t("eco_group")}:</dt>
                     <dd>{detectLifeForm(data?.lifeForm as string)}</dd>
-                    {!data?.isNew ? (
-                        <>
-                            <dt>{t("first_introduced")}:</dt>
-                            <dd>tobemodified</dd>
-                        </>
-                    ) : (
-                        <>
-                            <dt>{t("date_detected")}:</dt>
-                            <dd>
-                                <p>
-                                    {data?.dateOfDetection
-                                        ? new Date(data.dateOfDetection).toLocaleDateString("en-CA") // "YYYY/MM/DD"
-                                        : "N/A"}
-                                </p>
-                            </dd>
-                        </>
-                    )}
-
+                    {(data.detectionDate?.length ?? 0) > 0 && (() => {
+                        const oldest = getOldestDetectionDate(data.detectionDate!);
+                        return (
+                            <>
+                                <dt>{t("first_introduced")}:</dt>
+                                <dd>{formatDetectionDate(oldest?.day, oldest?.month, oldest?.year)}</dd>
+                            </>
+                        );
+                    })()}
                 </dl>
             </CardContent>
             <CardFooter className="mt-auto">
