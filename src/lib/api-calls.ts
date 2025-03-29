@@ -91,7 +91,6 @@ export async function fetchSpeciesData(locale: string, page: number = 1, pageSiz
         "slug",
         "lifeForm",
         "isNew",
-        "dateOfDetection",
         "scientificNameId",
         "scientificNameUrl",
         "taxonStatus",
@@ -327,7 +326,6 @@ export async function fetchRandomSpecie(locale: string, filterType?: "isNew" | "
           "slug",
           "lifeForm",
           "isNew",
-          "dateOfDetection",
           "identification"
         ],
 
@@ -526,7 +524,6 @@ export async function fetchSpeciesByPlaceId(locale: string, placeId: string, pag
         "autorName",
         "lifeForm",
         "isNew",
-        "dateOfDetection"
       ],
       populate: {
         image: {
@@ -706,7 +703,7 @@ export async function searchSpecieByType(locale: string, type: string, name: str
     };
 
     const queryParams = {
-      fields: ["name", "slug", "autorName", "lifeForm", "dateOfDetection"],
+      fields: ["name", "slug", "autorName", "lifeForm"],
       populate: {
         family: {
           fields: ["name", "slug"]
@@ -844,7 +841,6 @@ export async function fetchSpeciesByCoordinates(locale: string, pageSize: number
         "lifeForm",
         "autorName",
         "isNew",
-        "dateOfDetection",
       ],
 
       "populate[species][populate][family][fields]": [
