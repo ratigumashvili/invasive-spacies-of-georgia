@@ -7,6 +7,7 @@ import { BASE_API_URL, BASE_URL } from "./utils";
 import { PlaceResponse } from "@/types/place-response";
 import { SpeciesResponse } from "@/types/specie-response";
 import { SpeciesCount } from "@/types/species-count";
+import { ResearchResponse } from "@/types/research-response";
 
 interface PaginationMeta {
   page: number;
@@ -251,6 +252,47 @@ export async function getEvents(locale: string, page: number = 1, pageSize: numb
       data: [],
       meta: { pagination: { page: 1, pageSize, pageCount: 1, total: 0 } }
     };
+  }
+}
+
+export async function fetchResearches(locale: string, page: number = 1, pageSize: number = 1) {
+  try {
+    const queryParams = {
+      fields: [
+        "title", "slug", "description"
+      ],
+
+      populate: {
+        images: {
+          fields: ["id", "alternativeText", "caption", "url", "width", "height"]
+        }
+      },
+      pagination: {
+        page: page,
+        pageSize: pageSize
+      },
+      locale,
+      sort: ["title:asc"]
+    };
+
+    const query = qs.stringify(queryParams, { encode: false });
+    const requestUrl = `${BASE_API_URL}/researches?${query}`;
+
+    const response = await fetch(requestUrl, {
+      method: "GET",
+      headers: { "Accept": "application/json" }
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(`Failed to fetch researches: ${errorData.error?.message || response.statusText}`);
+    }
+
+    const data: ResearchResponse = await response.json();
+    return data;
+  } catch (error: any) {
+    console.error("Error fetching research data:", error.message);
+    return { data: [], meta: { pagination: { page: 1, pageSize: 25, pageCount: 1, total: 0 } } };
   }
 }
 
