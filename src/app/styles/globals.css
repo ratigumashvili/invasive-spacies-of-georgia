@@ -46,6 +46,10 @@ body {
   @apply grid grid-cols-1 sm:grid-cols-2 gap-2 [&>dt]:font-medium [&>dt]:col-span-1 [&>dd]:col-span-1 [&>dd>a]:text-sky-800 [&>dd>a:hover]:text-sky-700;
 }
 
+.list {
+  @apply pl-8 relative before:absolute before:w-6 before:h-1 before:left-0 before:top-[50%] before:translate-y-[-50%] before:bg-sky-800
+}
+
 .leaflet-popup-content {
   @apply [&>p]:m-0
 }

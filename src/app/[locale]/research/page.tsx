@@ -35,7 +35,7 @@ export default async function Research({ params, searchParams }: Props) {
 
             <PageTitle locale={locale} />
 
-            <ul>
+            <ul className="list">
                 {response?.data?.map((research) => (
                     <li key={research.documentId}>
                         <Link href={`/research/${research.slug}`}>{research.title}</Link>
