@@ -28,16 +28,16 @@ export default async function Research({ params, searchParams }: Props) {
 
     const currentPage = Number(page) || 1
 
-    const response = await fetchResearches(locale, currentPage, 1)
+    const response = await fetchResearches(locale, currentPage, 24)
 
     return (
         <Container>
 
             <PageTitle locale={locale} />
 
-            <ul className="list">
+            <ul>
                 {response?.data?.map((research) => (
-                    <li key={research.documentId}>
+                    <li key={research.documentId} className="list mb-2">
                         <Link href={`/research/${research.slug}`}>{research.title}</Link>
                     </li>
                 ))}
