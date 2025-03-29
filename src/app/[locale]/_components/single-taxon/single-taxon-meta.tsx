@@ -115,8 +115,8 @@ export function SingleTaxonMeta({ data }: SingleTaxonMetaProps) {
                 <dd>{formatDetectionDate(oldest?.day, oldest?.month, oldest?.year)}</dd>
                 <dt>Date detected</dt>
                 <dd>
-                    {detectionDates.map((date) => (
-                        <p key={date.id}>{formatDetectionDate(date.day, date.month, date.year)}</p>
+                    {detectionDates.map((date, index) => (
+                        <span key={date.id}>{formatDetectionDate(date.day, date.month, date.year)}{separator(index, detectionDates)}</span>
                     ))}
                 </dd>
                 <dt>{t("recordsNumber")}</dt>

@@ -120,6 +120,7 @@
     "family": "Family",
     "genus": "Genus",
     "first_introduced": "First Recorded",
+    "dateDetected": "Date detected",
     "assessments": "Risk Assessments",
     "common_names": "Common Names",
     "synonyms": "Synonyms",
