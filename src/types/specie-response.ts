@@ -93,7 +93,6 @@ export type Species = {
     autorName?: string;
     lifeForm?: string;
     taxonStatus: string;
-    firstRecorded?: string;
     isNew?: boolean;
     riskAssessed: string;
     riskAssessedUrl: string;

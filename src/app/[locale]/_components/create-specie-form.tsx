@@ -33,7 +33,6 @@ export function CreateSpecieForm() {
         autorName: z.string().optional(),
         commonNames: z.string().optional(),
         // habitat: z.string().optional(),
-        firstRecorded: z.string().optional(),
         dateOfDetection: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, t("date_error")),
         placeName: z.string().min(2, t("place_error")),
         coordinates: z.string(),
@@ -50,7 +49,6 @@ export function CreateSpecieForm() {
             autorName: "",
             commonNames: "",
             // habitat: "",
-            firstRecorded: "",
             dateOfDetection: "",
             placeName: "",
             coordinates: "",
@@ -86,7 +84,6 @@ export function CreateSpecieForm() {
                 autorName: values.autorName,
                 commonNames: values.commonNames,
                 // habitat: values.habitat,
-                firstRecorded: values.firstRecorded,
                 dateOfDetection: values.dateOfDetection,
                 placeName: values.placeName,
                 coordinates: values.coordinates,
@@ -187,37 +184,7 @@ export function CreateSpecieForm() {
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-4">
-                        <FormField
-                            control={form.control}
-                            name="firstRecorded"
-                            render={({ field }) => (
-                                <FormItem>
-                                    <FormLabel>{t("introduced")}</FormLabel>
-                                    <FormControl>
-                                        <Input
-                                            type="number"
-                                            min={0}
-                                            {...field}
-                                            placeholder={t("introduced_placeholder")}
-                                            className="rounded-none px-3 py-6 text-base"
-                                            onKeyDown={(e) => {
-                                                if (e.key === '-' || e.key === 'e') {
-                                                    e.preventDefault();
-                                                }
-                                            }}
-                                            onChange={(e) => {
-                                                const value = e.target.value;
-                                                if (value.length <= 4) {
-                                                    field.onChange(value);
-                                                }
-                                            }}
-                                        />
-
-                                    </FormControl>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        />
+                        
                         <FormField
                             control={form.control}
                             name="dateOfDetection"

@@ -91,7 +91,6 @@ export function GeneratePdfButton({ data }: { data: Species }) {
             ["Ecological Group", detectLifeForm(data?.lifeForm as string)],
             ["Status", data?.taxonStatus && data?.taxonStatus === "non-invasive" ? t("non-native") : t("invasive")],
             ["Risk Assessed", t(data?.riskAssessed), false, data.riskAssessedUrl ? data.riskAssessedUrl : ""],
-            ["First Introduced", data.firstRecorded],
             ["Number of Records", data.places?.length],
         ];
 

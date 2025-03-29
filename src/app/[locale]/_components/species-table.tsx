@@ -31,7 +31,6 @@ export function SpeciesTable({ data }: { data: Species[] }) {
                             <th>{t("family")}</th>
                             <th>{t("genus")}</th>
                             <th className="text-nowrap">{t("first_introduced")}</th>
-                            <th className="text-nowrap">{t("detected")}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -44,8 +43,7 @@ export function SpeciesTable({ data }: { data: Species[] }) {
                                 <td>{detectLifeForm(item.lifeForm as string)}</td>
                                 <td>{item.family?.name}</td>
                                 <td>{item.genus?.name}</td>
-                                <td>{item.firstRecorded}</td>
-                                <td>{item.dateOfDetection}</td>
+                                <td>tobemodified</td>
                             </tr>
                         ))}
                     </tbody>

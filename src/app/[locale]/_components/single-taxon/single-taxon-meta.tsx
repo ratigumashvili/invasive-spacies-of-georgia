@@ -112,7 +112,6 @@ export function SingleTaxonMeta({ data }: SingleTaxonMetaProps) {
                         : (<>{t("no")}</>)}
                 </dd>
                 <dt>{t("first_introduced")}</dt>
-                {/* <dd>{data[0]?.firstRecorded}</dd> */}
                 <dd>{formatDetectionDate(oldest?.day, oldest?.month, oldest?.year)}</dd>
                 <dt>Date detected</dt>
                 <dd>

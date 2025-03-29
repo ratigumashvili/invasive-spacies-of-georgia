@@ -72,7 +72,7 @@ export function SpecieBlock({ data }: { data: SingleSpecieList }) {
                     {!data?.isNew ? (
                         <>
                             <dt>{t("first_introduced")}:</dt>
-                            <dd><p>{data?.firstRecorded}</p></dd>
+                            <dd>tobemodified</dd>
                         </>
                     ) : (
                         <>

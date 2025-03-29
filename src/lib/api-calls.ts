@@ -326,7 +326,6 @@ export async function fetchRandomSpecie(locale: string, filterType?: "isNew" | "
           "name",
           "slug",
           "lifeForm",
-          "firstRecorded",
           "isNew",
           "dateOfDetection",
           "identification"
@@ -526,7 +525,6 @@ export async function fetchSpeciesByPlaceId(locale: string, placeId: string, pag
         "slug",
         "autorName",
         "lifeForm",
-        "firstRecorded",
         "isNew",
         "dateOfDetection"
       ],
@@ -708,7 +706,7 @@ export async function searchSpecieByType(locale: string, type: string, name: str
     };
 
     const queryParams = {
-      fields: ["name", "slug", "autorName", "lifeForm", "firstRecorded", "dateOfDetection"],
+      fields: ["name", "slug", "autorName", "lifeForm", "dateOfDetection"],
       populate: {
         family: {
           fields: ["name", "slug"]
@@ -755,7 +753,7 @@ export async function searchSpecieByType(locale: string, type: string, name: str
 export async function searchSpecieByName(locale: string, name: string, page: number = 1, pageSize: number = 1) {
   try {
     const queryParams = {
-      fields: ["name", "slug", "autorName", "lifeForm", "firstRecorded", "dateOfDetection"],
+      fields: ["name", "slug", "autorName", "lifeForm"],
       populate: {
         family: {
           fields: ["name", "slug"]
@@ -845,7 +843,6 @@ export async function fetchSpeciesByCoordinates(locale: string, pageSize: number
         "slug",
         "lifeForm",
         "autorName",
-        "firstRecorded",
         "isNew",
         "dateOfDetection",
       ],
