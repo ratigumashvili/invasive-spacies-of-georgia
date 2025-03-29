@@ -40,7 +40,7 @@ export function Gallery({ photos }: { photos: ImageType[] }) {
     };
 
     return (
-        <section className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+        <section className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mt-6">
             {photos.map((image, index) => (
                 <div
                     key={image.id}
