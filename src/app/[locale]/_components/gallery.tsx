@@ -8,9 +8,11 @@ import { LoaderCircleIcon } from "lucide-react";
 import { Image as ImageType } from "@/types/specie-response";
 import type { SlideImage } from "yet-another-react-lightbox";
 
+import { BASE_URL } from "@/lib/utils";
+
 import "yet-another-react-lightbox/styles.css";
 import "yet-another-react-lightbox/plugins/captions.css";
-import { BASE_URL } from "@/lib/utils";
+
 
 type CustomSlide = SlideImage & {
     title?: string;
@@ -65,32 +67,31 @@ export function Gallery({ photos }: { photos: ImageType[] }) {
                 index={currentIndex}
                 render={{
                     slide: ({ slide }) => {
-                      const customSlide = slide as CustomSlide;
-                  
-                      return (
-                        <div className="text-center text-white w-full">
-                          <div className="relative w-full h-[65vh]">
-                            <Image
-                              src={`${BASE_URL}${customSlide.src}`}
-                              alt={customSlide.title || "Image"}
-                              fill
-                              style={{ objectFit: "contain" }}
-                              className="z-10"
-                            />
-                            <p className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-                              <LoaderCircleIcon className="w-4 h-4 animate-spin" />
-                            </p>
-                          </div>
-                          {customSlide.title && (
-                            <div className="mt-4">
-                              <h2 className="text-xl italic">{customSlide.title}</h2>
+                        const customSlide = slide as CustomSlide;
+
+                        return (
+                            <div className="text-center text-white w-full">
+                                <div className="relative w-full h-[65vh]">
+                                    <Image
+                                        src={`${BASE_URL}${customSlide.src}`}
+                                        alt={customSlide.title || "Image"}
+                                        fill
+                                        style={{ objectFit: "contain" }}
+                                        className="z-10"
+                                    />
+                                    <p className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+                                        <LoaderCircleIcon className="w-4 h-4 animate-spin" />
+                                    </p>
+                                </div>
+                                {customSlide.title && (
+                                    <div className="mt-4">
+                                        <h2 className="text-xl italic">{customSlide.title}</h2>
+                                    </div>
+                                )}
                             </div>
-                          )}
-                        </div>
-                      );
+                        );
                     },
-                  }}
-                  
+                }}
             />
         </section>
     );
