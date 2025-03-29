@@ -1,10 +1,10 @@
 import Container from "@/app/[locale]/_components/container";
 import { BlocksContent, BlocksRenderer } from "@strapi/blocks-react-renderer";
 
+import { Gallery } from "@/app/[locale]/_components/gallery";
+
 import { fetchResearches } from "@/lib/api-calls";
-import { BASE_URL, generateFontByLocale } from "@/lib/utils";
-import Image from "next/image";
-import { Gallery } from "../../_components/gallery";
+import { generateFontByLocale } from "@/lib/utils";
 
 type Props = {
     params: Promise<{ locale: string, slug: string }>
@@ -35,7 +35,7 @@ export default async function SingleResearch({ params }: Props) {
             </div>
 
             {response?.data[0]?.images.length !== 0 && <Gallery photos={response?.data[0]?.images} />}
-            
+
         </Container>
     )
 }
