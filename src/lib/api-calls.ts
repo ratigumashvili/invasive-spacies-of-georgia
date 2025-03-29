@@ -255,7 +255,7 @@ export async function getEvents(locale: string, page: number = 1, pageSize: numb
   }
 }
 
-export async function fetchResearches(locale: string, page: number = 1, pageSize: number = 1) {
+export async function fetchResearches(locale: string, page: number = 1, pageSize: number = 1, filterQuery?: string) {
   try {
     const queryParams = {
       fields: [
@@ -275,7 +275,7 @@ export async function fetchResearches(locale: string, page: number = 1, pageSize
       sort: ["title:asc"]
     };
 
-    const query = qs.stringify(queryParams, { encode: false });
+    const query = `${qs.stringify(queryParams, { encodeValuesOnly: true })}${filterQuery ? `&${filterQuery}` : ''}`;
     const requestUrl = `${BASE_API_URL}/researches?${query}`;
 
     const response = await fetch(requestUrl, {
