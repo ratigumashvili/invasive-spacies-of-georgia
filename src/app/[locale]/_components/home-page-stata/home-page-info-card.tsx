@@ -20,7 +20,7 @@ export function HomePageInfoCard({
     return (
             <Card className='bg-slate-100 rounded-none flex-1 border-sky-800 border-l-10'>
                 <CardHeader>
-                    <CardTitle className={`${generateFontByLocale(locale)} text-xl uppercase`}>
+                    <CardTitle className={`${generateFontByLocale(locale)} text-lg uppercase`}>
                     {t(title)} {total}
                     </CardTitle>
                     <CardDescription className="text-sm">
