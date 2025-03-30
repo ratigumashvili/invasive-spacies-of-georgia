@@ -1,14 +1,13 @@
 import qs from "qs";
+
 import Container from "@/app/[locale]/_components/container";
+
 import { getSinglePage } from "@/lib/api-calls";
+
+import { LegalDocumetns } from "@/types/legal-docs-response";
 
 type Props = {
     params: Promise<{ locale: string }>
-}
-
-interface LegalDocumetns {
-    id: number,
-    documentId: string
 }
 
 const filterQuery = {
