@@ -14,6 +14,6 @@ interface Record {
 
 export interface LegalDocumetns {
     id: number,
-    documentId:string,
+    documentId: string,
     records: Record[]
 }
