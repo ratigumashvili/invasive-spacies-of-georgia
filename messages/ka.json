@@ -63,7 +63,7 @@
     "about": "ბაზის შესახებ",
     "species_list": "სახეობათა სია",
     "literature": "სამეცნიერო ლიტერატურა",
-    "legal_docs": "ლეგალური დოკუმენტები",
+    "legal_docs": "სამართლებრივი დოკუმენტები",
     "research": "კვლევები",
     "data_export": "მონაცემთა ექსპორტი",
     "statistics": "სტატისტიკა",
@@ -79,7 +79,7 @@
     "logout": "გასვლა"
   },
   "actions": {
-    "explore_ISG_data": "აღმოაჩინეთ ISG მონაცემები",
+    "explore_ISG_data": "NNSG მონაცემები",
     "documents": "დოკუმენტები",
     "legal_docs": "სამართლებრივი დოკუმენტები",
     "scientific_literature": "სამეცნიერო ლიტერატურა",
@@ -177,7 +177,7 @@
     "Telavi": "თელავი",
     "Bolnisi": "ბოლნისი",
     "Dmanisi": "დმანისი",
-    "Gardabani": "გადრაბანი",
+    "Gardabani": "გარდაბანი",
     "Marneuli": "მარნეული",
     "Tetri Tskaro": "თეთრიწყარო",
     "Tsalka": "წალკა",
