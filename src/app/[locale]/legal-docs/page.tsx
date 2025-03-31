@@ -1,12 +1,12 @@
 import qs from "qs";
+import { useTranslations } from "next-intl";
 
 import Container from "@/app/[locale]/_components/container";
 
 import { getSinglePage } from "@/lib/api-calls";
+import { generateFontByLocale } from "@/lib/utils";
 
 import { LegalDocumetns } from "@/types/legal-docs-response";
-import { useTranslations } from "next-intl";
-import { generateFontByLocale } from "@/lib/utils";
 
 type Props = {
     params: Promise<{ locale: string }>
