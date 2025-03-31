@@ -5,6 +5,8 @@ import Container from "@/app/[locale]/_components/container";
 import { getSinglePage } from "@/lib/api-calls";
 
 import { LegalDocumetns } from "@/types/legal-docs-response";
+import { useTranslations } from "next-intl";
+import { generateFontByLocale } from "@/lib/utils";
 
 type Props = {
     params: Promise<{ locale: string }>
@@ -25,6 +27,15 @@ const filterQuery = {
 
 const query = qs.stringify(filterQuery, {encodeValuesOnly: true})
 
+const PageTitle = ({ locale }: { locale: string }) => {
+    const t = useTranslations("LegalDocs")
+    return (
+        <h1 className={`${generateFontByLocale(locale)} text-2xl uppercase font-medium mb-8`}>
+            {t("page_title")}
+        </h1>
+    )
+}
+
 export default async function LegalDocs({ params }: Props) {
     const { locale } = await params
 
@@ -35,7 +46,8 @@ export default async function LegalDocs({ params }: Props) {
     const response = await fetcLegalDocs(locale)
 
     return (
-        <Container>Legal docs
+        <Container>
+            <PageTitle locale={locale} />
             <pre>{JSON.stringify(response, null, 2)}</pre>
         </Container>
     )
