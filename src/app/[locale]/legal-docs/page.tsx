@@ -32,7 +32,7 @@ export default async function LegalDocs({ params, searchParams }: Props) {
 
     const response = await fetchLegalDocs(locale, currentPage, 24)
 
-    const sortedRecords = [...response.data].sort((a, b) => {
+    const sortedRecords = response && [...response?.data].sort((a, b) => {
         const dateA = new Date(Number(a.date.year), (a.date.month || 1) - 1, a.date.day || 1);
         const dateB = new Date(Number(b.date.year), (b.date.month || 1) - 1, b.date.day || 1);
         return dateB.getTime() - dateA.getTime();
