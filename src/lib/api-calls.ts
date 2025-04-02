@@ -8,6 +8,7 @@ import { PlaceResponse } from "@/types/place-response";
 import { SpeciesResponse } from "@/types/specie-response";
 import { SpeciesCount } from "@/types/species-count";
 import { ResearchResponse } from "@/types/research-response";
+import { legalDocsResponse } from "@/types/legal-docs-response";
 
 interface PaginationMeta {
   page: number;
@@ -293,6 +294,46 @@ export async function fetchResearches(locale: string, page: number = 1, pageSize
     return data;
   } catch (error: any) {
     console.error("Error fetching research data:", error.message);
+    return { data: [], meta: { pagination: { page: 1, pageSize: 25, pageCount: 1, total: 0 } } };
+  }
+}
+
+export async function fetchLegalDocs(locale: string, page: number = 1, pageSize: number = 1) {
+  try {
+    const queryParams = {
+      fields: [
+        "title", "documentType", "description", "url"
+      ],
+
+      populate: {
+        date: {
+          fields: ["day", "month", "year"]
+        }
+      },
+      pagination: {
+        page: page,
+        pageSize: pageSize
+      },
+      locale,
+    };
+
+    const query = qs.stringify(queryParams, { encode: false });
+    const requestUrl = `${BASE_API_URL}/legal-docs?${query}`;
+
+    const response = await fetch(requestUrl, {
+      method: "GET",
+      headers: { "Accept": "application/json" }
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(`Failed to fetch legal-docs: ${errorData.error?.message || response.statusText}`);
+    }
+
+    const data: legalDocsResponse = await response.json();
+    return data;
+  } catch (error: any) {
+    console.error("Error fetching legal-docs data:", error.message);
     return { data: [], meta: { pagination: { page: 1, pageSize: 25, pageCount: 1, total: 0 } } };
   }
 }

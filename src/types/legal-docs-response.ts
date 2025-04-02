@@ -4,16 +4,24 @@ interface Date {
     year: number
 }
 
-interface Record {
-    id: number,
-    title: string,
-    url: string,
-    description: string
+export interface legalDocs {
+    id: number;
+    documentId: string;
+    title: string;
+    documentType: string,
+    description: string;
+    url: string;
     date: Date
 }
 
-export interface LegalDocumetns {
-    id: number,
-    documentId: string,
-    records: Record[]
-}
+export type legalDocsResponse = {
+    data: legalDocs[];
+    meta: {
+        pagination: {
+            page: number;
+            pageSize: number;
+            pageCount: number;
+            total: number;
+        };
+    };
+};
