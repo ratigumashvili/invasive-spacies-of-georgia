@@ -1,10 +1,9 @@
-import qs from "qs";
 import { useTranslations } from "next-intl";
 
 import Container from "@/app/[locale]/_components/container";
 import { Pagination } from "@/app/[locale]/_components/pagination";
 
-import { fetchLegalDocs, getSinglePage } from "@/lib/api-calls";
+import { fetchLegalDocs } from "@/lib/api-calls";
 import { formatDate, generateFontByLocale } from "@/lib/utils";
 
 import { Link } from "@/i18n/routing";
@@ -42,10 +41,12 @@ export default async function LegalDocs({ params, searchParams }: Props) {
         <Container>
             <PageTitle locale={locale} />
             {sortedRecords?.map((document) => (
-                <div key={document.id} className="mb-4">
-                    <h2>{document.title} - {formatDate(document.date.day, document.date.month, document.date.year,)}</h2>
-                    <p>{document.description}</p>
-                    <Link href={document.url}>Read more</Link>
+                <div key={document.id} className="mb-8 flex flex-col gap-y-2">
+                    <h2 className="text-lg font-medium">{document.title}</h2>
+                    <p><span className="text-muted-foreground">Date published</span>: {formatDate(document.date.day, document.date.month, document.date.year,)}</p>
+                    <p><span className="text-muted-foreground">Type of document</span>: {document.documentType}</p>
+                    <p><span className="text-muted-foreground">Description</span>: {document.description}</p>
+                    <Link href={document.url} target="blank">View document</Link>
                 </div>
             ))}
             <Pagination
