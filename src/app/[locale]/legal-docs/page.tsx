@@ -46,7 +46,7 @@ export default async function LegalDocs({ params, searchParams }: Props) {
                     <p><span className="text-muted-foreground">Date published</span>: {formatDate(document.date.day, document.date.month, document.date.year,)}</p>
                     <p><span className="text-muted-foreground">Type of document</span>: {document.documentType}</p>
                     <p><span className="text-muted-foreground">Description</span>: {document.description}</p>
-                    <Link href={document.url} target="blank">View document</Link>
+                    <Link href={document.url} target="blank" className="text-sky-800 font-medium">View document</Link>
                 </div>
             ))}
             <Pagination

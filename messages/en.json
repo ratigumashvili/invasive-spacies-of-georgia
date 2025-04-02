@@ -284,6 +284,10 @@
     "page_title": "Research"
   },
   "LegalDocs": {
-    "page_title": "Legal documents"
+    "page_title": "Legal documents",
+    "date_published": "Date published",
+    "type": "Document type",
+    "description": "Description",
+    "view": "View document"
   }
 }
