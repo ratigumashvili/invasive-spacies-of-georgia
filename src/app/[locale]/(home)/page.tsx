@@ -23,11 +23,29 @@ export default async function HomePage({ params }: Props) {
 
   const { locale } = await params
 
+  const homePageDataQuery = qs.stringify(
+    {
+      fields: ["title", "subtitle", "version"],
+      populate: {
+        images: {
+          fields: [
+            "documentId",
+            "name",
+            "alternativeText",
+            "caption",
+            "width",
+            "height",
+            "url"
+          ]
+        }
+      }
+    },
+    { encodeValuesOnly: true }
+  );
+
   const fetchHomePageData = async (locale: string): Promise<HomePageData> => {
-    return await getSinglePage<HomePageData>("home-page", locale, "fields[0]=title&fields[1]=subtitle&fields[2]=version&populate[images][fields][0]=documentId&populate[images][fields][1]=name&populate[images][fields][2]=alternativeText&populate[images][fields][3]=caption&populate[images][fields][4]=width&populate[images][fields][5]=height&populate[images][fields][6]=url");
+    return await getSinglePage<HomePageData>("home-page", locale, homePageDataQuery);
   };
-
-
 
   const data = await fetchHomePageData(locale)
   const events = await getEvents(locale)
