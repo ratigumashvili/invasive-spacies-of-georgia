@@ -10,7 +10,7 @@ import {
     PopoverTrigger,
 } from "@/components/ui/popover"
 
-import { formatDetectionDate, getOldestDetectionDate, removeDuplicateDetectionDates, separator } from "@/lib/utils";
+import { formatDate, getOldestDetectionDate, removeDuplicateDetectionDates, separator } from "@/lib/utils";
 
 import { Species } from "@/types/specie-response";
 
@@ -112,11 +112,11 @@ export function SingleTaxonMeta({ data }: SingleTaxonMetaProps) {
                         : (<>{t("no")}</>)}
                 </dd>
                 <dt>{t("first_introduced")}</dt>
-                <dd>{formatDetectionDate(oldest?.day, oldest?.month, oldest?.year)}</dd>
+                <dd>{formatDate(oldest?.day, oldest?.month, oldest?.year)}</dd>
                 <dt>{t("dateDetected")}</dt>
                 <dd>
                     {detectionDates.map((date, index) => (
-                        <span key={date.id}>{formatDetectionDate(date.day, date.month, date.year)}{separator(index, detectionDates)}</span>
+                        <span key={date.id}>{formatDate(date.day, date.month, date.year)}{separator(index, detectionDates)}</span>
                     ))}
                 </dd>
                 <dt>{t("recordsNumber")}</dt>

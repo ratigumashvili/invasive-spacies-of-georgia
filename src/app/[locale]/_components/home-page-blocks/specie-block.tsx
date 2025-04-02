@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 
 import { SingleSpecieList } from "@/types/random-specie";
-import { BASE_URL, formatDetectionDate, getOldestDetectionDate } from "@/lib/utils";
+import { BASE_URL, formatDate, getOldestDetectionDate } from "@/lib/utils";
 
 export function SpecieBlock({ data }: { data: SingleSpecieList }) {
     const t = useTranslations("Common")
@@ -74,7 +74,7 @@ export function SpecieBlock({ data }: { data: SingleSpecieList }) {
                         return (
                             <>
                                 <dt>{t("first_introduced")}:</dt>
-                                <dd>{formatDetectionDate(oldest?.day, oldest?.month, oldest?.year)}</dd>
+                                <dd>{formatDate(oldest?.day, oldest?.month, oldest?.year)}</dd>
                             </>
                         );
                     })()}

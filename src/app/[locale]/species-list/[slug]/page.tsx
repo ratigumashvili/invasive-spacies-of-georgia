@@ -13,7 +13,7 @@ import { fetchSpeciesData, getSinglePage } from "@/lib/api-calls";
 
 import { Place } from "@/types/taxonomy-types";
 
-import { BASE_URL, formatDetectionDate, getOldestDetectionDate, removeDuplicateDetectionDates, strapiRichTextToPlainText } from "@/lib/utils";
+import { BASE_URL, formatDate, getOldestDetectionDate, removeDuplicateDetectionDates, strapiRichTextToPlainText } from "@/lib/utils";
 import { SpeciesResponse } from "@/types/specie-response";
 import { HomePageData } from "@/types/single-types";
 
@@ -64,8 +64,8 @@ export default async function SingleSpecieList({ params }: Props) {
         status: data[0]?.taxonStatus,
         riskAssessed: data[0]?.riskAssessed,
         riskAssessedUrl: data[0]?.riskAssessedUrl,
-        firstRecordInGeorgia: formatDetectionDate(oldest?.day, oldest?.month, oldest?.year),
-        dateDetected: detectionDates.map((date) => (formatDetectionDate(date.day, date.month, date.year))),
+        firstRecordInGeorgia: formatDate(oldest?.day, oldest?.month, oldest?.year),
+        dateDetected: detectionDates.map((date) => (formatDate(date.day, date.month, date.year))),
         recordNumber: data[0]?.places.length || 0,
         identification: strapiRichTextToPlainText(data[0]?.identification ?? []),
         ecology: strapiRichTextToPlainText(data[0]?.ecology ?? []),

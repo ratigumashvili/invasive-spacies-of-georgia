@@ -4,7 +4,7 @@ import { useTranslations } from "next-intl";
 import Container from "@/app/[locale]/_components/container";
 
 import { getSinglePage } from "@/lib/api-calls";
-import { generateFontByLocale } from "@/lib/utils";
+import { formatDate, generateFontByLocale } from "@/lib/utils";
 
 import { LegalDocumetns } from "@/types/legal-docs-response";
 
@@ -49,6 +49,11 @@ export default async function LegalDocs({ params }: Props) {
         <Container>
             <PageTitle locale={locale} />
             <pre>{JSON.stringify(response, null, 2)}</pre>
+            {response?.records?.map((document) => (
+                <div key={document.id}>
+                    <h2>{document.title} - {formatDate(document.date.day, document.date.month, document.date.year,)}</h2>
+                </div>
+            ))}
         </Container>
     )
 }
