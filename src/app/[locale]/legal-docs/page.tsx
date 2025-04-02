@@ -4,9 +4,10 @@ import Container from "@/app/[locale]/_components/container";
 import { Pagination } from "@/app/[locale]/_components/pagination";
 
 import { fetchLegalDocs } from "@/lib/api-calls";
-import { formatDate, generateFontByLocale } from "@/lib/utils";
+import { generateFontByLocale } from "@/lib/utils";
 
-import { Link } from "@/i18n/routing";
+import { LegalDocsItem } from "../_components/legal-docs-item";
+import { type LegalDocs } from "@/types/legal-docs-response";
 
 type Props = {
     params: Promise<{ locale: string }>
@@ -41,13 +42,7 @@ export default async function LegalDocs({ params, searchParams }: Props) {
         <Container>
             <PageTitle locale={locale} />
             {sortedRecords?.map((document) => (
-                <div key={document.id} className="mb-8 flex flex-col gap-y-2">
-                    <h2 className="text-lg font-medium">{document.title}</h2>
-                    <p><span className="text-muted-foreground">Date published</span>: {formatDate(document.date.day, document.date.month, document.date.year,)}</p>
-                    <p><span className="text-muted-foreground">Type of document</span>: {document.documentType}</p>
-                    <p><span className="text-muted-foreground">Description</span>: {document.description}</p>
-                    <Link href={document.url} target="blank" className="text-sky-800 font-medium">View document</Link>
-                </div>
+                <LegalDocsItem document={document} key={document.id} />
             ))}
             <Pagination
                 currentPage={currentPage}

@@ -8,7 +8,7 @@ import { PlaceResponse } from "@/types/place-response";
 import { SpeciesResponse } from "@/types/specie-response";
 import { SpeciesCount } from "@/types/species-count";
 import { ResearchResponse } from "@/types/research-response";
-import { legalDocsResponse } from "@/types/legal-docs-response";
+import { LegalDocsResponse } from "@/types/legal-docs-response";
 
 interface PaginationMeta {
   page: number;
@@ -330,7 +330,7 @@ export async function fetchLegalDocs(locale: string, page: number = 1, pageSize:
       throw new Error(`Failed to fetch legal-docs: ${errorData.error?.message || response.statusText}`);
     }
 
-    const data: legalDocsResponse = await response.json();
+    const data: LegalDocsResponse = await response.json();
     return data;
   } catch (error: any) {
     console.error("Error fetching legal-docs data:", error.message);

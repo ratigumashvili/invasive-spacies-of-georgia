@@ -4,7 +4,7 @@ interface Date {
     year: number
 }
 
-export interface legalDocs {
+export interface LegalDocs {
     id: number;
     documentId: string;
     title: string;
@@ -14,8 +14,8 @@ export interface legalDocs {
     date: Date
 }
 
-export type legalDocsResponse = {
-    data: legalDocs[];
+export type LegalDocsResponse = {
+    data: LegalDocs[];
     meta: {
         pagination: {
             page: number;
