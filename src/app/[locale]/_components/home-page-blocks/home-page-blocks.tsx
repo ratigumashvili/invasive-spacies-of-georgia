@@ -26,7 +26,7 @@ export function HomePageBlocks({ events, randomSpecie, newSpecies }: HomePageBlo
     const { factSheets, eventsTitle, allEvents, speciesAlert } = Translations()
 
     return (
-        <div className="flex flex-col lg:flex-row gap-4 mb-8">
+        <div className="flex flex-col lg:flex-row gap-6 mb-8">
             <div className="flex flex-col gap-2 flex-1">
                 <h2 className="text-xl font-medium mb-3 flex items-center gap-2">
                     <TriangleAlertIcon className="text-red-800 fill-amber-500" /> {speciesAlert}

@@ -79,7 +79,7 @@ export function HomePageActions() {
     const locale = useLocale()
     
     return (
-        <div className="flex flex-col md:flex-row gap-4 mb-8">
+        <div className="flex flex-col md:flex-row gap-6 mb-8">
             {items.map((item) => (
                 <Card key={item.id} className='bg-slate-100 rounded-none flex-1 border-sky-800 border-l-10'>
                     <CardHeader>
