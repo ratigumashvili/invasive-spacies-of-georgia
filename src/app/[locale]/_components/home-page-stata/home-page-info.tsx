@@ -1,5 +1,6 @@
 import { getAllSpeciesCount } from "@/lib/api-calls"
 import { HomePageInfoCard } from "./home-page-info-card";
+import { HomePageInfoCardNew } from "./home-page-ic-new";
 
 export async function HomePageInfo({ locale }: { locale: string }) {
 
@@ -31,27 +32,35 @@ export async function HomePageInfo({ locale }: { locale: string }) {
     const totalPending = Number((pending / total * 100).toFixed(2))
 
     return (
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        <>
+            {/* <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
 
-            <HomePageInfoCard
-                locale={locale as "ka" | "en"}
-                title={"total"}
-                total={totalRecords?.pagination.total as number}
+                <HomePageInfoCard
+                    locale={locale as "ka" | "en"}
+                    title={"total"}
+                    total={totalRecords?.pagination.total as number}
+                />
+                <HomePageInfoCard
+                    locale={locale as "ka" | "en"}
+                    title={"contributed"}
+                    description={"species_total"}
+                    total={contributedSpeciesMeta?.pagination.total as number}
+                    percentage={totalContributted}
+                />
+                <HomePageInfoCard
+                    locale={locale as "ka" | "en"}
+                    title={"pending"}
+                    description={"species_total"}
+                    total={pendingSpecies?.pagination.total as number}
+                    percentage={totalPending}
+                />
+            </div> */}
+            <HomePageInfoCardNew
+                locale={locale}
+                totalRecords={totalRecords?.pagination.total as number}
+                totalContributions={contributedSpeciesMeta?.pagination.total as number}
+                totalPending={pendingSpecies?.pagination.total as number}
             />
-            <HomePageInfoCard
-                locale={locale as "ka" | "en"}
-                title={"contributed"}
-                description={"species_total"}
-                total={contributedSpeciesMeta?.pagination.total as number}
-                percentage={totalContributted}
-            />
-            <HomePageInfoCard
-                locale={locale as "ka" | "en"}
-                title={"pending"}
-                description={"species_total"}
-                total={pendingSpecies?.pagination.total as number}
-                percentage={totalPending}
-            />
-        </div>
+        </>
     )
 }

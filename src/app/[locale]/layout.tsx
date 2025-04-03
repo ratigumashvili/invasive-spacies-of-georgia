@@ -40,7 +40,7 @@ export default async function LocaleLayout({
 
   return (
     <html lang={locale}>
-      <body className={`${firaGo.variable} ${bpgNino.variable} ${arial.variable}`}>
+      <body className={`${firaGo.variable} ${bpgNino.variable} ${arial.variable} bg-gray-200`}>
         <NextIntlClientProvider messages={messages}>
           <AuthProvider>
             <div className='h-full flex flex-col mx-auto'>

@@ -60,20 +60,20 @@ export function SearchComponent() {
             </CardHeader>
             <CardContent>
                 <form action={handleFormSubmit} ref={formRef}>
-                    <div className="flex items-center gap-2 mb-4">
+                    <div className="flex flex-col md:flex-row items-center gap-2 mb-4">
                         <Input id="name" name="name" className="py-4 px-3 rounded-none bg-white" placeholder={t("placeholder_text")} />
                         <Button
                             type="button"
                             variant="destructive"
                             onClick={handleResetForm}
-                            className="rounded-none cursor-pointer"
+                            className="rounded-none cursor-pointer w-full md:w-max"
                         >
                             {t("cancel")}
                         </Button>
-                        <Button type="submit" className="rounded-none cursor-pointer">{t("submit")}</Button>
+                        <Button type="submit" className="rounded-none cursor-pointer w-full md:w-max">{t("submit")}</Button>
                     </div>
                     <div>
-                        <RadioGroup defaultValue={defaultValue} name="type" className="flex items-center gap-2">
+                        <RadioGroup defaultValue={defaultValue} name="type" className="flex flex-wrap items-center gap-2">
                             {taxonomy.map((item) => (
                                 <div key={item.label} className="flex gap-x-2" role="radiogroup">
                                     <RadioGroupItem value={item.label} id={item.label} className="bg-white" />

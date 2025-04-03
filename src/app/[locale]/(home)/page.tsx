@@ -13,6 +13,7 @@ import { SearchComponent } from '@/app/[locale]/_components/search';
 import { fetchRandomSpecie, fetchSpeciesCoordinates, getEvents, getSinglePage, getSpeciesCountByKingdom } from "@/lib/api-calls";
 
 import { HomePageData, } from "@/types/single-types";
+import { HomePageInfoCardNew } from "../_components/home-page-stata/home-page-ic-new";
 
 
 type Props = {
@@ -112,6 +113,10 @@ export default async function HomePage({ params }: Props) {
       </div>
 
       <HomePageInfo locale={locale} />
+
+      {/* <HomePageInfoCardNew locale={locale} /> */}
+
+
 
       <HomePageMap
         speciesCoordinates={formattedCoordinates.map(({ coordinates, title, slug }) => ({
