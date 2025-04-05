@@ -9,7 +9,7 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export function generateFontByLocale (locale: string) {
-  return locale === "ka" ? "font-bpgNino" : "font-arial"
+  return locale === "ka" ? "font-bpgNino font-bold" : "font-arial"
 }
 
 export const monthOrder: Record<string, number> = {

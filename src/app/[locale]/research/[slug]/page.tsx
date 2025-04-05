@@ -12,7 +12,7 @@ type Props = {
 
 const PageTitle = ({ locale, title }: { locale: string, title: string }) => {
     return (
-        <h1 className={`${generateFontByLocale(locale)} text-2xl uppercase font-medium mb-8`}>
+        <h1 className={`${generateFontByLocale(locale)} text-2xl uppercase mb-8`}>
             {title}
         </h1>
     )

@@ -2,6 +2,7 @@
 
 import { Link } from "@/i18n/routing";
 import { useLocale, useTranslations } from "next-intl";
+import { FileTextIcon, MicroscopeIcon, NetworkIcon } from "lucide-react";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
@@ -11,6 +12,7 @@ const items = [
     {
         id: 1,
         title: "documents",
+        icon: <FileTextIcon />,
         list: [
             {
                 id: 1.1,
@@ -32,6 +34,7 @@ const items = [
     {
         id: 2,
         title: "explore_ISG_data",
+        icon: <MicroscopeIcon />,
         list: [
             {
                 id: 2.1,
@@ -53,6 +56,7 @@ const items = [
     {
         id: 3,
         title: "citizen_science",
+        icon: <NetworkIcon />,
         list: [
             {
                 id: 3.1,
@@ -64,26 +68,30 @@ const items = [
                 title: "join_the_editorial_board",
                 path: "/",
             },
-            {
-                id: 3.3,
-                title: "join_our_community",
-                path: "/"
-            }
+            // {
+            //     id: 3.3,
+            //     title: "join_our_community",
+            //     path: "/"
+            // }
         ]
     }
 ];
 
 export function HomePageActions() {
-    
+
     const t = useTranslations("actions")
     const locale = useLocale()
-    
+
     return (
         <div className="flex flex-col md:flex-row gap-6 mb-8">
             {items.map((item) => (
-                <Card key={item.id} className='bg-slate-100 rounded-none flex-1 border-sky-800 border-l-10'>
+                <Card key={item.id} className="flex-1 shadow-none bg-slate-300">
                     <CardHeader>
-                        <CardTitle className={`${generateFontByLocale(locale)} text-xl uppercase`}>{t(item.title)}</CardTitle>
+                        <CardTitle
+                            className={`${generateFontByLocale(locale)} text-2xl uppercase text-sky-950 flex items-center gap-2`}
+                        >
+                            {item.icon} {t(item.title)}
+                        </CardTitle>
                     </CardHeader>
                     <CardContent>
                         <ul className='flex flex-col gap-2'>

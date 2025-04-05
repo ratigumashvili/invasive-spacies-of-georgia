@@ -7,7 +7,7 @@ export function BrowseByTaxonomy({animaliaCount, plantaeCount}: {animaliaCount: 
     const t = useTranslations("Common")
     return (
         <div className='flex flex-col md:flex-row w-full gap-6 mb-8'>
-            <Link
+            {/* <Link
                 href={`/species-list?kingdom=animalia`}
                 className='border border-sky-800 border-l-10 border-l-sky-800 p-8 text-center flex items-center justify-center flex-1 text-xl font-medium bg-slate-100 hover:bg-sky-800 hover:text-white transition'
             >
@@ -20,6 +20,26 @@ export function BrowseByTaxonomy({animaliaCount, plantaeCount}: {animaliaCount: 
             <Link
                 href={`/species-list?kingdom=plantae`}
                 className='border border-sky-800 border-l-10 border-l-sky-800 p-8 text-center flex items-center justify-center flex-1 text-xl font-medium bg-slate-100 hover:bg-sky-800 hover:text-white transition'
+            >
+                <p>
+                    {t("browse_plants")} <br />
+                    <span className="text-sm font-normal">{plantaeCount} {t("species_plantae")}</span>
+                </p>
+
+            </Link> */}
+              <Link
+                href={`/species-list?kingdom=animalia`}
+                className="bg-sky-950 text-white text-center hover:bg-white hover:text-sky-950 transition-all flex items-center justify-center flex-1 text-xl font-medium rounded-md py-8"
+            >
+                <p>
+                    {t("browse_animals")} <br />
+                    <span className="text-sm font-normal">{animaliaCount} {t("species_animalia")}</span>
+                </p>
+
+            </Link>
+            <Link
+                href={`/species-list?kingdom=plantae`}
+                className="bg-sky-950 text-white text-center hover:bg-white hover:text-sky-950 transition-all flex items-center justify-center flex-1 text-xl font-medium rounded-md py-8"
             >
                 <p>
                     {t("browse_plants")} <br />

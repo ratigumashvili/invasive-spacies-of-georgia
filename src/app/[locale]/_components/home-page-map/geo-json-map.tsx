@@ -170,7 +170,7 @@ export default function GeoJsonMap({ speciesCoordinates }: { speciesCoordinates:
     };
 
     return (
-        <MapContainer className="w-full h-[500px]" center={[41.8, 44.5]} zoom={7} scrollWheelZoom={false}>
+        <MapContainer className="w-full h-[500px] rounded-md" center={[41.8, 44.5]} zoom={7} scrollWheelZoom={false}>
             <TileLayer
                 attribution='Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
                 url='https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'

@@ -13,14 +13,14 @@ import { fetchSpeciesData, getSinglePage } from "@/lib/api-calls";
 
 import { Place } from "@/types/taxonomy-types";
 
-import { BASE_URL, formatDate, getOldestDetectionDate, removeDuplicateDetectionDates, strapiRichTextToPlainText } from "@/lib/utils";
+import { BASE_URL, cn, formatDate, getOldestDetectionDate, removeDuplicateDetectionDates, strapiRichTextToPlainText } from "@/lib/utils";
 import { SpeciesResponse } from "@/types/specie-response";
 import { HomePageData } from "@/types/single-types";
 
 const PageTitle = () => {
     const t = useTranslations("Common")
     return (
-        <h1 className="text-2xl font-medium print:hidden">{t("species_factsheets")}</h1>
+        <h1 className={cn("text-2xl font-medium print:hidden")}>{t("species_factsheets")}</h1>
     )
 }
 

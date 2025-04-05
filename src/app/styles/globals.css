@@ -31,7 +31,7 @@ body {
 }
 
 .link {
-  @apply text-sky-800 hover:text-sky-800/90 transition
+  @apply text-sky-950 hover:text-sky-950/90 transition
 }
 
 .switch {
@@ -43,7 +43,7 @@ body {
 }
 
 .data-list {
-  @apply grid grid-cols-1 sm:grid-cols-2 gap-2 [&>dt]:font-medium [&>dt]:col-span-1 [&>dd]:col-span-1 [&>dd>a]:text-sky-800 [&>dd>a:hover]:text-sky-700;
+  @apply grid grid-cols-1 sm:grid-cols-2 gap-2 [&>dt]:font-medium [&>dt]:col-span-1 [&>dd]:col-span-1 [&>dd>a]:text-sky-950 [&>dd>a:hover]:text-sky-950/90;
 }
 
 .list {

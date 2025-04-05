@@ -145,7 +145,7 @@ export function Navbar({ locale }: { locale: LocaleType }) {
                             />
                         </Link>
                         <h1 className={cn(
-                            "hidden sm:block text-2xl font-medium uppercase w-[350px]",
+                            "hidden sm:block text-3xl font-medium uppercase w-[320px]",
                             generateFontByLocale(locale)
                         )}>{t("isu_full")}</h1>
                     </div>

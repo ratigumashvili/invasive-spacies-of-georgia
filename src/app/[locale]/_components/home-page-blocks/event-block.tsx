@@ -23,7 +23,7 @@ export function EventBlock({ events }: HomePageBlocksProps) {
                         title={event.title}
                         location={event.location}
                     />
-                )).slice(0, 3)}
+                )).slice(0, 2)}
         </>
     )
 }

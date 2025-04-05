@@ -14,7 +14,7 @@ import { generateFontByLocale, isLocalStorageAvailable } from "@/lib/utils"
 
 import { SingleSpecieList } from "@/types/random-specie"
 
-export function SpeciesListClient({ response }: { response: any }) {
+export function SpeciesListClient({ response, }: { response: any }) {
     const [selectedView, setSelectedView] = useState<"grid" | "list">("grid");
 
     useEffect(() => {
@@ -33,7 +33,7 @@ export function SpeciesListClient({ response }: { response: any }) {
     return (
         <div>
             <div className="flex items-center justify-between mb-8">
-                <h1 className={`${generateFontByLocale(locale)} text-2xl uppercase font-medium`}>
+                <h1 className={`${generateFontByLocale(locale)} text-2xl uppercase`}>
                     {t("species_list")}
                 </h1>
                 <div className="flex items-center gap-1">

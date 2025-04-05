@@ -11,7 +11,7 @@ import { generateFontByLocale } from "@/lib/utils";
 const PageTitle = ({ locale }: { locale: string }) => {
     const t = useTranslations("Common")
     return (
-        <h1 className={`${generateFontByLocale(locale)} text-2xl uppercase font-medium mb-8`}>
+        <h1 className={`${generateFontByLocale(locale)} text-2xl uppercase mb-8`}>
             {t("upcomming_events")}
         </h1>
     )

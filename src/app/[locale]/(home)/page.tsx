@@ -84,7 +84,7 @@ export default async function HomePage({ params }: Props) {
 
   return (
     <Container>
-      <div className='relative mb-8'>
+      {/* <div className='relative mb-8'>
         <div className='absolute z-50 top-4 left-4 right-4 md:right-auto'>
           <AppTitle
             title={data?.title}
@@ -93,7 +93,16 @@ export default async function HomePage({ params }: Props) {
           />
         </div>
         <HomePageSlider images={data?.images} />
-      </div>
+      </div> */}
+
+          <AppTitle
+            title={data?.title}
+            subtitle={data?.subtitle}
+            version={data?.version}
+          />
+
+        {/* <HomePageSlider images={data?.images} /> */}
+
 
       <HomePageActions />
 

@@ -8,7 +8,7 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/componen
 import { SingleSpecieList } from "@/types/random-specie";
 import { BASE_URL, formatDate, getOldestDetectionDate } from "@/lib/utils";
 
-export function SpecieBlock({ data }: { data: SingleSpecieList }) {
+export function SpecieBlock({ data, isHome }: { data: SingleSpecieList, isHome?: boolean }) {
     const t = useTranslations("Common")
     const s = useTranslations("Species")
 
@@ -26,7 +26,7 @@ export function SpecieBlock({ data }: { data: SingleSpecieList }) {
     }
 
     return (
-        <Card className="rounded-none bg-slate-50 p-0 pb-6 flex-col h-full">
+        <Card className="rounded-md shadow-none overflow-hidden p-0 pb-6 flex-col h-full">
             <CardHeader className="p-0 flex">
                 <CardTitle className="text-xl sr-only">
                     {t("species_factsheets")}
@@ -56,32 +56,42 @@ export function SpecieBlock({ data }: { data: SingleSpecieList }) {
                 </>}
             </CardHeader>
             <CardContent className="pb-6">
-                <dl className="data-list">
-                    <dt>{t("scientific_name")}:</dt>
-                    <dd>
+                {!isHome ? (
+                    <dl className="data-list">
+                        <dt>{t("scientific_name")}:</dt>
+                        <dd>
+                            <Link href={`/species-list/${data?.slug}`}
+                                className="italic font-medium link text-lg"
+                            >
+                                {data?.name}
+                            </Link>
+                        </dd>
+                        <dt>{t("nat")}:</dt>
+                        <dd><p>{data?.autorName}</p></dd>
+                        <dt>{t("eco_group")}:</dt>
+                        <dd>{detectLifeForm(data?.lifeForm as string)}</dd>
+                        {(data.detectionDate?.length ?? 0) > 0 && (() => {
+                            const oldest = getOldestDetectionDate(data.detectionDate!);
+                            return (
+                                <>
+                                    <dt>{t("first_introduced")}:</dt>
+                                    <dd>{formatDate(oldest?.day, oldest?.month, oldest?.year)}</dd>
+                                </>
+                            );
+                        })()}
+                    </dl>
+                ) : (
+                    <>
                         <Link href={`/species-list/${data?.slug}`}
-                            className="italic font-medium text-sky-800 hover:text-sky-700 hover:underline"
+                            className="italic font-medium link text-lg"
                         >
                             {data?.name}
                         </Link>
-                    </dd>
-                    <dt>{t("nat")}:</dt>
-                    <dd><p>{data?.autorName}</p></dd>
-                    <dt>{t("eco_group")}:</dt>
-                    <dd>{detectLifeForm(data?.lifeForm as string)}</dd>
-                    {(data.detectionDate?.length ?? 0) > 0 && (() => {
-                        const oldest = getOldestDetectionDate(data.detectionDate!);
-                        return (
-                            <>
-                                <dt>{t("first_introduced")}:</dt>
-                                <dd>{formatDate(oldest?.day, oldest?.month, oldest?.year)}</dd>
-                            </>
-                        );
-                    })()}
-                </dl>
+                    </>
+                )}
             </CardContent>
             <CardFooter className="mt-auto">
-                <Button asChild size="lg" variant="default" className="w-full lg:w-max rounded-none">
+                <Button asChild size="lg" variant="blue" className="w-full lg:w-max">
                     <Link href={`/species-list/${data?.slug}`}>{t("details_on_specie")}</Link>
                 </Button>
             </CardFooter>

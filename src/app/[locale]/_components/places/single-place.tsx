@@ -90,7 +90,7 @@ export function SinglePlaceComponent({
             </pre>
             <div className="mb-8 flex items-start justify-baseline">
                 <div className="w-full">
-                    <h1 className={`${generateFontByLocale(locale)} text-2xl uppercase font-medium`}>
+                    <h1 className={`${generateFontByLocale(locale)} text-2xl uppercase`}>
                         {place[0]?.title}, {getRegionName(geoJsonData, placeCoordinates)}
                     </h1>
                     <h2 className="text-base text-muted-foreground flex items-center">
