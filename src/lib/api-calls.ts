@@ -456,7 +456,7 @@ export async function fetchSpeciesCoordinates(locale: string, page: number = 1, 
       locale
     };
 
-    const query = qs.stringify(queryParams, { encode: false });
+    const query = qs.stringify(queryParams, { encodeValuesOnly: true });
     const requestUrl = `${BASE_API_URL}/species?${query}`;
 
     const response = await fetch(requestUrl, {
