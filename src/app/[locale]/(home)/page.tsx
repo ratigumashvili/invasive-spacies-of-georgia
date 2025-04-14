@@ -48,7 +48,7 @@ export default async function HomePage({ params }: Props) {
     return await getSinglePage<HomePageData>("home-page", locale, homePageDataQuery);
   };
 
-  const data = await fetchHomePageData(locale)
+  const homepageData = await fetchHomePageData(locale)
   const events = await getEvents(locale)
   const randomSpecie = await fetchRandomSpecie(locale, "notNew")
   const newSpecies = await fetchRandomSpecie(locale, "isNew")
@@ -81,7 +81,7 @@ const formattedCoordinates: formattedCoordinatesProps[] = newCoordinates.map(
   }
 
 
-  if (!data) return null
+  if (!homepageData) return null
 
   return (
     <Container>
@@ -97,9 +97,9 @@ const formattedCoordinates: formattedCoordinatesProps[] = newCoordinates.map(
       </div> */}
 
           <AppTitle
-            title={data?.title}
-            subtitle={data?.subtitle}
-            version={data?.version}
+            title={homepageData?.title}
+            subtitle={homepageData?.subtitle}
+            version={homepageData?.version}
           />
 
         {/* <HomePageSlider images={data?.images} /> */}
