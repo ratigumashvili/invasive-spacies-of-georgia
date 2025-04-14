@@ -144,7 +144,6 @@ export default function GeoJsonMap({ speciesCoordinates }: { speciesCoordinates:
                     <p className="text-sm"><span className="font-medium">{t("place")}</span>: {title}</p>
                     <p><span className="font-medium">{t("region")}</span>: {matchedRegion || "None"}</p>
                     <Link
-                        // href={`/search?coordinates=${coordinates[0]},${coordinates[1]}`}
                         href={`/places/${slug}`}
                         className="block my-2 !text-sky-800 !hover:text-red-600 transition"
                     >
@@ -186,8 +185,9 @@ export default function GeoJsonMap({ speciesCoordinates }: { speciesCoordinates:
                 />
             )}
             {markers}
-            
-            <Link href={`${BASE_API_URL}/export-coordinates/species`}
+
+            <Link
+                href={`${BASE_API_URL}/export-coordinates/species`}
                 className="absolute top-4 right-4 z-[1000] bg-white border p-[7px] rounded shadow !text-black"
             >
                 <DownloadIcon className="w-4 h-4" />
