@@ -9,6 +9,7 @@ import { Feature, Geometry } from "geojson";
 import { useTranslations } from "next-intl";
 
 import data from "@/app/[locale]/_data/coords.json";
+import { DownloadIcon } from "lucide-react";
 
 type GeoJSONFeature = Feature<Geometry, { NAME_2?: string; name?: string }>;
 type GeoJSONData = { type: "FeatureCollection"; features: GeoJSONFeature[] };
@@ -183,6 +184,13 @@ export default function GeoJsonMap({ speciesCoordinates }: { speciesCoordinates:
                 />
             )}
             {markers}
+            
+            <Link href={`http://localhost:1337/api/export-coordinates/species`}
+                className="absolute top-4 right-4 z-[1000] bg-white border p-2 rounded shadow !text-black"
+            >
+                <DownloadIcon className="w-4 h-4" />
+            </Link>
+            
         </MapContainer>
     );
 }
