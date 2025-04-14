@@ -45,17 +45,17 @@ export function DropDownAction({
                     <EllipsisIcon className="w-7 h-7" />
                 </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="bg-white z-10 min-w-[200px] rounded-none" align="end">
-                <DropdownMenuItem className="text-base cursor-pointer rounded-none" onClick={copyToClipboard}>
+            <DropdownMenuContent className="bg-white z-10 min-w-[200px]" align="end">
+                <DropdownMenuItem className="text-base cursor-pointer" onClick={copyToClipboard}>
                     {t("copyUrl")}
                 </DropdownMenuItem>
-                <DropdownMenuItem className="text-base cursor-pointer rounded-none">
+                <DropdownMenuItem className="text-base cursor-pointer">
                     {t("printPage")}
                 </DropdownMenuItem>
-                <DropdownMenuItem className="text-base cursor-pointer rounded-none" onClick={() => exportDataAsCSV(specieData)}>
+                <DropdownMenuItem className="text-base cursor-pointer" onClick={() => exportDataAsCSV(specieData)}>
                     {t("speciesData")}
                 </DropdownMenuItem>
-                <DropdownMenuItem className="text-base cursor-pointer rounded-none" onClick={() => exportDataAsCSV(distribution)}>
+                <DropdownMenuItem className="text-base cursor-pointer" onClick={() => exportDataAsCSV(distribution)}>
                     {t("distributionData")}
                 </DropdownMenuItem>
             </DropdownMenuContent>
