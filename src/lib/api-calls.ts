@@ -350,15 +350,29 @@ export async function fetchRandomSpecie(locale: string, filterType?: "isNew" | "
           "identification"
         ],
 
-        "populate[image][fields]": ["documentId", "alternativeText", "caption", "width", "height", "url"],
+        populate: {
+          image: {
+            fields: ["documentId", "alternativeText", "caption", "width", "height", "url"]
+          }
+        },
 
-        "filters[image][url][$ne]": null,
-        "pagination[pageSize]": 1,
-        "pagination[page]": randomPage,
+        filters: {
+          image: {
+            url: {
+              $ne: null
+            }
+          }
+        },
+
+        pagination: {
+          pageSize: 1,
+          page: randomPage
+        },
+
         locale
       };
 
-      const query = qs.stringify(queryParams, { encode: false });
+      const query = qs.stringify(queryParams, { encodeValuesOnly: true });
       const requestUrl = `${BASE_API_URL}/species?${query}`;
 
       const response = await fetch(requestUrl, {
