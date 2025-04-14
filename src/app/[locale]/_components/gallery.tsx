@@ -53,7 +53,7 @@ export function Gallery({ photos, className }: { photos: ImageType[], className?
                         src={`${BASE_URL}${image.url}`}
                         alt={image.alternativeText || "Photo"}
                         fill
-                        className="object-cover"
+                        className="object-cover rounded-sm"
                         sizes="(max-width: 768px) 100vw, 33vw"
                     />
                     {image?.caption &&
