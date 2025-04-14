@@ -31,7 +31,7 @@ export function DropDownAction({
 
     function copyToClipboard() {
         navigator.clipboard.writeText(url)
-        toast.success("Link copied to clipboard")
+        toast.success(t("copied"))
     }
 
     return (
