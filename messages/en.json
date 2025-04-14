@@ -53,7 +53,8 @@
     "printPage": "Print page",
     "speciesData": "Download specie data",
     "distributionData": "Download distribution data",
-    "copied": "Link copied to clipboard"
+    "copied": "Link copied to clipboard",
+    "citationCopied": "Citation copied to clipboard"
   },
   "Footer": {
     "isu_full": "Ilia State University",

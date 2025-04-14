@@ -3,7 +3,10 @@
 import { useRef } from "react"
 import { format } from "date-fns"
 import { toast } from "sonner"
+import { useTranslations } from "next-intl"
 import { ClipboardCopyIcon } from "lucide-react"
+
+import { Card, CardContent } from "@/components/ui/card"
 
 import { useFullUrl } from "@/hooks/use-full-url"
 import { formatNameToCitationStyle, separator } from "@/lib/utils"
@@ -29,22 +32,25 @@ export function SingleSpecieCite({
 }: SingleSpecieCiteProps) {
 
     const ref = useRef<HTMLSpanElement | null>(null)
+    const t = useTranslations("Common")
     const url = useFullUrl()
 
-    function handleCopy () {
+    function handleCopy() {
         navigator.clipboard.writeText(ref?.current?.innerText as string);
-        toast.success("Citation copied to clipboard")
+        toast.success(t("citationCopied"))
     }
 
     return (
-        <div className="p-4 text-sm mt-4 border relative pr-[60px]">
-            <span className="font-medium pr-1 print:hidden">Cite:</span>
-            <span ref={ref}>
-                {authors.map((author, index) => (
-                    <span key={author.id}>{formatNameToCitationStyle(author.username)}{separator(index, authors, ", ", " ")}</span>
-                ))} 2005. <em>{recordTitle}</em>, {recordAuthor} – FactSheet. {appTitle}, {appSubTitle} {appVersion}. Accessed at: {url}. Date accessed: {format(new Date(Date.now()), "PPP")}
-            </span>
-            <ClipboardCopyIcon className="w-4 h-4 absolute right-4 top-4 cursor-pointer print:hidden" onClick={handleCopy} />
-        </div>
+        <Card className="mt-4 relative pr-[60px] shadow-none">
+            <CardContent className="text-sm">
+                <span className="font-medium pr-1 print:hidden">Cite:</span>
+                <span ref={ref}>
+                    {authors.map((author, index) => (
+                        <span key={author.id}>{formatNameToCitationStyle(author.username)}{separator(index, authors, ", ", " ")}</span>
+                    ))} 2005. <em>{recordTitle}</em>, {recordAuthor} – FactSheet. {appTitle}, {appSubTitle} {appVersion}. Accessed at: {url}. Date accessed: {format(new Date(Date.now()), "PPP")}
+                </span>
+                <ClipboardCopyIcon className="w-4 h-4 absolute right-4 top-4 cursor-pointer print:hidden" onClick={handleCopy} />
+            </CardContent>
+        </Card>
     )
 }
