@@ -8,7 +8,7 @@ import { LoaderCircleIcon } from "lucide-react";
 import { Image as ImageType } from "@/types/specie-response";
 import type { SlideImage } from "yet-another-react-lightbox";
 
-import { BASE_URL } from "@/lib/utils";
+import { BASE_URL, cn } from "@/lib/utils";
 
 import "yet-another-react-lightbox/styles.css";
 import "yet-another-react-lightbox/plugins/captions.css";
@@ -23,7 +23,7 @@ type CustomSlide = SlideImage & {
     url?: string;
 };
 
-export function Gallery({ photos }: { photos: ImageType[] }) {
+export function Gallery({ photos, className }: { photos: ImageType[], className?: string }) {
     const [lightboxOpen, setLightboxOpen] = useState(false);
     const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -42,7 +42,7 @@ export function Gallery({ photos }: { photos: ImageType[] }) {
     };
 
     return (
-        <section className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mt-6">
+        <section className={cn("grid", className)}>
             {photos.map((image, index) => (
                 <div
                     key={image.id}
@@ -56,7 +56,9 @@ export function Gallery({ photos }: { photos: ImageType[] }) {
                         className="object-cover"
                         sizes="(max-width: 768px) 100vw, 33vw"
                     />
-                    <small className="block mt-2 text-center absolute -bottom-0 left-0 right-0 p-1 bg-white !line-clamp-1">{image?.caption}</small>
+                    {image?.caption &&
+                        <small className="block mt-2 text-center absolute -bottom-0 left-0 right-0 p-1 bg-white !line-clamp-1">{image?.caption}</small>
+                    }
                 </div>
             ))}
 

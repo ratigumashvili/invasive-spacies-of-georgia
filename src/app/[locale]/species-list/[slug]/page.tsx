@@ -8,12 +8,13 @@ import { DropDownAction } from "@/app/[locale]/_components/drop-down-actions";
 import SingleTaxonMap from "@/app/[locale]/_components/single-taxon/show-map";
 import { GeneratePdfButton } from "@/app/[locale]/_components/generate-pdf-button";
 import { SingleSpecieCite } from "@/app/[locale]/_components/single-specie-cite";
+import { Gallery } from "@/app/[locale]/_components/gallery";
 
 import { fetchSpeciesData, getSinglePage } from "@/lib/api-calls";
 
 import { Place } from "@/types/taxonomy-types";
 
-import { BASE_URL, cn, formatDate, getOldestDetectionDate, removeDuplicateDetectionDates, strapiRichTextToPlainText } from "@/lib/utils";
+import { cn, formatDate, getOldestDetectionDate, removeDuplicateDetectionDates, strapiRichTextToPlainText } from "@/lib/utils";
 import { SpeciesResponse } from "@/types/specie-response";
 import { HomePageData } from "@/types/single-types";
 
@@ -104,15 +105,7 @@ export default async function SingleSpecieList({ params }: Props) {
                     <div className="my-0">
                         {data[0]?.image && data[0].image?.length ? (
                             <div className="mb-4">
-                                {/* <Image
-                                    src={`${BASE_URL}${data[0]?.image?.url}`}
-                                    width={data[0]?.image.width}
-                                    height={data[0]?.image.height}
-                                    alt={data[0]?.name}
-                                    className="object-contain"
-                                />
-                                <p className="my-1 text-xs text-muted-foreground italic">{data[0]?.image.caption}</p> */}
-                                <pre>{JSON.stringify(data[0].image, null, 2)}</pre>
+                                <Gallery photos={data[0]?.image} className="grid-cols-2 gap-2" />
                             </div>
                         ) : null}
 

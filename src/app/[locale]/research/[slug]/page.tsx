@@ -34,7 +34,7 @@ export default async function SingleResearch({ params }: Props) {
                 <BlocksRenderer content={response?.data[0]?.description as BlocksContent} />
             </div>
 
-            {response?.data[0]?.images.length !== 0 && <Gallery photos={response?.data[0]?.images} />}
+            {response?.data[0]?.images.length !== 0 && <Gallery photos={response?.data[0]?.images} className="grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mt-6" />}
 
         </Container>
     )
