@@ -341,13 +341,10 @@ export async function fetchRandomSpecie(locale: string, filterType?: "isNew" | "
       const queryParams = {
         fields: [
           "documentId",
-          "autorName",
           "locale",
           "name",
           "slug",
-          "lifeForm",
           "isNew",
-          "identification"
         ],
 
         populate: {
