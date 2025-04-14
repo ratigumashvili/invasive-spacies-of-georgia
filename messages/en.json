@@ -48,7 +48,11 @@
     "browse_animals": "Browse Species by Animals",
     "browse_plants": "Browse Species by Plants",
     "species_animalia": "Species registered within Kingdom Animalia",
-    "species_plantae": "Species registered within Kingdom Plantae"
+    "species_plantae": "Species registered within Kingdom Plantae",
+    "copyUrl": "Copy url",
+    "printPage": "Print page",
+    "speciesData": "Download specie data",
+    "distributionData": "Download distribution data"
   },
   "Footer": {
     "isu_full": "Ilia State University",

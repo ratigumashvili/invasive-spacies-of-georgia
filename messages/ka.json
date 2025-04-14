@@ -48,7 +48,11 @@
     "browse_animals": "ნავიგაცია ცხოველებში",
     "browse_plants": "ნავიგაცია მცენარეებში",
     "species_animalia": "სახეობაა რეგისტრირებული სამეფოში Animalia",
-    "species_plantae": "სახეობაა რეგისტრირებული სამეფოში Plantae"
+    "species_plantae": "სახეობაა რეგისტრირებული სამეფოში Plantae",
+    "copyUrl": "ბმულის კოპირება",
+    "printPage": "გვერდის ბეჭდვა",
+    "speciesData": "სახეობის მონაცემები",
+    "distributionData": "გავრცელების წერტილები"
   },
   "Footer": {
     "isu_full": "ილიას სახელმწიფო უნივერსიტეტი",
