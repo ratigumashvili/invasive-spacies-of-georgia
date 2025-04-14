@@ -18,7 +18,7 @@ export type SingleSpecieList = {
       width: number;
       height: number;
       url: string;
-    };
+    }[];
   };
   
 

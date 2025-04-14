@@ -31,17 +31,17 @@ export function SpecieBlock({ data, isHome }: { data: SingleSpecieList, isHome?:
                 <CardTitle className="text-xl sr-only">
                     {t("species_factsheets")}
                 </CardTitle>
-                {data?.image?.url ? (
+                {data.image && data?.image.length ? (
                     <>
                         <Image
-                            src={`${BASE_URL}${data?.image?.url}`}
+                            src={`${BASE_URL}${data?.image[0]?.url}`}
                             alt="Species"
                             width={1000}
                             height={1000}
                             priority
-                            className="w-full object-contain lg:max-h-[280px] lg:h-full lg:object-cover"
+                            className="w-full object-contain lg:max-h-[180px] lg:h-full lg:object-cover"
                         />
-                        <span className="text-xs text-muted-foreground italic px-6">{data?.image?.caption}</span>
+                        <span className="text-xs text-muted-foreground italic px-6">{data?.image[0]?.caption}</span>
                     </>
                 ) : <>
                     <Image
