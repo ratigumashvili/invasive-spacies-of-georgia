@@ -93,7 +93,7 @@ export function SingleTaxonMeta({ data }: SingleTaxonMetaProps) {
                     {data[0]?.habitats?.map((item, index) => (
                         <Popover key={index}>
                             <PopoverTrigger className="cursor-help">{item.code} - {item.name}{separator(index, data[0]?.habitats,)}</PopoverTrigger>
-                            <PopoverContent className="max-h-[300px] rounded-none overflow-y-scroll">
+                            <PopoverContent className="max-h-[300px] overflow-y-scroll">
                                 {item.description}
                             </PopoverContent>
                         </Popover>
@@ -102,7 +102,7 @@ export function SingleTaxonMeta({ data }: SingleTaxonMetaProps) {
                 <dt>{t("eco_group")}</dt>
                 <dd>{detectLifeForm(data[0]?.lifeForm as string)}</dd>
                 <dt>{t("status")}</dt>
-                <dd>{data[0]?.taxonStatus && data[0]?.taxonStatus === "non-invasive" ? t("non-native") : t("invasive")}</dd>
+                <dd>{data[0]?.taxonStatus && data[0]?.taxonStatus === "non-native" ? t("non-native") : t("invasive")}</dd>
                 <dt>{t("risk_assessed")}</dt>
                 <dd>
                     {data[0]?.riskAssessed && data[0]?.riskAssessed === "yes"
