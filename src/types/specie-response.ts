@@ -125,7 +125,7 @@ export type Species = {
         width: number;
         height: number;
         url: string;
-    };
+    }[];
 };
 
 export type SpeciesResponse = {
