@@ -2,7 +2,7 @@
 
 import { toast } from "sonner"
 import { useTranslations } from "next-intl"
-import { EllipsisIcon } from "lucide-react"
+import { EllipsisIcon, FileTextIcon, Link2Icon, MapPinnedIcon, PrinterIcon } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -46,17 +46,17 @@ export function DropDownAction({
                 </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent className="bg-white z-10 min-w-[200px]" align="end">
-                <DropdownMenuItem className="text-base cursor-pointer" onClick={copyToClipboard}>
-                    {t("copyUrl")}
+                <DropdownMenuItem className="cursor-pointer" onClick={copyToClipboard}>
+                    <Link2Icon className="w-4 h-4 mr-2" /> {t("copyUrl")}
                 </DropdownMenuItem>
-                <DropdownMenuItem className="text-base cursor-pointer">
-                    {t("printPage")}
+                <DropdownMenuItem className="cursor-pointer">
+                    <PrinterIcon className="w-4 h-4 mr-2" /> {t("printPage")}
                 </DropdownMenuItem>
-                <DropdownMenuItem className="text-base cursor-pointer" onClick={() => exportDataAsCSV(specieData)}>
-                    {t("speciesData")}
+                <DropdownMenuItem className="cursor-pointer" onClick={() => exportDataAsCSV(specieData)}>
+                    <FileTextIcon className="w-4 h-4 mr-2" /> {t("speciesData")}
                 </DropdownMenuItem>
-                <DropdownMenuItem className="text-base cursor-pointer" onClick={() => exportDataAsCSV(distribution)}>
-                    {t("distributionData")}
+                <DropdownMenuItem className="cursor-pointer" onClick={() => exportDataAsCSV(distribution)}>
+                    <MapPinnedIcon className="w-4 h-4 mr-2" /> {t("distributionData")}
                 </DropdownMenuItem>
             </DropdownMenuContent>
         </DropdownMenu>
