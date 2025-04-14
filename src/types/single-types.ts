@@ -1,13 +1,4 @@
-export interface ImageData {
-    id: number;
-    documentId: string;
-    name: string;
-    alternativeText: string | null;
-    caption: string | null;
-    width: number;
-    height: number;
-    url: string;
-  }
+import { ImageData } from "./shared-types";
 
   export interface HomePageData {
     id: number;

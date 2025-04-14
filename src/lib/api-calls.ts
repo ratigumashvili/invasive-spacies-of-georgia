@@ -1,37 +1,16 @@
-import { EventItem } from "@/types/event-item";
-import { SpeciesListResponse } from "@/types/taxonomy-types";
 import axios from "axios";
 import qs from "qs";
 
 import { BASE_API_URL, BASE_URL } from "./utils";
+
+import { EventItem } from "@/types/event-item";
+import { SpeciesListResponse, StrapiResponse } from "@/types/taxonomy-types";
 import { PlaceResponse } from "@/types/place-response";
 import { SpeciesResponse } from "@/types/specie-response";
 import { SpeciesCount } from "@/types/species-count";
 import { ResearchResponse } from "@/types/research-response";
 import { LegalDocsResponse } from "@/types/legal-docs-response";
-
-interface PaginationMeta {
-  page: number;
-  pageSize: number;
-  pageCount: number;
-  total: number;
-}
-
-interface StrapiResponse<T> {
-  data: T[];
-  meta: {
-    pagination: PaginationMeta;
-  };
-}
-
-interface FetchParams {
-  page?: number;
-  pageSize?: number;
-  locale?: string;
-  slug?: string;
-  filters?: Record<string, any>;
-  populate?: string | string[];
-}
+import { FetchParams } from "@/types/shared-types";
 
 export async function fetchStrapiData<T>(
   contentType: string,
@@ -187,6 +166,7 @@ export async function getSpeciesCountByKingdom(locale: string, filters?: string)
     console.error("Error fetching data:", error);
   }
 }
+
 
 export const getSinglePage = async <T>(
   path: string,
@@ -439,43 +419,46 @@ export async function getAllSpeciesCount(locale: string, filters?: any) {
   }
 }
 
-export async function fetchSpeciesCoordinates(locale: string, page: number = 1, pageSize: number = 1000) {
-  try {
-    const queryParams = {
-      fields: ["documentId"],
+export async function fetchAllSpeciesCoordinates(locale: string): Promise<any[]> {
+  let page = 1;
+  const pageSize = 100;
+  let allData: any[] = [];
+  let totalPages = 1;
 
+  do {
+    const queryParams = {
+      locale,
+      pagination: {
+        page,
+        pageSize,
+      },
       populate: {
         places: {
-          fields: ["coordinates", "title", "slug"]
-        }
+          fields: ['coordinates', 'title', 'slug'],
+        },
       },
-      pagination: {
-        page: page,
-        pageSize: pageSize
-      },
-      locale
+      fields: ['documentId'],
     };
 
     const query = qs.stringify(queryParams, { encodeValuesOnly: true });
-    const requestUrl = `${BASE_API_URL}/species?${query}`;
-
-    const response = await fetch(requestUrl, {
-      method: "GET",
-      headers: { "Accept": "application/json" }
+    const response = await fetch(`${BASE_API_URL}/species?${query}`, {
+      headers: { Accept: 'application/json' },
     });
 
     if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(`Failed to fetch species: ${errorData.error?.message || response.statusText}`);
+      const error = await response.json();
+      throw new Error(`Error fetching coordinates: ${error.error?.message}`);
     }
 
-    const data: SpeciesResponse = await response.json();
-    return data;
-  } catch (error: any) {
-    console.error("Error fetching species data:", error.message);
-    return { data: [], meta: { pagination: { page: 1, pageSize: 25, pageCount: 1, total: 0 } } };
-  }
+    const result = await response.json();
+    allData.push(...result.data);
+    totalPages = result.meta.pagination.pageCount;
+    page++;
+  } while (page <= totalPages);
+
+  return allData;
 }
+
 
 export async function fetchPlacesData(locale: string, page: number = 1, pageSize: number = 24) {
   try {

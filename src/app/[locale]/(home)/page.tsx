@@ -10,7 +10,7 @@ import { HomePageInfo } from "@/app/[locale]/_components/home-page-stata/home-pa
 import { BrowseByTaxonomy } from '@/app/[locale]/_components/browse-by-taxonomy';
 import { SearchComponent } from '@/app/[locale]/_components/search';
 
-import { fetchRandomSpecie, fetchSpeciesCoordinates, getEvents, getSinglePage, getSpeciesCountByKingdom } from "@/lib/api-calls";
+import { fetchAllSpeciesCoordinates, fetchRandomSpecie, getEvents, getSinglePage, getSpeciesCountByKingdom } from "@/lib/api-calls";
 
 import { HomePageData, } from "@/types/single-types";
 import { HomePageInfoCardNew } from "../_components/home-page-stata/home-page-ic-new";
@@ -52,26 +52,27 @@ export default async function HomePage({ params }: Props) {
   const events = await getEvents(locale)
   const randomSpecie = await fetchRandomSpecie(locale, "notNew")
   const newSpecies = await fetchRandomSpecie(locale, "isNew")
-  const speciesCoordinates = await fetchSpeciesCoordinates(locale)
   const animalia = await getSpeciesCountByKingdom(locale, "Animalia")
   const plantae = await getSpeciesCountByKingdom(locale, "Plantae")
+  const allCoordinates: any[] = await fetchAllSpeciesCoordinates(locale);
 
-
-  const newCoordinates = speciesCoordinates?.data?.length
-    ? speciesCoordinates.data.flatMap((item: any) =>
+  const newCoordinates = allCoordinates.length
+  ? allCoordinates.flatMap((item: any) =>
       item.places.map((place: any) => ({
         coordinates: place.coordinates,
         title: place.title,
-        slug: place.slug
+        slug: place.slug,
       }))
     )
-    : [];
+  : [];
 
-  const formattedCoordinates: formattedCoordinatesProps[] = newCoordinates.map(({ coordinates, title, slug }) => ({
-    coordinates: coordinates.split(",").map(Number) as [number, number],
+const formattedCoordinates: formattedCoordinatesProps[] = newCoordinates.map(
+  ({ coordinates, title, slug }) => ({
+    coordinates: coordinates.split(',').map(Number) as [number, number],
     title,
-    slug
-  }));
+    slug,
+  })
+);
 
   interface formattedCoordinatesProps {
     coordinates: [number, number];
@@ -124,8 +125,6 @@ export default async function HomePage({ params }: Props) {
       <HomePageInfo locale={locale} />
 
       {/* <HomePageInfoCardNew locale={locale} /> */}
-
-
 
       <HomePageMap
         speciesCoordinates={formattedCoordinates.map(({ coordinates, title, slug }) => ({
