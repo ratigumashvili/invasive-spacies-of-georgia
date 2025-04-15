@@ -28,7 +28,7 @@ export default async function EvensPage({ params, searchParams }: Props) {
 
     const currentPage = Number(resolvedSearchParams.page) || 1
 
-    const events = await getEvents(locale, currentPage, 1)
+    const events = await getEvents(locale, currentPage)
 
     return (
         <Container>

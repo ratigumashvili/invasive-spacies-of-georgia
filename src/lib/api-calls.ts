@@ -187,10 +187,11 @@ export const getSinglePage = async <T>(
   }
 };
 
-export async function getEvents(locale: string, page: number = 1, pageSize: number = 24, filter?: string | null,
+export async function getEvents(locale: string, page: number = 1, pageSize: number = 24, filters?: Record<string, any>,
 ): Promise<StrapiResponse<EventItem> | null> {
   try {
     const queryParams = {
+      
       fields: [
         "slug",
         "documentId",
@@ -210,7 +211,7 @@ export async function getEvents(locale: string, page: number = 1, pageSize: numb
         pageSize: pageSize
       },
       locale,
-      filter,
+      filters,
     };
 
     const query = qs.stringify(queryParams, { encodeValuesOnly: true });

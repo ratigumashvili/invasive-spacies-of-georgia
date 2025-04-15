@@ -14,9 +14,15 @@ export default async function SingleEventPage({ params }: Props) {
 
     const { locale, slug } = await params
 
-    const filter = `&filters[$and][0][slug][$eq]=${slug}`
+    // const filter = `&filters[$and][0][slug][$eq]=${slug}`
 
-    const events = await getEvents(locale, 1, 1, filter)
+    const filters = {
+        slug: {
+          $eq: slug
+        }
+      }
+
+    const events = await getEvents(locale, 1, 1, filters)
 
     let content: BlocksContent = [];
 
