@@ -1,4 +1,6 @@
 import { useTranslations } from "next-intl";
+import { SpeechIcon } from "lucide-react";
+import { Link } from "@/i18n/routing";
 
 import Container from "@/app/[locale]/_components/container";
 import { NothingFound } from "@/app/[locale]/_components/nothing-found";
@@ -17,13 +19,22 @@ import { Place } from "@/types/taxonomy-types";
 import { cn, formatDate, getOldestDetectionDate, removeDuplicateDetectionDates, strapiRichTextToPlainText } from "@/lib/utils";
 import { SpeciesResponse } from "@/types/specie-response";
 import { HomePageData } from "@/types/single-types";
-import { Link } from "@/i18n/routing";
-import { SpeechIcon } from "lucide-react";
 
 const PageTitle = () => {
     const t = useTranslations("Common")
     return (
         <h1 className={cn("text-2xl font-medium print:hidden")}>{t("species_factsheets")}</h1>
+    )
+}
+
+const Report = () => {
+    const t = useTranslations("Common")
+    return (
+        <Button asChild className="mr-2">
+            <Link href={"/dashboard"}>
+                <SpeechIcon className="w-4 h-4 mr-2" /> Report new record
+            </Link>
+        </Button>
     )
 }
 
@@ -95,11 +106,7 @@ export default async function SingleSpecieList({ params }: Props) {
             <div className="flex items-center justify-between mb-8 print:hidden">
                 <PageTitle />
                 <div>
-                    <Button asChild className="mr-2">
-                        <Link href={"/dashboard"}>
-                            <SpeechIcon className="w-4 h-4 mr-2" /> Report new record
-                        </Link>
-                    </Button>
+                    <Report />
                     <DropDownAction
                         specieData={downloadData}
                         distribution={downloadDistributionData}
