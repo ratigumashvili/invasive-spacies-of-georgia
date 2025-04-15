@@ -6,7 +6,7 @@ export interface Research {
     documentId: string;
     title: string;
     slug: string,
-    description: StrapiRichText;
+    content: string;
     images: Image[]
 }
 

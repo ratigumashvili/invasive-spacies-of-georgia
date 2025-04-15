@@ -244,7 +244,7 @@ export async function fetchResearches(locale: string, page: number = 1, pageSize
   try {
 
     const queryParams = {
-      fields: ["title", "slug", "description"],
+      fields: ["title", "slug", "content"],
       populate: {
         images: {
           fields: ["id", "alternativeText", "caption", "url", "width", "height"]
