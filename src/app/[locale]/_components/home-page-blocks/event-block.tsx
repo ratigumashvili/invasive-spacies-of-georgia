@@ -15,7 +15,6 @@ export function EventBlock({ events }: HomePageBlocksProps) {
                         slug={event.slug}
                         id={event.documentId}
                         documentId={event.documentId}
-                        description={event.description}
                         startDate={event.startDate}
                         endDate={event.endDate}
                         startMonth={event.startMonth}

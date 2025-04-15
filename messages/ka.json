@@ -145,7 +145,8 @@
     "distribution": "დისტრიბუცია",
     "invasionHistory": "ინვაზიის ისტორია",
     "wcid": "რისი გაკეთება შემიძლია",
-    "references": "წყაროები"
+    "references": "წყაროები",
+    "generatePdf": "PDF-ის გენერირება"
   },
   "Regions": {
     "Gagra": "გაგრა",

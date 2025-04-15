@@ -144,7 +144,8 @@
     "distribution": "Distribution",
     "invasionHistory": "Invasion History",
     "wcid": "What can I do",
-    "references": "References"
+    "references": "References",
+    "generatePdf": "Generate PDF"
   },
   "Regions": {
     "Gagra": "Gagra",

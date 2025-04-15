@@ -7,7 +7,7 @@ import { NothingFound } from "@/app/[locale]/_components/nothing-found";
 import { SingleTaxonMeta } from "@/app/[locale]/_components/single-taxon/single-taxon-meta";
 import { DropDownAction } from "@/app/[locale]/_components/drop-down-actions";
 import SingleTaxonMap from "@/app/[locale]/_components/single-taxon/show-map";
-import { GeneratePdfButton } from "@/app/[locale]/_components/generate-pdf-button";
+// import { GeneratePdfButton } from "@/app/[locale]/_components/generate-pdf-button";
 import { SingleSpecieCite } from "@/app/[locale]/_components/single-specie-cite";
 import { Gallery } from "@/app/[locale]/_components/gallery";
 import { Button } from "@/components/ui/button";
@@ -16,9 +16,10 @@ import { fetchSpeciesData, getSinglePage } from "@/lib/api-calls";
 
 import { Place } from "@/types/taxonomy-types";
 
-import { cn, formatDate, getOldestDetectionDate, removeDuplicateDetectionDates, strapiRichTextToPlainText } from "@/lib/utils";
+import { cn, formatDate, getOldestDetectionDate, removeDuplicateDetectionDates } from "@/lib/utils";
 import { SpeciesResponse } from "@/types/specie-response";
 import { HomePageData } from "@/types/single-types";
+import { GeneratePdfButton } from "../../_components/generate-pdf-button";
 
 const PageTitle = () => {
     const t = useTranslations("Common")
