@@ -113,6 +113,8 @@ const formattedCoordinates: formattedCoordinatesProps[] = newCoordinates.map(
         events={events}
       />
 
+      <pre>{JSON.stringify(events, null, 2)}</pre>
+
       <BrowseByTaxonomy
         animaliaCount={animalia?.pagination.total as number}
         plantaeCount={plantae?.pagination.total as number}

@@ -4,6 +4,7 @@ import { Separator } from '@/components/ui/separator';
 import Container from "@/app/[locale]/_components/container"
 
 import { getEvents } from "@/lib/api-calls"
+import MarkDownContent from '../../_components/markdown-content';
 
 type Props = {
     params: Promise<{ locale: string, slug: string }>
@@ -36,7 +37,9 @@ export default async function SingleEventPage({ params }: Props) {
             </h2>
             <Separator className='my-4' />
             <div className='rich-text'>
-                <BlocksRenderer content={content} />
+                {/* <BlocksRenderer content={content} /> */}
+                {/* <MarkDownContent>{}</MarkDownContent> */}
+                <pre>{JSON.stringify(events, null, 2)}</pre>
             </div>
         </Container>
     )

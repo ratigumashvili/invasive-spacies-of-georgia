@@ -12,5 +12,6 @@ export interface EventItem {
     endDate?: number;
     startMonth: string;
     endMonth?: string;
+    testContent?: string
   }
   

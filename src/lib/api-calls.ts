@@ -201,16 +201,19 @@ export async function getEvents(locale: string, page: number = 1, pageSize: numb
         "startDate",
         "endDate",
         "startMonth",
-        "endMonth"
+        "endMonth",
+        "testContent"
       ],
 
-      "pagination[page]": page,
-      "pagination[pageSize]": pageSize,
+      pagination: {
+        page: page,
+        pageSize: pageSize
+      },
       locale,
       filter,
     };
 
-    const query = qs.stringify(queryParams, { encode: false });
+    const query = qs.stringify(queryParams, { encodeValuesOnly: true });
 
     const requestUrl = `${BASE_API_URL}/events?${query}`;
 

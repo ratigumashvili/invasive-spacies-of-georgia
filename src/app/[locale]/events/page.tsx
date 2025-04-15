@@ -1,12 +1,12 @@
 import { useTranslations } from "next-intl";
 
 import Container from "@/app/[locale]/_components/container";
-import { EventBlock } from "@/app/[locale]/_components/home-page-blocks/event-block";
+import { CalendarItem } from "@/app/[locale]/_components/calendar-item";
 import { Pagination } from "@/app/[locale]/_components/pagination";
 
 import { getEvents } from "@/lib/api-calls";
 
-import { generateFontByLocale } from "@/lib/utils";
+import { generateFontByLocale, monthOrder } from "@/lib/utils";
 
 const PageTitle = ({ locale }: { locale: string }) => {
     const t = useTranslations("Common")
@@ -28,14 +28,30 @@ export default async function EvensPage({ params, searchParams }: Props) {
 
     const currentPage = Number(resolvedSearchParams.page) || 1
 
-    const events = await getEvents(locale, currentPage)
+    const events = await getEvents(locale, currentPage, 1)
 
     return (
         <Container>
             <PageTitle locale={locale} />
-            <EventBlock events={events} />
-            <Pagination 
-                currentPage={currentPage} 
+            {events?.data
+                ?.sort((a: any, b: any) => (monthOrder[a.startMonth] || 0) - (monthOrder[b.startMonth] || 0))
+                .map((event) => (
+                    <CalendarItem
+                        key={event.documentId}
+                        slug={event.slug}
+                        id={event.documentId}
+                        documentId={event.documentId}
+                        description={event.description}
+                        startDate={event.startDate}
+                        endDate={event.endDate}
+                        startMonth={event.startMonth}
+                        year={event.year}
+                        title={event.title}
+                        location={event.location}
+                    />
+                ))}
+            <Pagination
+                currentPage={currentPage}
                 totalPages={events?.meta.pagination.pageCount as number}
                 pathname={`events`}
             />
