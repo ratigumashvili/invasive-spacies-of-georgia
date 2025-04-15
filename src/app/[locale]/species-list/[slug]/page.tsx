@@ -8,6 +8,7 @@ import SingleTaxonMap from "@/app/[locale]/_components/single-taxon/show-map";
 import { GeneratePdfButton } from "@/app/[locale]/_components/generate-pdf-button";
 import { SingleSpecieCite } from "@/app/[locale]/_components/single-specie-cite";
 import { Gallery } from "@/app/[locale]/_components/gallery";
+import { Button } from "@/components/ui/button";
 
 import { fetchSpeciesData, getSinglePage } from "@/lib/api-calls";
 
@@ -16,7 +17,8 @@ import { Place } from "@/types/taxonomy-types";
 import { cn, formatDate, getOldestDetectionDate, removeDuplicateDetectionDates, strapiRichTextToPlainText } from "@/lib/utils";
 import { SpeciesResponse } from "@/types/specie-response";
 import { HomePageData } from "@/types/single-types";
-import { Button } from "@/components/ui/button";
+import { Link } from "@/i18n/routing";
+import { SpeechIcon } from "lucide-react";
 
 const PageTitle = () => {
     const t = useTranslations("Common")
@@ -92,10 +94,17 @@ export default async function SingleSpecieList({ params }: Props) {
         <Container>
             <div className="flex items-center justify-between mb-8 print:hidden">
                 <PageTitle />
-                <DropDownAction
-                    specieData={downloadData}
-                    distribution={downloadDistributionData}
-                />
+                <div>
+                    <Button asChild className="mr-2">
+                        <Link href={"/dashboard"}>
+                            <SpeechIcon className="w-4 h-4 mr-2" /> Report new record
+                        </Link>
+                    </Button>
+                    <DropDownAction
+                        specieData={downloadData}
+                        distribution={downloadDistributionData}
+                    />
+                </div>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-0 md:gap-4 w-full">
                 <div className="col-span-2 print:col-span-3">

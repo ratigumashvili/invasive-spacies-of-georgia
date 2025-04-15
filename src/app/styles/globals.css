@@ -30,6 +30,18 @@ body {
   font-family: var(--font-firaGo);
 }
 
+@media print {
+  @page {
+    margin: 0;
+    size: auto;
+  }
+
+  body {
+    margin: 0;
+  }
+}
+
+
 .link {
   @apply text-sky-950 hover:text-sky-950/90 transition
 }
