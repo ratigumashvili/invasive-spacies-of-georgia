@@ -9,6 +9,7 @@ import {
     PopoverContent,
     PopoverTrigger,
 } from "@/components/ui/popover"
+import MarkDownContent from "@/app/[locale]/_components/markdown-content";
 
 import { formatDate, getOldestDetectionDate, removeDuplicateDetectionDates, separator } from "@/lib/utils";
 
@@ -24,13 +25,13 @@ export function SingleTaxonMeta({ data }: SingleTaxonMetaProps) {
 
     const defaultContent: BlocksContent = [];
 
-    const identificationContent = (data[0]?.identification as BlocksContent) ?? defaultContent;
-    const ecologyContent = (data[0]?.ecology as BlocksContent) ?? defaultContent;
-    const distributionContent = (data[0]?.distribution as BlocksContent) ?? defaultContent;
-    const invasionHistoryContent = (data[0]?.invasionHistory as BlocksContent) ?? defaultContent;
-    const impactContent = (data[0]?.impact as BlocksContent) ?? defaultContent;
-    const wcidContent = (data[0]?.wcid as BlocksContent) ?? defaultContent;
-    const referencesContent = (data[0]?.references as BlocksContent) ?? defaultContent;
+    // const identificationContent = (data[0]?.identification as BlocksContent) ?? defaultContent;
+    // const ecologyContent = (data[0]?.ecology as BlocksContent) ?? defaultContent;
+    // const distributionContent = (data[0]?.distribution as BlocksContent) ?? defaultContent;
+    // const invasionHistoryContent = (data[0]?.invasionHistory as BlocksContent) ?? defaultContent;
+    // const impactContent = (data[0]?.impact as BlocksContent) ?? defaultContent;
+    // const wcidContent = (data[0]?.wcid as BlocksContent) ?? defaultContent;
+    // const referencesContent = (data[0]?.references as BlocksContent) ?? defaultContent;
 
     function detectLifeForm(type: string) {
         if (type === "terrestrial") {
@@ -125,45 +126,31 @@ export function SingleTaxonMeta({ data }: SingleTaxonMetaProps) {
 
             <h3 className="text-lg font-medium my-4 text-muted-foreground">{t("identification")}</h3>
 
-            <div className="rich-text">
-                <BlocksRenderer content={identificationContent} />
-            </div>
+            <MarkDownContent markdown={data[0]?.identification} />
 
             <h3 className="text-lg font-medium my-4 text-muted-foreground">{t("ecology")}</h3>
 
-            <div className="rich-text">
-                <BlocksRenderer content={ecologyContent} />
-            </div>
+            <MarkDownContent markdown={data[0]?.ecology} />
 
             <h3 className="text-lg font-medium my-4 text-muted-foreground">{t("distribution")}</h3>
 
-            <div className="rich-text">
-                <BlocksRenderer content={distributionContent} />
-            </div>
+            <MarkDownContent markdown={data[0]?.distribution} />
 
             <h3 className="text-lg font-medium my-4 text-muted-foreground">{t("invasionHistory")}</h3>
 
-            <div className="rich-text">
-                <BlocksRenderer content={invasionHistoryContent} />
-            </div>
+            <MarkDownContent markdown={data[0]?.invasionHistory} />
 
             <h3 className="text-lg font-medium my-4 text-muted-foreground">{t("impact")}</h3>
 
-            <div className="rich-text">
-                <BlocksRenderer content={impactContent} />
-            </div>
+            <MarkDownContent markdown={data[0]?.impact} />
 
             <h3 className="text-lg font-medium my-4 text-muted-foreground">{t("wcid")}</h3>
 
-            <div className="rich-text">
-                <BlocksRenderer content={wcidContent} />
-            </div>
+            <MarkDownContent markdown={data[0]?.wcid} />
 
             <h3 className="text-lg font-medium my-4 text-muted-foreground">{t("references")}</h3>
 
-            <div className="rich-text">
-                <BlocksRenderer content={referencesContent} />
-            </div>
+            <MarkDownContent markdown={data[0]?.references} />
 
         </div>
     )

@@ -81,13 +81,20 @@ export default async function SingleSpecieList({ params }: Props) {
         firstRecordInGeorgia: formatDate(oldest?.day, oldest?.month, oldest?.year),
         dateDetected: detectionDates.map((date) => (formatDate(date.day, date.month, date.year))),
         recordNumber: data[0]?.places.length || 0,
-        identification: strapiRichTextToPlainText(data[0]?.identification ?? []),
-        ecology: strapiRichTextToPlainText(data[0]?.ecology ?? []),
-        distribution: strapiRichTextToPlainText(data[0]?.distribution ?? []),
-        invasionHistory: strapiRichTextToPlainText(data[0]?.invasionHistory ?? []),
-        impact: strapiRichTextToPlainText(data[0]?.impact ?? []),
-        whatCanIDo: strapiRichTextToPlainText(data[0]?.wcid ?? []),
-        references: strapiRichTextToPlainText(data[0]?.references ?? []),
+        // identification: strapiRichTextToPlainText(data[0]?.identification ?? []),
+        // ecology: strapiRichTextToPlainText(data[0]?.ecology ?? []),
+        // distribution: strapiRichTextToPlainText(data[0]?.distribution ?? []),
+        // invasionHistory: strapiRichTextToPlainText(data[0]?.invasionHistory ?? []),
+        // impact: strapiRichTextToPlainText(data[0]?.impact ?? []),
+        // whatCanIDo: strapiRichTextToPlainText(data[0]?.wcid ?? []),
+
+        identification: data[0]?.identification ?? "",
+        ecology: data[0]?.ecology ?? "",
+        distribution: data[0]?.distribution ?? "",
+        invasionHistory: data[0]?.invasionHistory ?? "",
+        impact: data[0]?.impact ?? "",
+        whatCanIDo: data[0]?.wcid ?? "",
+        references: data[0]?.references ?? "",
     }
 
     const coordinates = data[0]?.places?.map((item) => item.coordinates)

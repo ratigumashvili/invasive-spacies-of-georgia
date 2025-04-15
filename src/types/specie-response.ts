@@ -96,13 +96,21 @@ export type Species = {
     isNew?: boolean;
     riskAssessed: string;
     riskAssessedUrl: string;
-    identification: StrapiRichText;
-    ecology: StrapiRichText;
-    distribution: StrapiRichText,
-    invasionHistory: StrapiRichText;
-    impact: StrapiRichText;
-    wcid: StrapiRichText;
-    references: StrapiRichText;
+    // identification: StrapiRichText;
+    // ecology: StrapiRichText;
+    // distribution: StrapiRichText,
+    // invasionHistory: StrapiRichText;
+    // impact: StrapiRichText;
+    // wcid: StrapiRichText;
+    // references: StrapiRichText
+
+    identification: string;
+    ecology: string;
+    distribution: string,
+    invasionHistory: string;
+    impact: string;
+    wcid: string;
+    references: string;
     kingdom: TaxonomyEntity;
     phylum: TaxonomyEntity;
     class: TaxonomyEntity;
