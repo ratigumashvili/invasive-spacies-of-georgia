@@ -19,7 +19,7 @@ interface SingleTaxonMapProps {
 
 export default function SingleTaxonMap({ places }: SingleTaxonMapProps) {
     return (
-        <>
+        <div className='rounded-sm overflow-hidden'>
             <MapContainer
                 className='w-full h-[400px] z-0 print:hidden'
                 center={center as LatLngExpression}
@@ -46,6 +46,6 @@ export default function SingleTaxonMap({ places }: SingleTaxonMapProps) {
                     ))}
                 </MarkerClusterGroup>
             </MapContainer>
-        </>
+        </div>
     )
 }
