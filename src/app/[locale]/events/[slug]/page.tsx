@@ -1,5 +1,3 @@
-import { BlocksRenderer, type BlocksContent } from '@strapi/blocks-react-renderer';
-
 import { Separator } from '@/components/ui/separator';
 import Container from "@/app/[locale]/_components/container"
 
@@ -14,8 +12,6 @@ export default async function SingleEventPage({ params }: Props) {
 
     const { locale, slug } = await params
 
-    // const filter = `&filters[$and][0][slug][$eq]=${slug}`
-
     const filters = {
         slug: {
           $eq: slug
@@ -23,12 +19,6 @@ export default async function SingleEventPage({ params }: Props) {
       }
 
     const events = await getEvents(locale, 1, 1, filters)
-
-    let content: BlocksContent = [];
-
-    if (events?.data[0]?.description) {
-        content = events.data[0].description as BlocksContent ?? [];
-    }
 
     return (
         <Container>
@@ -43,9 +33,7 @@ export default async function SingleEventPage({ params }: Props) {
             </h2>
             <Separator className='my-4' />
             <div className='rich-text'>
-                {/* <BlocksRenderer content={content} /> */}
-                {/* <MarkDownContent>{}</MarkDownContent> */}
-                <pre>{JSON.stringify(events, null, 2)}</pre>
+                <MarkDownContent markdown={events?.data[0]?.content ?? ""} />
             </div>
         </Container>
     )

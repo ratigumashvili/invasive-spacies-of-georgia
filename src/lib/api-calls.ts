@@ -197,13 +197,12 @@ export async function getEvents(locale: string, page: number = 1, pageSize: numb
         "documentId",
         "title",
         "location",
-        "description",
         "year",
         "startDate",
         "endDate",
         "startMonth",
         "endMonth",
-        "testContent"
+        "content"
       ],
 
       pagination: {

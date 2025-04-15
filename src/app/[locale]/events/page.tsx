@@ -41,7 +41,6 @@ export default async function EvensPage({ params, searchParams }: Props) {
                         slug={event.slug}
                         id={event.documentId}
                         documentId={event.documentId}
-                        description={event.description}
                         startDate={event.startDate}
                         endDate={event.endDate}
                         startMonth={event.startMonth}
