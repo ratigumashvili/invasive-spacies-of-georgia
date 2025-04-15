@@ -103,7 +103,7 @@ export default async function SingleSpecieList({ params }: Props) {
 
     return (
         <Container>
-            <div className="flex items-center justify-between mb-8 print:hidden">
+            <div className="flex items-center justify-between flex-col gap-y-4 md:flex-row md:gap-y-0 mb-8 print:hidden">
                 <PageTitle />
                 <div>
                     <Report />
