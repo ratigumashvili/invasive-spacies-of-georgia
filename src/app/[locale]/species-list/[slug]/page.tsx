@@ -7,7 +7,6 @@ import { NothingFound } from "@/app/[locale]/_components/nothing-found";
 import { SingleTaxonMeta } from "@/app/[locale]/_components/single-taxon/single-taxon-meta";
 import { DropDownAction } from "@/app/[locale]/_components/drop-down-actions";
 import SingleTaxonMap from "@/app/[locale]/_components/single-taxon/show-map";
-// import { GeneratePdfButton } from "@/app/[locale]/_components/generate-pdf-button";
 import { SingleSpecieCite } from "@/app/[locale]/_components/single-specie-cite";
 import { Gallery } from "@/app/[locale]/_components/gallery";
 import { Button } from "@/components/ui/button";
@@ -82,13 +81,7 @@ export default async function SingleSpecieList({ params }: Props) {
         firstRecordInGeorgia: formatDate(oldest?.day, oldest?.month, oldest?.year),
         dateDetected: detectionDates.map((date) => (formatDate(date.day, date.month, date.year))),
         recordNumber: data[0]?.places.length || 0,
-        // identification: strapiRichTextToPlainText(data[0]?.identification ?? []),
-        // ecology: strapiRichTextToPlainText(data[0]?.ecology ?? []),
-        // distribution: strapiRichTextToPlainText(data[0]?.distribution ?? []),
-        // invasionHistory: strapiRichTextToPlainText(data[0]?.invasionHistory ?? []),
-        // impact: strapiRichTextToPlainText(data[0]?.impact ?? []),
-        // whatCanIDo: strapiRichTextToPlainText(data[0]?.wcid ?? []),
-
+        
         identification: data[0]?.identification ?? "",
         ecology: data[0]?.ecology ?? "",
         distribution: data[0]?.distribution ?? "",
