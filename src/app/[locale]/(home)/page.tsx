@@ -104,7 +104,6 @@ const formattedCoordinates: formattedCoordinatesProps[] = newCoordinates.map(
 
         {/* <HomePageSlider images={data?.images} /> */}
 
-
       <HomePageActions />
 
       <HomePageBlocks
@@ -112,8 +111,6 @@ const formattedCoordinates: formattedCoordinatesProps[] = newCoordinates.map(
         randomSpecie={randomSpecie}
         events={events}
       />
-
-      <pre>{JSON.stringify(events, null, 2)}</pre>
 
       <BrowseByTaxonomy
         animaliaCount={animalia?.pagination.total as number}

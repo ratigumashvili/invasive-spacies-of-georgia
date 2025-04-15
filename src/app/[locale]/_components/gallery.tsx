@@ -57,7 +57,7 @@ export function Gallery({ photos, className }: { photos: ImageType[], className?
                         sizes="(max-width: 768px) 100vw, 33vw"
                     />
                     {image?.caption &&
-                        <small className="block mt-2 text-center absolute -bottom-0 left-0 right-0 p-1 bg-white !line-clamp-1">{image?.caption}</small>
+                        <small className="block mt-2 text-center absolute -bottom-0 left-0 right-0 p-1 rounded-bl-sm rounded-br-sm bg-white !line-clamp-1">{image?.caption}</small>
                     }
                 </div>
             ))}

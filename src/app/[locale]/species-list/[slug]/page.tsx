@@ -32,7 +32,7 @@ const Report = () => {
     return (
         <Button asChild className="mr-2">
             <Link href={"/dashboard"}>
-                <SpeechIcon className="w-4 h-4 mr-2" /> Report new record
+                <SpeechIcon className="w-4 h-4 mr-2" /> {t("report")}
             </Link>
         </Button>
     )
