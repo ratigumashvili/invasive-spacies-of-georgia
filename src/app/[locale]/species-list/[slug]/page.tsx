@@ -16,6 +16,7 @@ import { Place } from "@/types/taxonomy-types";
 import { cn, formatDate, getOldestDetectionDate, removeDuplicateDetectionDates, strapiRichTextToPlainText } from "@/lib/utils";
 import { SpeciesResponse } from "@/types/specie-response";
 import { HomePageData } from "@/types/single-types";
+import { Button } from "@/components/ui/button";
 
 const PageTitle = () => {
     const t = useTranslations("Common")

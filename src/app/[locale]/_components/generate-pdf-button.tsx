@@ -148,7 +148,8 @@ export function GeneratePdfButton({ data }: { data: Species }) {
             <Button
                 onClick={() => generateTextBasedPdf(data)}
                 size="lg"
-                className="mt-8 rounded-none cursor-pointer print:hidden"
+                variant="blue"
+                className="mt-8 cursor-pointer print:hidden"
             >
                 Generate PDF
             </Button>
