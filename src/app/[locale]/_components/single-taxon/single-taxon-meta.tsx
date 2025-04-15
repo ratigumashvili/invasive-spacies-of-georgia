@@ -84,7 +84,7 @@ export function SingleTaxonMeta({ data }: SingleTaxonMetaProps) {
             <dl className="data-list">
                 <dt>{t("name_id")}</dt>
                 <dd>
-                    <Link href={`${data[0]?.scientificNameUrl ?? '#'}`} target="blank">
+                    <Link href={`${data[0]?.scientificNameUrl ?? '#'}`} className="underline" target="blank">
                         {data[0]?.scientificNameId}
                     </Link>
                 </dd>
@@ -106,7 +106,7 @@ export function SingleTaxonMeta({ data }: SingleTaxonMetaProps) {
                 <dt>{t("risk_assessed")}</dt>
                 <dd>
                     {data[0]?.riskAssessed && data[0]?.riskAssessed === "yes"
-                        ? (<Link href={`${data[0]?.riskAssessedUrl ?? '#'}`} target="blank">
+                        ? (<Link href={`${data[0]?.riskAssessedUrl ?? '#'}`} className="underline" target="blank">
                             {t("yes")}
                         </Link>)
                         : (<>{t("no")}</>)}

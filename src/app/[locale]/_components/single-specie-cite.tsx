@@ -41,7 +41,7 @@ export function SingleSpecieCite({
     }
 
     return (
-        <Card className="mt-4 relative pr-[60px] shadow-none">
+        <Card className="mt-4 relative pr-[60px] shadow-none bg-slate-300">
             <CardContent className="text-sm">
                 <span className="font-medium pr-1 print:hidden">Cite:</span>
                 <span ref={ref}>
