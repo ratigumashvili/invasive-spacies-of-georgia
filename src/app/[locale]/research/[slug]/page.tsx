@@ -21,7 +21,18 @@ const PageTitle = ({ locale, title }: { locale: string, title: string }) => {
 export default async function SingleResearch({ params }: Props) {
     const { locale, slug } = await params
 
-    const filters = `&filters[$and][0][slug][$eq]=${slug}`
+    // const filters = `&filters[$and][0][slug][$eq]=${slug}`
+
+    const filters = {
+        $and: [
+            {
+                slug: {
+                    $eq: slug
+                }
+            }
+        ]
+    };
+
 
     const response = await fetchResearches(locale, 1, 1, filters)
 

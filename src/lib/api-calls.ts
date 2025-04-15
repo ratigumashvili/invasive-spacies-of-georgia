@@ -97,7 +97,7 @@ export async function fetchSpeciesData(locale: string, page: number = 1, pageSiz
         genus: { fields: ["name", "slug"], },
         places: { fields: ["title", "slug", "coordinates"] },
         habitats: { fields: ["code", "name", "description"] },
-        authors: {fields: ["username", "email"]},
+        authors: { fields: ["username", "email"] },
         detectionDate: {
           sort: ['year:desc', 'month:desc', 'day:desc']
         },
@@ -191,7 +191,7 @@ export async function getEvents(locale: string, page: number = 1, pageSize: numb
 ): Promise<StrapiResponse<EventItem> | null> {
   try {
     const queryParams = {
-      
+
       fields: [
         "slug",
         "documentId",
@@ -240,28 +240,28 @@ export async function getEvents(locale: string, page: number = 1, pageSize: numb
   }
 }
 
-export async function fetchResearches(locale: string, page: number = 1, pageSize: number = 1, filterQuery?: string) {
+export async function fetchResearches(locale: string, page: number = 1, pageSize: number = 1, filterQuery?: Record<string, any>) {
   try {
-    const queryParams = {
-      fields: [
-        "title", "slug", "description"
-      ],
 
+    const queryParams = {
+      fields: ["title", "slug", "description"],
       populate: {
         images: {
           fields: ["id", "alternativeText", "caption", "url", "width", "height"]
         }
       },
       pagination: {
-        page: page,
-        pageSize: pageSize
+        page,
+        pageSize
       },
       locale,
-      sort: ["title:asc"]
+      sort: ["title:asc"],
+      filters: filterQuery || undefined,
     };
 
-    const query = `${qs.stringify(queryParams, { encodeValuesOnly: true })}${filterQuery ? `&${filterQuery}` : ''}`;
+    const query = qs.stringify(queryParams, { encodeValuesOnly: true });
     const requestUrl = `${BASE_API_URL}/researches?${query}`;
+
 
     const response = await fetch(requestUrl, {
       method: "GET",
