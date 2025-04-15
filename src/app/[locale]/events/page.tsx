@@ -44,6 +44,7 @@ export default async function EvensPage({ params, searchParams }: Props) {
                         startDate={event.startDate}
                         endDate={event.endDate}
                         startMonth={event.startMonth}
+                        endMonth={event.endMonth}
                         year={event.year}
                         title={event.title}
                         location={event.location}
