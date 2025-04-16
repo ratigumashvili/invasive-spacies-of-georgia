@@ -219,7 +219,7 @@ export default function GeoJsonMap({ speciesCoordinates }: { speciesCoordinates:
                                 const name = f.properties?.NAME_2 || f.properties?.name;
                                 return name ? (
                                     <SelectItem key={i} value={name}>
-                                        {name}
+                                        {t(name)}
                                     </SelectItem>
                                 ) : null;
                             })}
