@@ -102,14 +102,6 @@ export type Species = {
     isNew?: boolean;
     riskAssessed: string;
     riskAssessedUrl: string;
-    // identification: StrapiRichText;
-    // ecology: StrapiRichText;
-    // distribution: StrapiRichText,
-    // invasionHistory: StrapiRichText;
-    // impact: StrapiRichText;
-    // wcid: StrapiRichText;
-    // references: StrapiRichText
-
     identification: string;
     ecology: string;
     distribution: string,
