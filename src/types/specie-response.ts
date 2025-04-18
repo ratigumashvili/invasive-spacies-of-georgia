@@ -1,5 +1,3 @@
-import { StrapiRichText } from "./rich-text-blocks";
-
 export type SpeciesCoordinate = {
     specieName: string;
     placeName: string;
