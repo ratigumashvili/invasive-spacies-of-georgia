@@ -56,31 +56,6 @@ export default async function HomePage({ params }: Props) {
   const plantae = await getSpeciesCountByKingdom(locale, "Plantae")
   const allCoordinates: any[] = await fetchAllSpeciesCoordinates(locale);
 
-  const newCoordinates = allCoordinates.length
-  ? allCoordinates.flatMap((item: any) =>
-      item.places.map((place: any) => ({
-        coordinates: place.coordinates,
-        title: place.title,
-        slug: place.slug,
-      }))
-    )
-  : [];
-
-const formattedCoordinates: formattedCoordinatesProps[] = newCoordinates.map(
-  ({ coordinates, title, slug }) => ({
-    coordinates: coordinates.split(',').map(Number) as [number, number],
-    title,
-    slug,
-  })
-);
-
-  interface formattedCoordinatesProps {
-    coordinates: [number, number];
-    title: string;
-    slug: string
-  }
-
-
   if (!homepageData) return null
 
   return (
@@ -125,13 +100,8 @@ const formattedCoordinates: formattedCoordinatesProps[] = newCoordinates.map(
 
       {/* <HomePageInfoCardNew locale={locale} /> */}
 
-      <HomePageMap
-        speciesCoordinates={formattedCoordinates.map(({ coordinates, title, slug }) => ({
-          coordinates,
-          title,
-          slug
-        }))}
-      />
+    <HomePageMap speciesCoordinates={allCoordinates} />
+
 
     </Container>
   );

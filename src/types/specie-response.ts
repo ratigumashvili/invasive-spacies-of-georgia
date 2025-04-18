@@ -1,5 +1,13 @@
 import { StrapiRichText } from "./rich-text-blocks";
 
+export type SpeciesCoordinate = {
+    specieName: string;
+    placeName: string;
+    slug: string;
+    coordinates: [number, number];
+  };
+  
+
 export interface SpecieDownload {
     kingdom: string,
     phylum: string,

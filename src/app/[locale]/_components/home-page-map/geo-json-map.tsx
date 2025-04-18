@@ -28,6 +28,8 @@ type SpeciesCoordinate = {
     coordinates: [number, number];
     title: string;
     slug: string;
+    specieName?: string;
+    placeName?: string
 };
 
 const calculateRegionDensity = (geoJson: GeoJSONData, coordinates: SpeciesCoordinate[]) => {
@@ -150,6 +152,30 @@ export default function GeoJsonMap({ speciesCoordinates }: { speciesCoordinates:
         );
     });
 
+    function exportFilteredMarkersAsCSV() {
+        const csv = [
+          ["specieName", "placeName", "latitude", "longitude"],
+          ...filteredMarkers.map(({ specieName, placeName, coordinates }) => [
+            specieName,
+            placeName,
+            coordinates[0],
+            coordinates[1],
+          ]),
+        ]
+          .map((row) => row.join(","))
+          .join("\n");
+      
+        const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+        const url = URL.createObjectURL(blob);
+      
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = `coordinates-${selectedRegion || "all"}.csv`;
+        link.click();
+      }
+      
+
+
     const onEachRegion = (feature: Feature<Geometry, any>, layer: L.Layer) => {
         const regionName = feature.properties?.NAME_2 || feature.properties?.name;
         const recordCount = regionData[regionName] || 0;
@@ -179,6 +205,7 @@ export default function GeoJsonMap({ speciesCoordinates }: { speciesCoordinates:
 
     return (
         <>
+        {loading && <h2>{t("loadingMap")}</h2>}
             <MapContainer className="w-full h-[500px] rounded-md" center={[41.8, 44.5]} zoom={7} scrollWheelZoom={false}>
                 <TileLayer
                     attribution='Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
@@ -195,12 +222,25 @@ export default function GeoJsonMap({ speciesCoordinates }: { speciesCoordinates:
 
                 {markers}
 
-                <Link
-                    href={`${BASE_API_URL}/export-coordinates/species`}
-                    className="absolute top-20 left-3 z-[1000] bg-white border p-[6px] rounded-[2px] shadow !text-black"
-                >
-                    <DownloadIcon className="w-4 h-4" />
-                </Link>
+                {selectedRegion === null ? (
+                    <Link
+                        href={`${BASE_API_URL}/export-coordinates/species`}
+                        className="absolute top-20 left-3 z-[1000] bg-white border p-[6px] rounded-[2px] shadow !text-black"
+                        title={t("downloadAll")}
+                    >
+                        <DownloadIcon className="w-4 h-4" />
+                    </Link>
+                ) : (
+                    
+                    <button
+                        onClick={exportFilteredMarkersAsCSV}
+                        className="cursor-pointer absolute top-20 left-3 z-[1000] bg-white border p-[6px] rounded-[2px] shadow !text-black text-xs"
+                        title={t("downloadFiltered")}
+                    >
+                        <DownloadIcon className="w-4 h-4" />
+                    </button>
+                )}
+
 
                 <div className="absolute top-3 right-3 z-[1000]">
                     <Select

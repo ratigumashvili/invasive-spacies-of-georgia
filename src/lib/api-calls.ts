@@ -6,7 +6,7 @@ import { BASE_API_URL, BASE_URL } from "./utils";
 import { EventItem } from "@/types/event-item";
 import { SpeciesListResponse, StrapiResponse } from "@/types/taxonomy-types";
 import { PlaceResponse } from "@/types/place-response";
-import { SpeciesResponse } from "@/types/specie-response";
+import { SpeciesCoordinate, SpeciesResponse } from "@/types/specie-response";
 import { SpeciesCount } from "@/types/species-count";
 import { ResearchResponse } from "@/types/research-response";
 import { LegalDocsResponse } from "@/types/legal-docs-response";
@@ -433,10 +433,50 @@ export async function getAllSpeciesCount(locale: string, filters?: any) {
   }
 }
 
-export async function fetchAllSpeciesCoordinates(locale: string): Promise<any[]> {
+// export async function fetchAllSpeciesCoordinates(locale: string): Promise<any[]> {
+//   let page = 1;
+//   const pageSize = 100;
+//   let allData: any[] = [];
+//   let totalPages = 1;
+
+//   do {
+//     const queryParams = {
+//       locale,
+//       pagination: {
+//         page,
+//         pageSize,
+//       },
+//       populate: {
+//         places: {
+//           fields: ['coordinates', 'title', 'slug'],
+//         },
+//       },
+//       fields: ['documentId'],
+//     };
+
+//     const query = qs.stringify(queryParams, { encodeValuesOnly: true });
+//     const response = await fetch(`${BASE_API_URL}/species?${query}`, {
+//       headers: { Accept: 'application/json' },
+//     });
+
+//     if (!response.ok) {
+//       const error = await response.json();
+//       throw new Error(`Error fetching coordinates: ${error.error?.message}`);
+//     }
+
+//     const result = await response.json();
+//     allData.push(...result.data);
+//     totalPages = result.meta.pagination.pageCount;
+//     page++;
+//   } while (page <= totalPages);
+
+//   return allData;
+// }
+
+export async function fetchAllSpeciesCoordinates(locale: string): Promise<SpeciesCoordinate[]> {
   let page = 1;
   const pageSize = 100;
-  let allData: any[] = [];
+  let allData: SpeciesCoordinate[] = [];
   let totalPages = 1;
 
   do {
@@ -451,7 +491,7 @@ export async function fetchAllSpeciesCoordinates(locale: string): Promise<any[]>
           fields: ['coordinates', 'title', 'slug'],
         },
       },
-      fields: ['documentId'],
+      fields: ['documentId', 'name'], // 👈 also fetch specie name
     };
 
     const query = qs.stringify(queryParams, { encodeValuesOnly: true });
@@ -465,13 +505,30 @@ export async function fetchAllSpeciesCoordinates(locale: string): Promise<any[]>
     }
 
     const result = await response.json();
-    allData.push(...result.data);
+
+    const speciesList = result.data;
+
+    const flattenedCoordinates: SpeciesCoordinate[] = speciesList.flatMap((specie: any) => {
+      const specieName = specie.name ?? "Unknown Specie";
+    
+      return specie?.places?.map((place: any) => ({
+        specieName,
+        placeName: place.title ?? "Unknown Place",
+        slug: place.slug,
+        coordinates: place.coordinates?.split(',').map(Number) as [number, number],
+      })) ?? [];
+    });
+    
+
+    allData.push(...flattenedCoordinates);
+
     totalPages = result.meta.pagination.pageCount;
     page++;
   } while (page <= totalPages);
 
   return allData;
 }
+
 
 
 export async function fetchPlacesData(locale: string, page: number = 1, pageSize: number = 24) {

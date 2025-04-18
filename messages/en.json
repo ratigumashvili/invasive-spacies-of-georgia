@@ -222,7 +222,10 @@
     "readmore": "Read more",
     "records": "Records",
     "all": "All",
-    "selectRegion": "Select region"
+    "selectRegion": "Select region",
+    "downloadAll": "Download all",
+    "downloadFiltered": "Download filtered",
+    "loadingMap": "Loading map"
   },
   "Places": {
     "page_title": "Registered places",
