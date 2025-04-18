@@ -128,31 +128,31 @@ export default function GeoJsonMap({ speciesCoordinates }: { speciesCoordinates:
         });
     });
 
-    const markers = filteredMarkers.map(({ coordinates, title, slug }, index) => {
+    const markers = filteredMarkers.map(({ coordinates, placeName, slug }, index) => {
         let matchedRegion: string | null = null;
-    
+
         const point = turf.point([coordinates[1], coordinates[0]]);
         geoData?.features.forEach((feature) => {
             const { geometry, properties } = feature;
             const regionName = properties?.NAME_2 || properties?.name;
-    
+
             if (!geometry || !regionName) return;
             if (geometry.type !== "Polygon" && geometry.type !== "MultiPolygon") return;
-    
+
             const polygons =
                 geometry.type === "Polygon"
-                    ? [geometry.coordinates as number[][][]]
-                    : (geometry.coordinates as number[][][][]);
-    
+                    ? [geometry.coordinates]
+                    : geometry.coordinates;
+
             const isInside = polygons.some((polygon) =>
                 turf.booleanPointInPolygon(point, turf.polygon(polygon))
             );
-    
+
             if (isInside) {
                 matchedRegion = regionName;
             }
         });
-    
+
         return (
             <Marker
                 key={index}
@@ -163,8 +163,13 @@ export default function GeoJsonMap({ speciesCoordinates }: { speciesCoordinates:
                 })}
             >
                 <Popup>
-                    <p className="text-sm"><span className="font-medium">{t("place")}</span>: {title}</p>
-                    <p><span className="font-medium">{t("region")}</span>: {t(matchedRegion) || "None"}</p>
+                    <p className="text-sm">
+                        <span className="font-medium">{t("place")}</span>: {placeName}
+                    </p>
+                    <p>
+                        <span className="font-medium">{t("region")}</span>:{" "}
+                        {matchedRegion ? t(matchedRegion) : "None"}
+                    </p>
                     <Link
                         href={`/places/${slug}`}
                         className="block my-2 !text-sky-800 !hover:text-red-600 transition"
@@ -175,7 +180,7 @@ export default function GeoJsonMap({ speciesCoordinates }: { speciesCoordinates:
             </Marker>
         );
     });
-    
+
     function exportFilteredMarkersAsCSV() {
         const csv = [
             ["specieName", "placeName", "latitude", "longitude"],
@@ -276,7 +281,7 @@ export default function GeoJsonMap({ speciesCoordinates }: { speciesCoordinates:
                         </SelectTrigger>
 
                         <SelectContent className="z-[1000]">
-                            <SelectItem value="__all__">{t("all")}</SelectItem> 
+                            <SelectItem value="__all__">{t("all")}</SelectItem>
                             {geoData?.features
                                 .slice()
                                 .sort((a, b) => {
