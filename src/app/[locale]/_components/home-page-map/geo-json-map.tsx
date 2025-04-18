@@ -154,26 +154,26 @@ export default function GeoJsonMap({ speciesCoordinates }: { speciesCoordinates:
 
     function exportFilteredMarkersAsCSV() {
         const csv = [
-          ["specieName", "placeName", "latitude", "longitude"],
-          ...filteredMarkers.map(({ specieName, placeName, coordinates }) => [
-            specieName,
-            placeName,
-            coordinates[0],
-            coordinates[1],
-          ]),
+            ["specieName", "placeName", "latitude", "longitude"],
+            ...filteredMarkers.map(({ specieName, placeName, coordinates }) => [
+                specieName,
+                placeName,
+                coordinates[0],
+                coordinates[1],
+            ]),
         ]
-          .map((row) => row.join(","))
-          .join("\n");
-      
+            .map((row) => row.join(","))
+            .join("\n");
+
         const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
         const url = URL.createObjectURL(blob);
-      
+
         const link = document.createElement("a");
         link.href = url;
         link.download = `coordinates-${selectedRegion || "all"}.csv`;
         link.click();
-      }
-      
+    }
+
 
 
     const onEachRegion = (feature: Feature<Geometry, any>, layer: L.Layer) => {
@@ -205,7 +205,7 @@ export default function GeoJsonMap({ speciesCoordinates }: { speciesCoordinates:
 
     return (
         <>
-        {loading && <h2>{t("loadingMap")}</h2>}
+            {loading && <h2>{t("loadingMap")}</h2>}
             <MapContainer className="w-full h-[500px] rounded-md" center={[41.8, 44.5]} zoom={7} scrollWheelZoom={false}>
                 <TileLayer
                     attribution='Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
@@ -231,7 +231,7 @@ export default function GeoJsonMap({ speciesCoordinates }: { speciesCoordinates:
                         <DownloadIcon className="w-4 h-4" />
                     </Link>
                 ) : (
-                    
+
                     <button
                         onClick={exportFilteredMarkersAsCSV}
                         className="cursor-pointer absolute top-20 left-3 z-[1000] bg-white border p-[6px] rounded-[2px] shadow !text-black text-xs"
@@ -254,15 +254,23 @@ export default function GeoJsonMap({ speciesCoordinates }: { speciesCoordinates:
                         </SelectTrigger>
 
                         <SelectContent className="z-[1000]">
-                            <SelectItem value="__all__">{t("all")}</SelectItem>
-                            {geoData?.features.map((f, i) => {
-                                const name = f.properties?.NAME_2 || f.properties?.name;
-                                return name ? (
-                                    <SelectItem key={i} value={name}>
-                                        {t(name)}
-                                    </SelectItem>
-                                ) : null;
-                            })}
+                            <SelectItem value="__all__">{t("all")}</SelectItem> 
+                            {geoData?.features
+                                .slice()
+                                .sort((a, b) => {
+                                    const nameA = a.properties?.NAME_2 || a.properties?.name || "";
+                                    const nameB = b.properties?.NAME_2 || b.properties?.name || "";
+                                    return nameA.localeCompare(nameB);
+                                })
+                                .map((f, i) => {
+                                    const name = f.properties?.NAME_2 || f.properties?.name;
+                                    return name ? (
+                                        <SelectItem key={i} value={name}>
+                                            {t(name)}
+                                        </SelectItem>
+                                    ) : null;
+                                })}
+
                         </SelectContent>
                     </Select>
                 </div>

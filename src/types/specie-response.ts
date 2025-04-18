@@ -1,3 +1,5 @@
+import { ImageData } from "./shared-types";
+
 export type SpeciesCoordinate = {
     specieName: string;
     placeName: string;
@@ -123,15 +125,16 @@ export type Species = {
     updatedAt: string;
     publishedAt: string;
     locale: string;
-    image?: {
-        id: number;
-        documentId: string;
-        alternativeText: string | null;
-        caption: string;
-        width: number;
-        height: number;
-        url: string;
-    }[];
+    // image?: {
+    //     id: number;
+    //     documentId: string;
+    //     alternativeText: string | null;
+    //     caption: string;
+    //     width: number;
+    //     height: number;
+    //     url: string;
+    // }[];
+    image?: ImageData[]
 };
 
 export type SpeciesResponse = {
