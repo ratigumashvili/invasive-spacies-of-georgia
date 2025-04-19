@@ -1,3 +1,4 @@
+import { ImageData } from "./shared-types";
 import { DetectionDate } from "./specie-response";
 
 export type SingleSpecieList = {
@@ -10,24 +11,6 @@ export type SingleSpecieList = {
     lifeForm?: string;
     isNew?: boolean;
     detectionDate?: DetectionDate[];
-    image?: {
-      id: number;
-      documentId: string;
-      alternativeText: string | null;
-      caption: string;
-      width: number;
-      height: number;
-      url: string;
-    }[];
+    image?: ImageData[]
   };
   
-
-export interface Image {
-    id: number,
-    documentId: string,
-    alternativeText?: string | null,
-    caption?: string,
-    width: number,
-    height: number,
-    url: string
-}

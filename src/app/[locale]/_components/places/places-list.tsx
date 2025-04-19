@@ -58,13 +58,15 @@ export function PlacesList({ data, locale }: { data: any, locale: string }) {
 
     return (
         <>
-            <h1 className={`${generateFontByLocale(locale)} text-2xl uppercase font-medium mb-8`}>
+            <h1 className={`${generateFontByLocale(locale)} text-2xl uppercase font-bold mb-8`}>
                 {t("page_title")}
             </h1>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {data.map((item: PlacesListProps) => {
+                    
                     const placeCoordinates: [number, number] = item.coordinates.split(",").map(Number) as [number, number];
                     const geoJsonData: FeatureCollection<Geometry, { NAME_2?: string; name?: string }> = geoJsonDataRaw as FeatureCollection<Geometry, { NAME_2?: string; name?: string }>;
+                    
                     return (
                         <Card key={item.documentId} className="rounded-none">
                             <CardHeader>

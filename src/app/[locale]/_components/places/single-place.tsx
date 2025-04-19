@@ -85,9 +85,6 @@ export function SinglePlaceComponent({
 
     return (
         <div>
-            <pre>
-                { }
-            </pre>
             <div className="mb-8 flex items-start justify-baseline">
                 <div className="w-full">
                     <h1 className={`${generateFontByLocale(locale)} text-2xl uppercase`}>
@@ -104,7 +101,6 @@ export function SinglePlaceComponent({
                     <Views selectedView={selectedView} setSelectedView={setSelectedView} />
                 </div>
             </div>
-            <Separator className="my-8" />
 
             {selectedView === "grid" ? (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
